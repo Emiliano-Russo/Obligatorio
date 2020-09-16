@@ -1,0 +1,4 @@
+﻿Los units test se ejectuaran en memoria ram, ya que solo estaremos probando las lineas de codigo
+y no haciendo un test de integracion completo.
+Otra cosa a destacar es qu: a lo que optamos por el singleton, tenemos que vaciar el sistema 
+de cualquier dato cargado por metodo, para que el sigiente no llegue a toparse con anomalias.
