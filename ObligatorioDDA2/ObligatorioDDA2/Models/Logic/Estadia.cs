@@ -11,7 +11,7 @@ namespace ObligatorioDDA2.Models.Logic
 
         public DateTime Salida { get; set; }
 
-        public List<FaseEdad> RangoEdades { get; set; }
+        public FaseEdad[] RangoEdades { get; set; }
 
     }
 }

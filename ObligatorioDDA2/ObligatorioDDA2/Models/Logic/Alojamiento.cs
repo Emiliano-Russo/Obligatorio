@@ -9,13 +9,13 @@ namespace ObligatorioDDA2.Models.Logic
     {
         public string Nombre { get; set; }
 
-        public decimal Estrellas { get; set; }
+        public float Estrellas { get; set; }
 
         public PuntoTuristico PuntoTuristico { get; set; }
 
         public string Direccion { get; set; }
 
-        public decimal PrecioNoche { get; set; }
+        public float PrecioNoche { get; set; }
 
         public string Descripcion { get; set; }
 

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ObligatorioDDA2.Models
 {
-    public class Sistema
+    public class Sistema 
     {
         private static Sistema _instancia;
+
+        public bool BaseDeDatos { get; set; }
         private Sistema()
         {
             _instancia = new Sistema();
@@ -22,17 +24,17 @@ namespace ObligatorioDDA2.Models
         public List<Region> GetRegiones()
         {
             throw new NotImplementedException();
-        }
+        } //tested
 
         public List<PuntoTuristico> GetPuntosTuristicos(Region region)
         {
             throw new NotImplementedException();
-        }
+        }//tested
 
-        public List<PuntoTuristico> GetPuntosTuristicos(Region region, Categoria categoria)
+        public List<PuntoTuristico> GetPuntosTuristicos(Region region, Categoria[] categoria)
         {
             throw new NotImplementedException();
-        }
+        }//tested
 
         public List<Alojamiento> GetAlojamiento(Estadia estadia, PuntoTuristico puntoTuristico)
         {
@@ -64,7 +66,7 @@ namespace ObligatorioDDA2.Models
             throw new NotImplementedException();
         }
 
-        public void ModificarAlojamiento(string nombreAlojamiento,Alojamiento alojamiento)
+        public void ModificarAlojamiento(string nombreAlojamiento,bool disponible)
         {
             throw new NotImplementedException();
         }
@@ -84,8 +86,30 @@ namespace ObligatorioDDA2.Models
             throw new NotImplementedException();
         }
 
+        public bool ExisteAdmin(string email)
+        {
+
+            throw new NotImplementedException();
+        }
+
         public void BorrarAdmin(string email)
         {
+            throw new NotImplementedException();
+        }
+        //metodos utiles para unittest
+        public void BorrarPuntosTuristicos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BorrarAlojamientos()
+        {
+
+        }
+
+        public void BorrarReservas()
+        {
+
             throw new NotImplementedException();
         }
     }

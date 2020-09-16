@@ -10,5 +10,9 @@ namespace ObligatorioDDA2.Models.Logic
         public InfoReserva InfoReserva { get; set; }
 
         public string Codigo { get; set; }
+
+        public EstadoReserva EstadoReserva { get; set; }
+
+        public string Descripcion { get; set; }
     }
 }
