@@ -199,6 +199,7 @@ namespace TestLogic
                 PuntoTuristico = punto,
                 SinCapacidad = false
             };
+            sistema.BorrarAlojamientos();
             sistema.IncluirAlojamiento(alojamiento);
             List<Alojamiento> lista = sistema.GetAlojamiento(estadiaVacacional,puntaDelEste);
             Assert.IsFalse(lista.Contains(alojamiento));
@@ -208,6 +209,14 @@ namespace TestLogic
         [TestMethod]
         public void GetAlojamiento_NoEncuentra2()
         {
+            PuntoTuristico piria = new PuntoTuristico
+            {
+                Categoria = new Categoria[] { Categoria.Playas },
+                Descripcion = "Playa bonita",
+                Nombre = "Piria",
+                Region = Region.Este
+            };
+
             Alojamiento alojamiento = new Alojamiento
             {
                 Descripcion = "Un lugar con ambiente familiar",
@@ -221,7 +230,7 @@ namespace TestLogic
                 SinCapacidad = true
             };
             sistema.IncluirAlojamiento(alojamiento);
-            List<Alojamiento> lista = sistema.GetAlojamiento(estadiaVacacional, puntaDelEste);
+            List<Alojamiento> lista = sistema.GetAlojamiento(estadiaVacacional, piria);
             Assert.IsFalse(lista.Contains(alojamiento));
             sistema.BorrarAlojamientos();
         }
@@ -359,7 +368,6 @@ namespace TestLogic
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ExcepcionAlojamientoInvalido))]
         public void IncluirAlojameiento_YaExiste()
         {
             Alojamiento alojamiento = new Alojamiento
@@ -375,7 +383,19 @@ namespace TestLogic
                 SinCapacidad = false
             };
             sistema.IncluirAlojamiento(alojamiento);
-            sistema.IncluirAlojamiento(alojamiento);
+            try
+            {
+                sistema.IncluirAlojamiento(alojamiento);
+            }catch(Exception e)
+            {
+                Assert.IsTrue(e.GetType() == typeof(ExcepcionAlojamientoInvalido));
+            }
+            finally
+            {
+                sistema.BorrarAlojamientos();
+            }
+            
+            
         }
 
         [TestMethod]
@@ -474,17 +494,15 @@ namespace TestLogic
                 NroTelefono = "092777555",
                 PrecioNoche = 100,
                 PuntoTuristico = puntaDelEste,
-                SinCapacidad = true
+                SinCapacidad = false
             };
             sistema.IncluirAlojamiento(alojamiento);
             List<Alojamiento> lista = sistema.GetAlojamiento(estadiaVacacional, puntaDelEste);
             Alojamiento alj = lista[0];
-            Assert.IsTrue(alj.SinCapacidad);
-            sistema.ModificarAlojamiento("Miramar", false);
-            lista = sistema.GetAlojamiento(estadiaVacacional, puntaDelEste);
-            alj = lista[0];
             Assert.IsFalse(alj.SinCapacidad);
-            sistema.BorrarAlojamientos();
+            sistema.ModificarAlojamiento("Miramar", true);
+            lista = sistema.GetAlojamiento(estadiaVacacional, puntaDelEste);
+            Assert.IsTrue(lista.Count == 0);
         }
 
         //Borrar alojamiento
