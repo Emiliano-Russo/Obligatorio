@@ -245,7 +245,8 @@ namespace TestLogic
             punto.Descripcion = "Una playa donde la naturaleza abunda";
             sistema.IncluirPuntoTuristico(punto);
             List<PuntoTuristico> lista = sistema.GetPuntosTuristicos(Region.Metropolitana, new Categoria[] { Categoria.Areas_Protegidas});
-            Assert.IsTrue(!lista.Contains(punto));
+            Assert.IsFalse(lista.Contains(punto));
+            sistema.BorrarPuntosTuristicos();
         }
 
         //GetPuntosTuristicos 
@@ -255,6 +256,7 @@ namespace TestLogic
             sistema.IncluirPuntoTuristico(puntaDelEste);
             List<PuntoTuristico> lista = sistema.GetPuntosTuristicos(Region.Este);
             Assert.IsTrue(lista.Contains(puntaDelEste));
+            sistema.BorrarPuntosTuristicos();
         }
 
         [TestMethod]
@@ -263,6 +265,7 @@ namespace TestLogic
             sistema.IncluirPuntoTuristico(puntaDelEste);
             List<PuntoTuristico> lista = sistema.GetPuntosTuristicos(Region.Centro_Sur);
             Assert.IsFalse(lista.Contains(puntaDelEste));
+            sistema.BorrarPuntosTuristicos();
         }
 
         //BorrarPuntosTuristicos (ya testeado con el resto de los metodos)

@@ -34,7 +34,7 @@ namespace TestLogic
             {
                 Descripcion = "Un lugar con ambiente familiar",
                 Direccion = "Avenida 123",
-                Estrellas = 0f,
+                Estrellas = 3f,
                 InfoDeContacto = "Bienvenido al hotel",
                 Nombre = "Radison",
                 NroTelefono = "092777555",
@@ -144,7 +144,8 @@ namespace TestLogic
                 PuntoTuristico = puntaDelEste,
                 SinCapacidad = false
             };
-
+            sistema.BorrarAlojamientos();
+            sistema.BorrarReservas();
             sistema.IncluirAlojamiento(Radison);
 
             InfoReserva info = new InfoReserva
@@ -199,7 +200,7 @@ namespace TestLogic
                 PuntoTuristico = puntaDelEste,
                 SinCapacidad = false
             };
-
+            sistema.BorrarAlojamientos();
             sistema.IncluirAlojamiento(Radison);
 
             InfoReserva info = new InfoReserva
@@ -214,7 +215,7 @@ namespace TestLogic
             Assert.IsTrue(reserva.EstadoReserva == EstadoReserva.Creada);
             sistema.CambiarEstadoReserva(reserva.Codigo,EstadoReserva.Pendiente_Pago);
             EstadoReserva estadoNuevo = sistema.ConsultarReserva(reserva.Codigo);
-            Assert.IsTrue(estadoNuevo == EstadoReserva.Aceptada);
+            Assert.IsTrue(estadoNuevo == EstadoReserva.Pendiente_Pago);
         }
 
     }

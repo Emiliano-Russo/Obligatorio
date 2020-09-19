@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ObligatorioDDA2.Models.Logic
 {
-    public class Alojamiento
+    public class Alojamiento : IEquatable<Alojamiento>
     {
         public string Nombre { get; set; }
 
@@ -25,5 +26,9 @@ namespace ObligatorioDDA2.Models.Logic
 
         public string InfoDeContacto { get; set; }
 
+        public bool Equals([AllowNull] Alojamiento other)
+        {
+            return other.Nombre == this.Nombre;
+        }
     }
 }

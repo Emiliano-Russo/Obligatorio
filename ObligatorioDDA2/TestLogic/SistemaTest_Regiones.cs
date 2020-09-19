@@ -9,14 +9,17 @@ namespace TestLogic
     public partial class SistemaTest
     {
         Sistema sistema = Sistema.GetInstancia();
-
-        public SistemaTest() => sistema.BaseDeDatos = false;
+        public SistemaTest()
+        {
+            //sistema = Sistema.GetInstancia();
+            //sistema.BaseDeDatos = false;
+        }
         
 
         [TestMethod]
         public void GetRegiones_5Regiones()
         {
-            List<Region> regiones = sistema.GetRegiones();
+            List<Region> regiones = Sistema.GetInstancia().GetRegiones();
             int largo = regiones.Count;
             Assert.AreEqual(5, largo);
         }
@@ -25,7 +28,7 @@ namespace TestLogic
         public void GetRegiones_RegionesCorrectas()
         {
             List<Region> regiones = sistema.GetRegiones();
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 bool contiene = regiones.Contains((Region)i);
                 Assert.IsTrue(contiene);

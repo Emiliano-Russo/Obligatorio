@@ -21,7 +21,7 @@ namespace ObligatorioDDA2.Models.Logic
 
         public bool Equals([AllowNull] PuntoTuristico other)
         {
-            throw new NotImplementedException();
+            return (other != null && Nombre == other.Nombre);
         }
     }
 }
