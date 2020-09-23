@@ -132,6 +132,8 @@ namespace TestLogic
         [TestMethod]
         public void ConsutlarReserva_Valido()
         {
+            BorrarHotelesYPuntos();
+            sistema.BorrarReservas();
             Alojamiento Radison = new Alojamiento
             {
                 Descripcion = "Un lugar con ambiente familiar",
@@ -144,8 +146,7 @@ namespace TestLogic
                 PuntoTuristico = puntaDelEste,
                 SinCapacidad = false
             };
-            sistema.BorrarAlojamientos();
-            sistema.BorrarReservas();
+            sistema.IncluirPuntoTuristico(puntaDelEste);
             sistema.IncluirAlojamiento(Radison);
 
             InfoReserva info = new InfoReserva
@@ -188,6 +189,8 @@ namespace TestLogic
        [TestMethod]
         public void CambiarEstadoReserva_Valido()
         {
+            BorrarHotelesYPuntos();
+            
             Alojamiento Radison = new Alojamiento
             {
                 Descripcion = "Un lugar con ambiente familiar",
@@ -200,7 +203,7 @@ namespace TestLogic
                 PuntoTuristico = puntaDelEste,
                 SinCapacidad = false
             };
-            sistema.BorrarAlojamientos();
+            sistema.IncluirPuntoTuristico(puntaDelEste);
             sistema.IncluirAlojamiento(Radison);
 
             InfoReserva info = new InfoReserva

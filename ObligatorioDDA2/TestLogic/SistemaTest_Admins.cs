@@ -15,33 +15,56 @@ namespace TestLogic
        [ExpectedException(typeof(ExcepcionLogin))]
         public void AgregarAdmin_Invalido()
         {
-            sistema.AgregarAdmin(null, "asddas");
+            Admin admin = new Admin
+            {
+                email = null,
+                contrasenia = "asddas"
+            };
+            sistema.AgregarAdmin(admin);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ExcepcionLogin))]
         public void AgregarAdmin_Invalido2()
         {
-            sistema.AgregarAdmin("juan@gmail.com", "");
+            Admin admin = new Admin
+            {
+                email = "juan@gmail.com",
+                contrasenia = ""
+            };
+            sistema.AgregarAdmin(admin);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ExcepcionLogin))]
         public void AgregarAdmin_Invalido3()
         {
-            sistema.AgregarAdmin("juan@gmail.com", null);
+            Admin admin = new Admin
+            {
+                email = "juan@gmail.com",
+                contrasenia = null
+            };
+            sistema.AgregarAdmin(admin);
         }
 
         [TestMethod]
         public void AgregarAdmin_Valido()
         {
-            bool resultado = sistema.ExisteAdmin("juan@gmail.com");
+            Admin admin = new Admin
+            {
+                email = "juan@gmail.com",
+                contrasenia = "contrasenia"
+            };
+
+            bool resultado = sistema.ExisteAdmin(admin);
             Assert.IsFalse(resultado);
-            sistema.AgregarAdmin("juan@gmail.com", "1234psl");
-            resultado = sistema.ExisteAdmin("juan@gmail.com");
+
+            sistema.AgregarAdmin(admin);
+            resultado = sistema.ExisteAdmin(admin);
             Assert.IsTrue(resultado);
-            sistema.BorrarAdmin("juan@gmail.com");
-            resultado = sistema.ExisteAdmin("juan@gmail.com");
+
+            sistema.BorrarAdmin(admin);
+            resultado = sistema.ExisteAdmin(admin);
             Assert.IsFalse(resultado);
         }
 
@@ -49,10 +72,17 @@ namespace TestLogic
         [TestMethod]
         public void ValidacionLogin()
         {
-            bool resultado = sistema.ValidacionLogin("juan@gmail.com","24sd6");
+            Admin admin = new Admin
+            {
+                email = "juan@gmail.com",
+                contrasenia = "24sd6"
+            };
+
+            bool resultado = sistema.ValidacionLogin(admin);
             Assert.IsFalse(resultado);
-            sistema.AgregarAdmin("juan@gmail.com", "24sd6");
-            resultado =  sistema.ValidacionLogin("juan@gmail.com", "24sd6");
+
+            sistema.AgregarAdmin(admin);
+            resultado =  sistema.ValidacionLogin(admin);
             Assert.IsTrue(resultado);
         }
     }
