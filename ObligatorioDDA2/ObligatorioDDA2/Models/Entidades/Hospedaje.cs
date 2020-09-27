@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ObligatorioDDA2.Models.Logic
 {
     //objeto que se manda como retorno hacia la pagina
-    public class Hospedaje
+    public class Hospedaje : IEquatable<Hospedaje>
     {
         public Alojamiento Alojamiento { get; set; }
 
@@ -37,6 +38,11 @@ namespace ObligatorioDDA2.Models.Logic
         {
             return this.Alojamiento.ToString() + "\n" +
                 "Precio total: "+ this.PrecioTotal + " $";
+        }
+
+        public bool Equals([AllowNull] Hospedaje other)
+        {
+            return other.Alojamiento.Equals(this.Alojamiento) && other.PrecioTotal == this.PrecioTotal;
         }
     }
 }

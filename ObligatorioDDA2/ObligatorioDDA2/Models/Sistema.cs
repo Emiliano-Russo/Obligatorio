@@ -54,7 +54,7 @@ namespace ObligatorioDDA2.Models
             return repo.Incluir(infoReserva);
         }
 
-        public EstadoReserva ConsultarReserva(string codigoReserva) 
+        public ConsultaEstado ConsultarReserva(string codigoReserva) 
         {
             validacionInfoReserva.ValidarExistencia(codigoReserva);//
             return repo.ConsultarReserva(codigoReserva);

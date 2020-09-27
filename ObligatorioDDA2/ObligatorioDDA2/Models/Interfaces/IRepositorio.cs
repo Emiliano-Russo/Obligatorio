@@ -41,7 +41,7 @@ namespace ObligatorioDDA2.Models.Interfaces
         List<Hospedaje> GetHospedajes(Estadia estadia, PuntoTuristico punto);
 
         bool ExisteReserva(string codigo);
-        EstadoReserva ConsultarReserva(string codigo);
+        ConsultaEstado ConsultarReserva(string codigo);
 
         void ModificarAlojamiento(string codigo, bool disponible);
 

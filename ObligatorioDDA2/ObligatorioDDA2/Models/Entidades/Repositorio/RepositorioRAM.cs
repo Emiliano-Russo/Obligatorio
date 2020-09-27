@@ -83,12 +83,19 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return listaRetorno;
         }
 
-        public EstadoReserva ConsultarReserva(string codigo) => listaReserva.Find(x => x.Codigo == codigo).EstadoReserva;
-
-        public bool ExisteReserva(string codigo)
-        {
-            return listaReserva.Find(x => x.Codigo == codigo) != null;
+        public ConsultaEstado ConsultarReserva(string codigo)
+        {            
+            Reserva r = listaReserva.Find(x => x.Codigo == codigo);
+            ConsultaEstado ce = new ConsultaEstado
+            {
+                Nombre = r.InfoReserva.Nombre,
+                Estado = r.EstadoReserva,
+                Descripcion = "Codigo reservado por mail: " + r.InfoReserva.Email
+            };
+            return ce;
         }
+
+        public bool ExisteReserva(string codigo) =>listaReserva.Find(x => x.Codigo == codigo) != null;
 
         public void ModificarAlojamiento(string nombreAlojamiento, bool disponibilidad)
         {
