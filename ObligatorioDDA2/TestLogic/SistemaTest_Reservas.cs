@@ -158,8 +158,8 @@ namespace TestLogic
                 Email = "guille@suarez.com"
             };
             Reserva reserva = sistema.CrearReserva(info);
-            EstadoReserva estado = sistema.ConsultarReserva(reserva.Codigo);
-            Assert.AreEqual(estado, EstadoReserva.Creada);
+            ConsultaEstado ce = sistema.ConsultarReserva(reserva.Codigo);
+            Assert.AreEqual(ce.Estado, EstadoReserva.Creada);
             sistema.BorrarReservas();
         }
 
@@ -217,8 +217,8 @@ namespace TestLogic
             Reserva reserva = sistema.CrearReserva(info);
             Assert.IsTrue(reserva.EstadoReserva == EstadoReserva.Creada);
             sistema.CambiarEstadoReserva(reserva.Codigo,EstadoReserva.Pendiente_Pago);
-            EstadoReserva estadoNuevo = sistema.ConsultarReserva(reserva.Codigo);
-            Assert.IsTrue(estadoNuevo == EstadoReserva.Pendiente_Pago);
+            ConsultaEstado ce = sistema.ConsultarReserva(reserva.Codigo);
+            Assert.IsTrue(ce.Estado == EstadoReserva.Pendiente_Pago);
         }
 
     }

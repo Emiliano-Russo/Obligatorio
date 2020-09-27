@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ObligatorioDDA2.Models;
+using ObligatorioDDA2.Models.Logic;
 
 namespace ObligatorioDDA2
 {
@@ -13,7 +15,8 @@ namespace ObligatorioDDA2
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            AgregarDatos();
+            CreateHostBuilder(args).Build().Run();         
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +25,40 @@ namespace ObligatorioDDA2
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static void AgregarDatos()
+        {
+            Sistema sistema = Sistema.GetInstancia();
+
+            PuntoTuristico punto = new PuntoTuristico
+            {
+                Nombre = "Punta del este",
+                Region = Region.Este,
+                Categoria = new Categoria[] { Categoria.Playas,Categoria.Ciudades },
+                Descripcion = "Una playa hermosa"
+            };
+            sistema.IncluirPuntoTuristico(punto);
+
+            Alojamiento hotel = new Alojamiento
+            {
+                Descripcion = "Un buen alojamiento familiar",
+                Direccion = "Av Imagination 741",
+                Estrellas = 5,
+                InfoDeContacto = "Contactenos por support@radison.com",
+                Nombre = "Radison",
+                NroTelefono = "475024381",
+                PrecioNoche = 75,
+                PuntoTuristico = punto,
+                SinCapacidad = false
+            };
+            sistema.IncluirAlojamiento(hotel);
+
+            Admin a = new Admin
+            {
+                email = "emi@gmail.com",
+                contrasenia = "1234"
+            };
+            sistema.AgregarAdmin(a);
+        }
     }
 }

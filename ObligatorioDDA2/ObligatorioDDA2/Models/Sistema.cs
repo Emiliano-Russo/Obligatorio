@@ -41,11 +41,11 @@ namespace ObligatorioDDA2.Models
 
         public List<PuntoTuristico> GetPuntosTuristicos(Region region, Categoria[] categorias) => repo.GetPuntos(region, categorias);
 
-        public List<Alojamiento> GetAlojamientos(Estadia estadia, PuntoTuristico puntoTuristico)
+        public List<Hospedaje> GetHospedajes(Estadia estadia, PuntoTuristico puntoTuristico)
         {
             validacionEstadia.ValidarSintaxis(estadia);
             validacionPuntoTursitico.ValidarSintaxisExitencia(puntoTuristico);            
-            return repo.GetAlojamientos(estadia, puntoTuristico);             
+            return repo.GetHospedajes(estadia, puntoTuristico);             
         }
 
         public Reserva CrearReserva(InfoReserva infoReserva)
@@ -54,7 +54,7 @@ namespace ObligatorioDDA2.Models
             return repo.Incluir(infoReserva);
         }
 
-        public EstadoReserva ConsultarReserva(string codigoReserva) 
+        public ConsultaEstado ConsultarReserva(string codigoReserva) 
         {
             validacionInfoReserva.ValidarExistencia(codigoReserva);//
             return repo.ConsultarReserva(codigoReserva);
