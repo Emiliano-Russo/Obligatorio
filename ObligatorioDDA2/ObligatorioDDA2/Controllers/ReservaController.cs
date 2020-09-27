@@ -45,5 +45,18 @@ namespace ObligatorioDDA2.Controllers
             }
             return "Estado modificado con exito";
         }
+
+        [HttpGet]
+        public string Estado(string codigo)
+        {
+            try
+            {
+                return Sistema.GetInstancia().ConsultarReserva(codigo).ToString();
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }
