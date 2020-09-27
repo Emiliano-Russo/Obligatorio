@@ -38,7 +38,7 @@ namespace ObligatorioDDA2.Models.Interfaces
 
         List<PuntoTuristico> GetPuntos(Region region, Categoria[] categorias);
 
-        List<Alojamiento> GetAlojamientos(Estadia estadia, PuntoTuristico punto);
+        List<Hospedaje> GetHospedajes(Estadia estadia, PuntoTuristico punto);
 
         bool ExisteReserva(string codigo);
         EstadoReserva ConsultarReserva(string codigo);

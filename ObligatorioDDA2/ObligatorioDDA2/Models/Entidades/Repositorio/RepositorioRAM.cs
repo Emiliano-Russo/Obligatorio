@@ -34,9 +34,8 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             Reserva reserva = new Reserva
             {
                 InfoReserva = info,
-                Descripcion = "Gracias por reservar, bienvenido al hotel" + info.Hotel.Nombre,
                 EstadoReserva = EstadoReserva.Creada,
-                Codigo = "TIENE QUE SER RANDOM" // tiene que ser random
+                Codigo = CodigoRandom.GetCodigoRandom(10)
             };
             listaReserva.Add(reserva);
             return reserva;
@@ -67,16 +66,20 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return listaPuntos;
         }
 
-        public List<Alojamiento> GetAlojamientos(Estadia estadia, PuntoTuristico punto)
+        public List<Hospedaje> GetHospedajes(Estadia estadia, PuntoTuristico punto)
         {
-            List<Alojamiento> listaRetorno = new List<Alojamiento>();
+            List<Hospedaje> listaRetorno = new List<Hospedaje>();
+            Hospedaje hospedaje;
 
             foreach (var hotel in this.listAlojamientos)
             {
                 if (hotel.PuntoTuristico.Equals(punto) && hotel.SinCapacidad == false)
-                    listaRetorno.Add(hotel);
+                {
+                    hospedaje = new Hospedaje(hotel, estadia);
+                    listaRetorno.Add(hospedaje);
+                }
             }
-
+           
             return listaRetorno;
         }
 

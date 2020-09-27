@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ObligatorioDDA2.Models.Logic
 {
-    public class PuntoTuristico :IEquatable<PuntoTuristico>
+    public class PuntoTuristico : IEquatable<PuntoTuristico>
     {
         public string Nombre { get; set; }
 
@@ -17,11 +17,19 @@ namespace ObligatorioDDA2.Models.Logic
 
         public Categoria[] Categoria { get; set; }
 
-        public string[] ImgName { get; set; }
+       public string[] ImgName { get; set; }
 
         public bool Equals([AllowNull] PuntoTuristico other)
         {
             return (other != null && Nombre == other.Nombre);
+        }
+
+        public override string ToString()
+        {
+            string categorias = "";
+            foreach (var item in Categoria)
+                categorias += item.ToString() + "/ ";
+            return Nombre + ": " + Descripcion + " | Region: " + Region + " | Categorias: "+ categorias;
         }
     }
 }

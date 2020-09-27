@@ -7,7 +7,7 @@ namespace ObligatorioDDA2.Models.Exceptions
 {
     public class ExcepcionEstadiaInvalido : Exception
     {
-        public ExcepcionEstadiaInvalido(string error) : base("falta rellenar el/los campo/s: " + error)
+        public ExcepcionEstadiaInvalido(string error) : base(error)
         {
 
         }

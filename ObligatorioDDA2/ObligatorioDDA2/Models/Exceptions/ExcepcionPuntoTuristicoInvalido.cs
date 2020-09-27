@@ -7,7 +7,7 @@ namespace ObligatorioDDA2.Models.Exceptions
 {
     public class ExcepcionPuntoTuristicoInvalido : Exception
     {
-        public ExcepcionPuntoTuristicoInvalido(string error):base("falta rellenar el/los campo/s: " + error)
+        public ExcepcionPuntoTuristicoInvalido(string error):base(error)
         {
 
         }

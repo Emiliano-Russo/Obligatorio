@@ -41,11 +41,11 @@ namespace ObligatorioDDA2.Models
 
         public List<PuntoTuristico> GetPuntosTuristicos(Region region, Categoria[] categorias) => repo.GetPuntos(region, categorias);
 
-        public List<Alojamiento> GetAlojamientos(Estadia estadia, PuntoTuristico puntoTuristico)
+        public List<Hospedaje> GetHospedajes(Estadia estadia, PuntoTuristico puntoTuristico)
         {
             validacionEstadia.ValidarSintaxis(estadia);
             validacionPuntoTursitico.ValidarSintaxisExitencia(puntoTuristico);            
-            return repo.GetAlojamientos(estadia, puntoTuristico);             
+            return repo.GetHospedajes(estadia, puntoTuristico);             
         }
 
         public Reserva CrearReserva(InfoReserva infoReserva)

@@ -14,11 +14,14 @@ namespace ObligatorioDDA2.Models.Logic
 
         public EstadoReserva EstadoReserva { get; set; }
 
-        public string Descripcion { get; set; }
-
         public bool Equals([AllowNull] Reserva other)
         {
             return other.Codigo == this.Codigo;
+        }
+
+        public override string ToString()
+        {
+            return "codigo reserva: " + Codigo + "| Nro Telefono: "+InfoReserva.Hotel.NroTelefono+" | Info:"+InfoReserva.Hotel.InfoDeContacto;
         }
     }
 }

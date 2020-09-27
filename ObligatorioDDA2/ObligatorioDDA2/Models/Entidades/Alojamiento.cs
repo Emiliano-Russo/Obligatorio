@@ -30,5 +30,12 @@ namespace ObligatorioDDA2.Models.Logic
         {
             return other.Nombre == this.Nombre;
         }
+
+        public override string ToString()
+        {
+            return this.Nombre + "| Descripcion: " + this.Descripcion +" | Punto Turistico: "+this.PuntoTuristico.Nombre
+                + " | Direccion: " + this.Direccion + "| Estrellas: " + this.Estrellas
+                + " | Precio Noche " + this.PrecioNoche + " $ | ";
+        }
     }
 }
