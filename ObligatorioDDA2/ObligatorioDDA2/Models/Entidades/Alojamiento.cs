@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ObligatorioDDA2.Models.Logic
 {
+    [Table("Alojamiento")]
     public class Alojamiento : IEquatable<Alojamiento>
     {
+        [Key]
         public string Nombre { get; set; }
 
         public float Estrellas { get; set; }

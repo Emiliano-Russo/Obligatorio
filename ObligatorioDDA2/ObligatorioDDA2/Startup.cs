@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ObligatorioDDA2.Data;
 using ObligatorioDDA2.Models;
 
 namespace ObligatorioDDA2
@@ -36,6 +37,8 @@ namespace ObligatorioDDA2
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+
+            services.AddDbContext<EntidadesContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -25,6 +25,7 @@ namespace ObligatorioDDA2.Models.Validadores
             bool estadiaCorrecta = estadia != null
                 && estadia.Entrada < estadia.Salida
                 && estadia.Entrada >= DateTime.Now
+                && estadia.RangoEdades != null
                 && estadia.RangoEdades.Length > 0;
             if (!estadiaCorrecta)
                 throw new ExcepcionEstadiaInvalido("La estadia es incorrecta");

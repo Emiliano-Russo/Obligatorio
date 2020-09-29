@@ -18,14 +18,36 @@ namespace ObligatorioDDA2.Models
         internal Validacion<Estadia> validacionEstadia { get; }
         internal Validacion<Alojamiento> validacionAlojamiento { get; }
         internal Validacion<InfoReserva> validacionInfoReserva { get; }
-        
+
         internal IRepositorio repo;
 
-        public bool BaseDeDatos { get; set; }
+        private bool conBDD;
+        public bool BaseDeDatos
+        {
+            get
+            {
+                return conBDD;
+            }
+            set
+            {
+                if (value == false)
+                {
+                    conBDD = false;
+                    repo = new RepositorioRAM();
+                }
+                else
+                {
+                    if (conBDD == true)
+                        return;
+                    conBDD = true;
+                    repo = new RepositorioBDD();
+                }
+            }
+        }
 
         private Sistema()
         {
-            repo = new RepositorioRAM();
+            repo = new RepositorioBDD();
             validacionAdmin = new ValidacionAdmin();
             validacionEstadia = new ValidacionEstadia();
             validacionInfoReserva = new ValidacionInfoReserva();
@@ -44,8 +66,8 @@ namespace ObligatorioDDA2.Models
         public List<Hospedaje> GetHospedajes(Estadia estadia, PuntoTuristico puntoTuristico)
         {
             validacionEstadia.ValidarSintaxis(estadia);
-            validacionPuntoTursitico.ValidarSintaxisExitencia(puntoTuristico);            
-            return repo.GetHospedajes(estadia, puntoTuristico);             
+            validacionPuntoTursitico.ValidarSintaxisExitencia(puntoTuristico);
+            return repo.GetHospedajes(estadia, puntoTuristico);
         }
 
         public Reserva CrearReserva(InfoReserva infoReserva)
@@ -54,13 +76,13 @@ namespace ObligatorioDDA2.Models
             return repo.Incluir(infoReserva);
         }
 
-        public ConsultaEstado ConsultarReserva(string codigoReserva) 
+        public ConsultaEstado ConsultarReserva(string codigoReserva)
         {
-            validacionInfoReserva.ValidarExistencia(codigoReserva);//
+            validacionInfoReserva.ValidarExistencia(codigoReserva);
             return repo.ConsultarReserva(codigoReserva);
         }
 
-        public bool ValidacionLogin(Admin admin) => repo.Login(admin); 
+        public bool ValidacionLogin(Admin admin) => repo.Login(admin);
 
         public void IncluirPuntoTuristico(PuntoTuristico puntoTuristico)
         {
@@ -84,17 +106,17 @@ namespace ObligatorioDDA2.Models
 
         public void BorrarAlojamiento(string nombre)
         {
-            validacionAlojamiento.ValidarString(nombre,new ExcepcionAlojamientoInvalido("No existe "+nombre));
+            validacionAlojamiento.ValidarString(nombre, new ExcepcionAlojamientoInvalido("No existe " + nombre));
             validacionAlojamiento.ValidarExistencia(nombre);
             Alojamiento hotel = new Alojamiento { Nombre = nombre };
-            repo.Quitar(hotel);     
+            repo.Quitar(hotel);
         }
 
         public void CambiarEstadoReserva(string codigoReserva, EstadoReserva estadoReserva)
         {
             validacionInfoReserva.ValidarString(codigoReserva, new ExcepcionInfoInvalida("El codigo es nulo o vacio"));
             validacionInfoReserva.ValidarExistencia(codigoReserva);
-            repo.ModificarEstadoReserva(codigoReserva, estadoReserva);          
+            repo.ModificarEstadoReserva(codigoReserva, estadoReserva);
         }
 
         public void AgregarAdmin(Admin admin)
