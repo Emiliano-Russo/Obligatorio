@@ -32,7 +32,10 @@ namespace ObligatorioDDA2.Models.Logic
             }
             set
             {
-                RangoEdadInterno_no_usar = string.Join(";", value.Select(p => p.ToString()));
+                if (value != null)
+                    RangoEdadInterno_no_usar = string.Join(";", value.Select(p => p.ToString()));
+                else
+                    RangoEdadInterno_no_usar = null;
             }
         }
 

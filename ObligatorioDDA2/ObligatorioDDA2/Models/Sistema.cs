@@ -25,7 +25,7 @@ namespace ObligatorioDDA2.Models
 
         private Sistema()
         {
-            repo = new RepositorioRAM();
+            repo = new RepositorioBDD();
             validacionAdmin = new ValidacionAdmin();
             validacionEstadia = new ValidacionEstadia();
             validacionInfoReserva = new ValidacionInfoReserva();
@@ -56,7 +56,7 @@ namespace ObligatorioDDA2.Models
 
         public ConsultaEstado ConsultarReserva(string codigoReserva) 
         {
-            validacionInfoReserva.ValidarExistencia(codigoReserva);//
+            //validacionInfoReserva.ValidarExistencia(codigoReserva);//
             return repo.ConsultarReserva(codigoReserva);
         }
 

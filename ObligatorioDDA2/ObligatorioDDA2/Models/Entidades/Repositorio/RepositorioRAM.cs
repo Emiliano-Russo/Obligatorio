@@ -35,7 +35,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             {
                 InfoReserva = info,
                 EstadoReserva = EstadoReserva.Creada,
-                Codigo = CodigoRandom.GetCodigoRandom(10)
+                Codigo = CodigoRandom.GetCodigoRandomUnico(10)
             };
             listaReserva.Add(reserva);
             return reserva;

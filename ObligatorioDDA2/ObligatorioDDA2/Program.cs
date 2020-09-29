@@ -15,7 +15,7 @@ namespace ObligatorioDDA2
     {
         public static void Main(string[] args)
         {
-            AgregarDatos();
+            //AgregarDatos();
             CreateHostBuilder(args).Build().Run();         
         }
 
@@ -58,7 +58,7 @@ namespace ObligatorioDDA2
                 email = "emi@gmail.com",
                 contrasenia = "1234"
             };
-            sistema.AgregarAdmin(a);
+           sistema.AgregarAdmin(a);
         }
     }
 }

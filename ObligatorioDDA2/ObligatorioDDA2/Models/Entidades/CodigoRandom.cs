@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ObligatorioDDA2.Models.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace ObligatorioDDA2.Models.Entidades
     {
         private static readonly Random _random = new Random();
 
-        public static string GetCodigoRandom(int size)
+        public static string GetCodigoRandomUnico(int size)
         {
             var builder = new StringBuilder(size);
 
@@ -22,6 +23,9 @@ namespace ObligatorioDDA2.Models.Entidades
                 var @char = (char)_random.Next(offset, offset + lettersOffset);
                 builder.Append(@char);
             }
+
+            if (Sistema.GetInstancia().repo.Existe(new Reserva { Codigo = builder.ToString() }))
+                return GetCodigoRandomUnico(size);
 
             return builder.ToString();
         }

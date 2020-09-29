@@ -32,7 +32,10 @@ namespace ObligatorioDDA2.Models.Logic
             }
             set
             {
-                CategoriasInterno_no_usar = string.Join(";", value.Select(p => p.ToString()));
+                if (value != null)
+                    CategoriasInterno_no_usar = string.Join(";", value.Select(p => p.ToString()));
+                else
+                    CategoriasInterno_no_usar = null;
             }
         }
       
@@ -51,7 +54,10 @@ namespace ObligatorioDDA2.Models.Logic
             }
             set
             {
-                CategoriasInterno_no_usar = string.Join(";", value.Select(p => p.ToString()));
+                if (value != null)
+                    ImgNameInterno_no_usar = string.Join(";", value.Select(p => p.ToString()));
+                else
+                    ImgNameInterno_no_usar = null;
             }
         }
 
