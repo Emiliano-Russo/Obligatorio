@@ -11,7 +11,11 @@ namespace TestLogic
     public partial class SistemaTest
     {
 
-       [TestMethod]
+        [TestInitialize]
+        public void TestInitialize() => Sistema.GetInstancia().BaseDeDatos = false;
+
+
+            [TestMethod]
        [ExpectedException(typeof(ExcepcionLogin))]
         public void AgregarAdmin_Invalido()
         {
