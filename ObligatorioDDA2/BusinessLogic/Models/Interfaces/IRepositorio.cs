@@ -26,11 +26,7 @@ namespace ObligatorioDDA2.Models.Interfaces
 
         void Incluir(Admin reserva);
 
-        void Quitar(PuntoTuristico reserva);
-
         void Quitar(Alojamiento reserva);
-
-        void Quitar(Reserva reserva);
 
         void Quitar(Admin reserva);
 
@@ -40,12 +36,10 @@ namespace ObligatorioDDA2.Models.Interfaces
 
         List<Hospedaje> GetHospedajes(Estadia estadia, PuntoTuristico punto);
 
-        bool ExisteReserva(string codigo);
         ConsultaEstado ConsultarReserva(string codigo);
 
         void ModificarAlojamiento(string codigo, bool disponible);
 
-        Reserva GetReserva(string codigo);
 
         void ModificarEstadoReserva(string codigo, EstadoReserva estado);
     }

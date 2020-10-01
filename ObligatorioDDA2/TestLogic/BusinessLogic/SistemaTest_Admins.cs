@@ -12,7 +12,18 @@ namespace TestLogic
     {
 
         [TestInitialize]
-        public void TestInitialize() => Sistema.GetInstancia().BaseDeDatos = false;
+        public void TestInitialize()
+        {
+            bool result = true;
+            Sistema.GetInstancia().BaseDeDatos = true;
+            Sistema.GetInstancia().BaseDeDatos = true;
+            result = Sistema.GetInstancia().BaseDeDatos;
+            Assert.IsTrue(result);
+
+            Sistema.GetInstancia().BaseDeDatos = false;
+            result = Sistema.GetInstancia().BaseDeDatos;
+            Assert.IsFalse(result);
+        }
 
 
             [TestMethod]
@@ -88,6 +99,31 @@ namespace TestLogic
             sistema.AgregarAdmin(admin);
             resultado =  sistema.ValidacionLogin(admin);
             Assert.IsTrue(resultado);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ExcepcionLogin))]
+        public void QuitarAdminNoExistente()
+        {
+            Admin admin = new Admin
+            {
+                email = "juan@gmail.com",
+                contrasenia = "24sd6"
+            };
+            sistema.BorrarAdmin(admin);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ExcepcionLogin))]
+        public void AdminYaExistente()
+        {
+            Admin admin = new Admin
+            {
+                email = "juan@gmail.com",
+                contrasenia = "24sd6"
+            };
+            sistema.AgregarAdmin(admin);
+            sistema.AgregarAdmin(admin);
         }
     }
 }

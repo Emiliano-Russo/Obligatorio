@@ -180,11 +180,16 @@ namespace TestLogic
             };
 
             Hospedaje hospedaje = new Hospedaje(alojamiento, estadiaVacacional);
+            string toStringHosepdaje = hospedaje.ToString();
+            string esperadoToStringHospedaje = alojamiento.ToString() +
+                                               "Precio total: " + hospedaje.PrecioTotal + " $";
 
+            Assert.AreEqual(esperadoToStringHospedaje, toStringHosepdaje);
             sistema.IncluirPuntoTuristico(puntaDelEste);
             sistema.IncluirAlojamiento(alojamiento);
             List<Hospedaje> lista =  sistema.GetHospedajes(estadiaVacacional, puntaDelEste);
             Assert.IsTrue(lista.Contains(hospedaje));
+            
             sistema.BorrarAlojamientos();
         }
 
@@ -576,6 +581,28 @@ namespace TestLogic
             Hospedaje hos = new Hospedaje(alojamiento, estadiaVacacional);
             List<Hospedaje> lista = sistema.GetHospedajes(estadiaVacacional, puntaDelEste);
             Assert.IsFalse(lista.Contains(hos));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ExcepcionPuntoTuristicoInvalido))]
+        public void RegistrarAlojamiento_PuntoInexistente()
+        {
+            PuntoTuristico punto = puntaDelEste;
+            punto.Nombre = "TehsHotel";
+
+            Alojamiento alojamiento = new Alojamiento
+            {
+                Descripcion = "Un lugar con ambiente familiar",
+                Direccion = "Avenida 123",
+                Estrellas = 4.5f,
+                InfoDeContacto = "Bienvenido al hotel",
+                Nombre = "Miramar",
+                NroTelefono = "092777555",
+                PrecioNoche = 100,
+                PuntoTuristico = punto,
+                SinCapacidad = false
+            };
+            sistema.IncluirAlojamiento(alojamiento);
         }
 
 

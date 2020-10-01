@@ -43,11 +43,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
 
         public void Incluir(Admin admin) => listaAdmins.Add(admin);
 
-        public void Quitar(PuntoTuristico punto) => listaPuntosTuristicos.Remove(punto);
-
         public void Quitar(Alojamiento hotel) => listAlojamientos.Remove(hotel);
-
-        public void Quitar(Reserva reserva) => listaReserva.Remove(reserva);
 
         public void Quitar(Admin admin) => listaAdmins.Remove(admin);
 
@@ -95,32 +91,18 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return ce;
         }
 
-        public bool ExisteReserva(string codigo) =>listaReserva.Find(x => x.Codigo == codigo) != null;
 
         public void ModificarAlojamiento(string nombreAlojamiento, bool disponibilidad)
         {
-            if (String.IsNullOrEmpty(nombreAlojamiento))
-                throw new ExcepcionAlojamientoInvalido("Nombre null"); //parte validacion
-            bool Existe = this.listAlojamientos.Contains(new Alojamiento { Nombre = nombreAlojamiento });
-            if (!Existe)
-                throw new ExcepcionAlojamientoInvalido("Ya existe el alojamiento"); //parte validacion
             Alojamiento a = listAlojamientos.Find(x => x.Nombre == nombreAlojamiento);
             Quitar(a);
             a.SinCapacidad = disponibilidad;            
             Incluir(a);
         }
 
-        public Reserva GetReserva(string codigo) => listaReserva.Find(x => x.Codigo == codigo);
 
         public void ModificarEstadoReserva(string codigoReserva, EstadoReserva estadoReserva)
         {
-            //old
-            if (!listaReserva.Contains(new Reserva
-            {
-                Codigo = codigoReserva
-            }))
-                throw new ExcepcionInfoInvalida("La reserva no existe");
-
             Reserva r = listaReserva.Find(x => x.Codigo == codigoReserva);
             listaReserva.Remove(new Reserva
             {
