@@ -48,8 +48,7 @@ namespace ObligatorioDDA2.Models.Validadores
 
         protected override void Existencia(string key)
         {
-            if (!Sistema.GetInstancia().repo.Existe(new PuntoTuristico { Nombre = key }))
-                throw new ExcepcionPuntoTuristicoInvalido("No existe " + key + " en nuestro sistema");
+
         }
     }
 }

@@ -56,7 +56,12 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
 
         public bool Existe(Reserva reserva)
         {
-            return ExisteReserva(reserva.Codigo);
+            Reserva reservaBusqueda = new Reserva();
+            using (var context = new EntidadesContext())
+            {
+                reservaBusqueda = context.Reservas.Find(reserva.Codigo);
+            }
+            return reservaBusqueda != null;
         }
 
         public bool Existe(Admin admin)
@@ -67,16 +72,6 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
                 a = context.Admins.Find(admin.email);
             }
             return a != null;
-        }
-
-        public bool ExisteReserva(string codigo)
-        {
-            Reserva reservaBusqueda = new Reserva();
-            using (var context = new EntidadesContext())
-            {
-                reservaBusqueda = context.Reservas.Find(codigo);
-            }
-            return reservaBusqueda != null;
         }
 
         public List<Hospedaje> GetHospedajes(Estadia estadia, PuntoTuristico punto)
@@ -124,15 +119,6 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return listaPuntos;
         }
 
-        public Reserva GetReserva(string codigo)
-        {
-            Reserva reservaBusqueda = new Reserva();
-            using (var context = new EntidadesContext())
-            {
-                reservaBusqueda = context.Reservas.Find(reservaBusqueda.Codigo);
-            }
-            return reservaBusqueda;
-        }
 
         public void Incluir(PuntoTuristico punto)
         {
@@ -211,30 +197,11 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             }
         }
 
-        public void Quitar(PuntoTuristico punto)
-        {
-            using (var context = new EntidadesContext())
-            {
-                context.PuntosTuristicos.Remove(punto);
-                context.SaveChanges();
-            }
-        }
-
         public void Quitar(Alojamiento hotel)
         {
             using (var context = new EntidadesContext())
             {
                 context.Alojamientos.Remove(hotel);
-                context.SaveChanges();
-            }
-        }
-
-        public void Quitar(Reserva reserva)
-        {
-            using (var context = new EntidadesContext())
-            {
-                context.InfoReservas.Remove(reserva.InfoReserva);
-                context.Reservas.Remove(reserva);
                 context.SaveChanges();
             }
         }

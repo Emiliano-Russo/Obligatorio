@@ -30,18 +30,14 @@ namespace ObligatorioDDA2.Models
             }
             set
             {
+                if (value == conBDD)
+                    return;
+                conBDD = value;
+
                 if (value == false)
-                {
-                    conBDD = false;
                     repo = new RepositorioRAM();
-                }
                 else
-                {
-                    if (conBDD == true)
-                        return;
-                    conBDD = true;
                     repo = new RepositorioBDD();
-                }
             }
         }
 
@@ -125,9 +121,24 @@ namespace ObligatorioDDA2.Models
             repo.Incluir(admin);
         }
 
-        public bool ExisteAdmin(Admin admin) => repo.Existe(admin);
+        public bool ExisteAdmin(Admin admin)
+        {
+            try
+            {
+                validacionAdmin.ValidarSintaxisExitencia(admin);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
-        public void BorrarAdmin(Admin admin) => repo.Quitar(admin);
+        public void BorrarAdmin(Admin admin)
+        {
+            validacionAdmin.ValidarExistencia(admin.email);
+            repo.Quitar(admin);
+        }
 
         //metodos utiles para unittest
         public void BorrarPuntosTuristicos() => ResetearRepositorioRam();
