@@ -33,7 +33,11 @@ namespace ObligatorioDDA2.Models.Validadores
 
         protected override void ObjetosDentro(Estadia objeto)
         {
-          //sin objetos dentro
+            foreach (var edad in objeto.RangoEdades)
+            {
+                if ((int)edad < 0 || (int)edad > 3)
+                    throw new ExcepcionEstadiaInvalido("Rango de edades invalidas");
+            }
         }
 
         protected override void Unicidad(Estadia objeto)

@@ -24,6 +24,8 @@ namespace ObligatorioDDA2.Controllers
         {
             try
             {
+                if (e == null)
+                    throw  new Exception("Campos nulos");
                 List<Hospedaje> hospedajes = Sistema.GetInstancia().GetHospedajes(e.Estadia, e.Punto);
                 return String.Concat(hospedajes.Select(h => h.ToString() + "\n"));
             }
