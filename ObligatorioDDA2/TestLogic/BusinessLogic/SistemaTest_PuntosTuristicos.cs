@@ -268,6 +268,60 @@ namespace TestLogic
             sistema.BorrarPuntosTuristicos();
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetYSetDeCategoria()
+        {
+            PuntoTuristico punto = new PuntoTuristico
+            {
+                Categoria = null,
+            };
+            Assert.IsNull(punto.Categoria);
+            punto.CategoriasInterno_no_usar = "ASDASD";
+            Categoria[] categorias = punto.Categoria;
+        }
+
+        [TestMethod]
+        public void GetYSetImgName()
+        {
+            PuntoTuristico punto = new PuntoTuristico
+            {
+                ImgName = null
+            };
+            Assert.IsNull(punto.ImgName);
+            string[] arrayImg = new string[] {"asdsadad", "ADSADS"};
+            punto.ImgName = arrayImg;
+            for (int i = 0; i < arrayImg.Length; i++)
+            {
+                Assert.AreEqual(arrayImg[i],punto.ImgName[i]);
+            }
+            
+        }
+
+        [TestMethod]
+        public void ToStringPuntoTuristico()
+        {
+            string resultado = puntaDelEste.ToString();
+            string esperado = "";
+
+            string categorias = "";
+            foreach (var item in puntaDelEste.Categoria)
+                categorias += item.ToString() + "/ ";
+            esperado = puntaDelEste.Nombre + ": " + puntaDelEste.Descripcion + " | Region: " + puntaDelEste.Region + " | Categorias: " + categorias;
+             Assert.AreEqual(esperado, resultado );
+
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ExcepcionPuntoTuristicoInvalido))]
+        public void PuntoTursiticoYaRegitrado()
+        {
+            PuntoTuristico punto = puntaDelEste;
+            punto.Nombre = "HotelJorge";
+            sistema.IncluirPuntoTuristico(punto);
+            sistema.IncluirPuntoTuristico(punto);
+        }
         //BorrarPuntosTuristicos (ya testeado con el resto de los metodos)
     }
 }

@@ -36,8 +36,7 @@ namespace ObligatorioDDA2.Models.Logic
 
         public override string ToString()
         {
-            return this.Alojamiento.ToString() + "\n" +
-                "Precio total: "+ this.PrecioTotal + " $";
+            return this.Alojamiento.ToString()  + "Precio total: "+ this.PrecioTotal + " $";
         }
 
         public bool Equals([AllowNull] Hospedaje other)

@@ -12,7 +12,9 @@ namespace ObligatorioDDA2.Models.Validadores
     {
         protected override void Existencia(Admin admin)
         {
-            Sistema.GetInstancia().repo.Existe(admin);
+          bool existe = Sistema.GetInstancia().repo.Existe(admin);
+          if (!existe)
+              throw new ExcepcionLogin("No existe: " + admin.email + " en el sistema");
         }
 
         protected override void Existencia(string key)

@@ -12,9 +12,9 @@ namespace ObligatorioDDA2.Controllers
 {
     public class LoginController : Controller
     {
-        public IActionResult Index()
+        public string Index()
         {
-            return View();
+            return "Pagina Login";
         }
         [HttpGet]
         public string Ingresar(string email, string contra)
