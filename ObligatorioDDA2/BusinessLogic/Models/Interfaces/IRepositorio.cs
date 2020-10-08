@@ -22,13 +22,13 @@ namespace ObligatorioDDA2.Models.Interfaces
 
         void Incluir(Alojamiento hotel);
 
-        Reserva Incluir(InfoReserva reserva);
+        Reserva Incluir(InfoReserva infoReserva);
 
-        void Incluir(Admin reserva);
+        void Incluir(Admin admin);
 
-        void Quitar(Alojamiento reserva);
+        void Quitar(Alojamiento hotel);
 
-        void Quitar(Admin reserva);
+        void Quitar(Admin admin);
 
         List<PuntoTuristico> GetPuntos(Region region);
 
