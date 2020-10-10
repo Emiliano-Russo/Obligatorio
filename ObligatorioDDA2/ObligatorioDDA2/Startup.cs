@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ObligatorioDDA2.Data;
+using ObligatorioDDA2.Models;
 
 namespace ObligatorioDDA2
 {
@@ -26,6 +28,17 @@ namespace ObligatorioDDA2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddDbContext<EntidadesContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +47,7 @@ namespace ObligatorioDDA2
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+            }           
 
             app.UseHttpsRedirection();
 
@@ -42,9 +55,13 @@ namespace ObligatorioDDA2
 
             app.UseAuthorization();
 
+            app.UseSession();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
