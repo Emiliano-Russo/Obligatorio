@@ -14,6 +14,5 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
-    console.log("toggle amigo");
   }
 }
