@@ -22,6 +22,14 @@ namespace ObligatorioDDA2.Controllers
             return retorno;
         }
 
+        [HttpGet]
+        public JsonResult Hola()
+        {
+            return Json(Sistema.GetInstancia().GetRegiones());
+        }
+
+        
+
         
     }
 }
