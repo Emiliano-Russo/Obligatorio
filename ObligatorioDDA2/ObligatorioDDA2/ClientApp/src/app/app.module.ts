@@ -9,7 +9,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { PruebaComponent } from './prueba/prueba.component'
+import { PruebaComponent } from './prueba/prueba.component';
+import {PuntosComponent} from './puntos/puntos.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PruebaComponent } from './prueba/prueba.component'
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    PruebaComponent
+    PruebaComponent,
+    PuntosComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,6 +31,7 @@ import { PruebaComponent } from './prueba/prueba.component'
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'prueba', component: PruebaComponent },
+      { path: 'puntos/:id', component: PuntosComponent },
     ])
   ],
   providers: [],

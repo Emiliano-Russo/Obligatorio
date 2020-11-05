@@ -1,5 +1,10 @@
 <div>
-  <h3>Regiones Uruguay Natural</h3>
-  <button (click)="ObtenerRegiones()">Mostrar Regiones</button>
-  <p>regiones: {{ regiones }} </p>
+  <h1>Regiones</h1>
+  <div>
+    <a [routerLink]="['puntos',0]">{{regiones[0]}}</a>
+    <a [routerLink]="['puntos',1]">{{regiones[1]}}</a>
+    <a [routerLink]="['puntos',2]">{{regiones[2]}}</a>
+    <a [routerLink]="['puntos',3]">{{regiones[3]}}</a>
+    <a [routerLink]="['puntos',4]">{{regiones[4]}}</a>
+  </div>
 </div>
