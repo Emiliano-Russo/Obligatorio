@@ -12,8 +12,8 @@ export class HomeComponent {
   url: string;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.http.get<String>(baseUrl + 'Regiones').subscribe(result => {
-      this.regiones = result.toString();
+    this.http.get<string>(baseUrl + 'Regiones').subscribe(result => {
+      this.regiones = result;
     });
   }
 
