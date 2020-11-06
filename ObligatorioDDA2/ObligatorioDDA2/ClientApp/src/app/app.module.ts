@@ -10,7 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PruebaComponent } from './prueba/prueba.component';
-import {PuntosComponent} from './puntos/puntos.component'
+import { PuntosComponent } from './puntos/puntos.component';
+import { HospedajesComponent } from './hospedajes/hospedajes.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {PuntosComponent} from './puntos/puntos.component'
     FetchDataComponent,
     PruebaComponent,
     PuntosComponent,
+    HospedajesComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +34,7 @@ import {PuntosComponent} from './puntos/puntos.component'
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'prueba', component: PruebaComponent },
       { path: 'puntos/:id', component: PuntosComponent },
+      { path: 'hospedajes/:nombre', component: HospedajesComponent },
     ])
   ],
   providers: [],

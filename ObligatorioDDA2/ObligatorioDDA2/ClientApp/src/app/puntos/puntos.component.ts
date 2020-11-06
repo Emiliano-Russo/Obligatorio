@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -12,7 +12,7 @@ export class PuntosComponent implements OnInit {
   puntos: string;
   filtros = [false, false, false, false];
 
-  constructor(private router: ActivatedRoute, private http: HttpClient) {
+  constructor(private router: ActivatedRoute, private http: HttpClient, private ruta: Router) {
   }
    
   ngOnInit() {
@@ -62,5 +62,8 @@ export class PuntosComponent implements OnInit {
     return categoriasTotal;
   }
 
+  irAHospedajes(nombre: string) {
+    this.ruta.navigate(['/hospedajes', nombre]);
+  }
 
 }

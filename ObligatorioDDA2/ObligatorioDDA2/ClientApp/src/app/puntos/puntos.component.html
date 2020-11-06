@@ -9,7 +9,7 @@
   </div>
   <div *ngFor="let punto of puntos">
     <div style="border:2px solid black">
-      <a><h4>{{punto.nombre}}</h4></a>
+      <button (click)="irAHospedajes(punto.nombre)"><h4>{{punto.nombre}}</h4></button>
       <p>**imagen**</p>
       <p> Categorias: {{punto.categoriasInterno_no_usar}}</p>
     </div>
