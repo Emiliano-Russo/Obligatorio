@@ -20,18 +20,19 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpPost]
-        public string Busqueda([FromBody] Estancia e)
+        public JsonResult Busqueda([FromBody] Estancia e)
         {
             try
             {
                 if (e == null)
                     throw  new Exception("Campos nulos");
                 List<Hospedaje> hospedajes = Sistema.GetInstancia().GetHospedajes(e.Estadia, e.Punto);
-                return String.Concat(hospedajes.Select(h => h.ToString() + "\n"));
+                return Json(hospedajes);
+                //return String.Concat(hospedajes.Select(h => h.ToString() + "\n"));
             }
             catch (Exception error)
             {
-                return error.Message;
+                return Json(error.Message);
             }
         }
 

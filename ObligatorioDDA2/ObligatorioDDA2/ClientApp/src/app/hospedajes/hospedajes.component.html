@@ -1,1 +1,41 @@
 <h1>Hosepdajes</h1>
+<h3>{{nombrePunto}}</h3>
+<div id="parametros">
+  <input type="date" id="entrada" value="2021-01-05"/>
+  <input type="date" id="salida" value="2021-02-10"/>
+  <div>
+    <div id="jubilado">
+      <p>jubilado: {{personas[3]}}</p>
+      <button (click)="sumarPersona(3)">+</button>
+      <button (click)="quitarPersona(3)">-</button>
+    </div>
+    <div id="adulto">
+      <p>adulto: {{personas[0]}}</p>
+      <button (click)="sumarPersona(0)">+</button>
+      <button (click)="quitarPersona(0)">-</button>
+    </div>
+    <div id="niño">
+      <p>niño: {{personas[1]}}</p>
+      <button (click)="sumarPersona(1)">+</button>
+      <button (click)="quitarPersona(1)">-</button>
+    </div>
+    <div id="bebe">
+      <p>bebe: {{personas[2]}}</p>
+      <button (click)="sumarPersona(2)">+</button>
+      <button (click)="quitarPersona(2)">-</button>
+    </div>
+  </div>
+  <button (click)="buscarHospedajes()">Buscar</button>
+</div>
+<div id="resultados" style="margin:5px">
+  <div *ngFor="let hotel of hoteles">
+    <div style="border: 1px solid orange; margin:5px;">
+      <h3>{{hotel.alojamiento.nombre}}</h3>
+      <p>Estrellas: {{hotel.alojamiento.estrellas}}☆</p>
+      <p>Direccion: {{hotel.alojamiento.direccion}}</p>
+      <p>Precio noche: {{hotel.alojamiento.precioNoche}}$</p>
+      <p>Descripcion: {{hotel.alojamiento.descripcion}}</p>
+      <p>Precio final: {{hotel.precioTotal}}$</p>
+    </div>
+  </div>
+</div>
