@@ -9,24 +9,38 @@ import { DatosReserva } from '../datos-reserva/datos-reserva.injectable';
 })
 export class ReservaComponent implements OnInit {
 
-  entrada = "";
-  salida = "";
   nombre_hotel: string;
   cantidad_personas: number;
 
-  constructor(private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva) {
-  }
+  reserva: string;
+
+  constructor(private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva) { }
+
   ngOnInit(): void {
-    console.log(this.clase_datos.datos);
-    this.entrada = this.clase_datos.datos.Estadia.Entrada;
-    this.salida = this.clase_datos.datos.Estadia.Salida;
-    (<HTMLInputElement>document.getElementById("entrada")).value = this.entrada;
-    (<HTMLInputElement>document.getElementById("salida")).value = this.salida;
-    this.nombre_hotel = this.clase_datos.datos.Hotel.Nombre;
-    this.cantidad_personas = this.calcular_cantidad(this.clase_datos.datos.Estadia.RangoEdades);
+    this.ocultar_seccion_reserva();
+    this.establecer_datos_pagina();
   }
 
-  calcular_cantidad(edades: any[]) {
+  ocultar_seccion_reserva() {
+    document.getElementById("resultado_reserva").style.display = "none";
+  }
+
+  mostrar_seccion_reserva() {
+    document.getElementById("resultado_reserva").style.display = "block";
+  }
+
+  establecer_datos_pagina() {
+    this.rellenar_fechas();
+    this.nombre_hotel = this.clase_datos.datos.Hotel.Nombre;
+    this.cantidad_personas = this.calcular_cantidad_personas(this.clase_datos.datos.Estadia.RangoEdades);
+  }
+
+  rellenar_fechas() {
+    (<HTMLInputElement>document.getElementById("entrada")).value = this.clase_datos.datos.Estadia.Entrada;
+    (<HTMLInputElement>document.getElementById("salida")).value = this.clase_datos.datos.Estadia.Salida;
+  }
+
+  calcular_cantidad_personas(edades: any[]) {
     let cantidad = 0;
     for (var i = 0; i < edades.length; i++) {
       cantidad += edades[i];
@@ -34,15 +48,14 @@ export class ReservaComponent implements OnInit {
     return cantidad;
   }
 
-  InfoReserva = {
-    "Nombre": "",
-    "Apellido": "",
-    "Email": "",
-    "Estadia": "",
-    "Hotel":""
+  realizar_reserva() {
+    this.rellenar_datos_InfoReserva();
+    this.peticion_post_reservar();
+    this.mostrar_seccion_reserva();
+    this.rellenar_datos_seccion_reserva();
   }
 
-  realizar_reserva() {
+  rellenar_datos_InfoReserva() {
     let estadia_obj = this.clase_datos.datos.Estadia;
     let hotel_obj = this.clase_datos.datos.Hotel;
     let nombre_persona = (<HTMLInputElement>document.getElementById("nombre")).value;
@@ -54,14 +67,25 @@ export class ReservaComponent implements OnInit {
     this.InfoReserva.Email = email_persona;
     this.InfoReserva.Estadia = estadia_obj;
     this.InfoReserva.Hotel = hotel_obj;
-
-    console.log("------------");
-    console.log("info reserva");
-    console.log(this.InfoReserva);
-    console.log("------------");
-
-    this.http.post<string>("https://localhost:44336/" + 'Reserva/Reservar', this.InfoReserva).subscribe(data => {
-      console.log(data);
-    })
   }
+
+  peticion_post_reservar() {
+    this.http.post<string>("https://localhost:44336/" + 'Reserva/Reservar', this.InfoReserva).subscribe(result => {
+      this.reserva = result;
+    });
+  }
+
+  rellenar_datos_seccion_reserva() {
+    console.log("la reserva es:");
+    console.log(this.reserva);
+  }
+
+  InfoReserva = {
+    "Nombre": "",
+    "Apellido": "",
+    "Email": "",
+    "Estadia": "",
+    "Hotel": ""
+  }
+
 }
