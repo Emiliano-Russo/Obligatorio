@@ -12,6 +12,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PruebaComponent } from './prueba/prueba.component';
 import { PuntosComponent } from './puntos/puntos.component';
 import { HospedajesComponent } from './hospedajes/hospedajes.component';
+import { ReservaComponent } from './reserva/reserva.component';
+import { DatosReserva } from './datos-reserva/datos-reserva.injectable';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { HospedajesComponent } from './hospedajes/hospedajes.component';
     PruebaComponent,
     PuntosComponent,
     HospedajesComponent,
+    ReservaComponent,   
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,9 +38,10 @@ import { HospedajesComponent } from './hospedajes/hospedajes.component';
       { path: 'prueba', component: PruebaComponent },
       { path: 'puntos/:id', component: PuntosComponent },
       { path: 'hospedajes/:nombre', component: HospedajesComponent },
+      { path: 'reserva', component: ReservaComponent },
     ])
   ],
-  providers: [],
+  providers: [DatosReserva],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

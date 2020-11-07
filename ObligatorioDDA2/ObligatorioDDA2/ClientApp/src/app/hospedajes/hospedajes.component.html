@@ -36,6 +36,7 @@
       <p>Precio noche: {{hotel.alojamiento.precioNoche}}$</p>
       <p>Descripcion: {{hotel.alojamiento.descripcion}}</p>
       <p>Precio final: {{hotel.precioTotal}}$</p>
+      <button (click)="reservar(hotel.alojamiento.nombre)">Reservar</button>
     </div>
   </div>
 </div>

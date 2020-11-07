@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { DatosReserva } from '../datos-reserva/datos-reserva.injectable';
+
 
 @Component({
   selector: 'hospedajes',
@@ -12,7 +14,8 @@ export class HospedajesComponent implements OnInit {
   personas: number[] = [0, 0, 0, 0];
   hoteles: string;
 
-  constructor(private router: ActivatedRoute, private http: HttpClient) {
+  constructor(private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva, private ruta: Router) {
+
   }
 
 
@@ -23,7 +26,7 @@ export class HospedajesComponent implements OnInit {
         console.log("Punto: " + this.nombrePunto);
       });
     this.alojamiento.Punto.Nombre = this.nombrePunto;
- 
+
   }
 
   sumarPersona(i: number) {
@@ -43,14 +46,41 @@ export class HospedajesComponent implements OnInit {
       "Descripcion": "asd",
       "Region": 0,
       "Categoria": [0],
-      "ImgName":["zero"]
+      "ImgName": ["zero"]
     },
     "Estadia": {
       "Entrada": "",
       "Salida": "",
-      "RangoEdades":[0]
+      "RangoEdades": [0]
     }
   }
+
+  estadia_hotel =
+    {
+      "Estadia": {
+        "Entrada": "",
+        "Salida": "",
+        "RangoEdades": []
+      },
+      "Hotel": {
+        "Nombre": "",
+        "Estrellas": 4,
+        "PuntoTuristico": {
+          "Nombre": "",
+          "Descripcion": "",
+          "Region": 0,
+          "Categoria": [0],
+          "ImgName": [""]
+        },
+        "Direccion": "",
+        "PrecioNoche": 1,
+        "Descripcion": "",
+        "SinCapacidad": false,
+        "NroTelefono": "",
+        "InfoDeContacto": ""
+      }
+    }
+
 
   buscarHospedajes() {
     this.alojamiento.Estadia.Entrada = (<HTMLInputElement>document.getElementById("entrada")).value;
@@ -61,6 +91,17 @@ export class HospedajesComponent implements OnInit {
       console.log(data);
       this.hoteles = data;
     })
+  }
+
+  reservar(nombre_hotel:string) {
+    this.armar_estadia_hotel(nombre_hotel);
+    this.clase_datos.datos = this.estadia_hotel;
+    this.ruta.navigate(['/reserva']);
+  }
+
+  armar_estadia_hotel(nombre_hotel: string) {
+    this.estadia_hotel.Hotel.Nombre = nombre_hotel;
+    this.estadia_hotel.Estadia = this.alojamiento.Estadia;
   }
 
 
