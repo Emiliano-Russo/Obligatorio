@@ -93,15 +93,11 @@ export class HospedajesComponent implements OnInit {
     })
   }
 
-  reservar(nombre_hotel:string) {
-    this.armar_estadia_hotel(nombre_hotel);
+  reservar(hotel: any) {
+    this.estadia_hotel.Estadia = this.alojamiento.Estadia;
+    this.estadia_hotel.Hotel = hotel;
     this.clase_datos.datos = this.estadia_hotel;
     this.ruta.navigate(['/reserva']);
-  }
-
-  armar_estadia_hotel(nombre_hotel: string) {
-    this.estadia_hotel.Hotel.Nombre = nombre_hotel;
-    this.estadia_hotel.Estadia = this.alojamiento.Estadia;
   }
 
 

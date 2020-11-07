@@ -2,14 +2,15 @@
 <h2>Hotel {{nombre_hotel}}</h2>
 <div>
   <p>Nombre</p>
-  <input type="text" />
+  <input type="text" id="nombre"/>
   <p>Apellido</p>
-  <input type="text" />
+  <input type="text" id="apellido"/>
   <p>Entrada</p>
   <input type="date" id="entrada"/>
   <p>Salida</p>
   <input type="date" id="salida"/>
   <p>Email</p>
-  <input type="email"/>
+  <input type="email" id="email"/>
   <p>cantidad personas: {{cantidad_personas}}</p>
+  <button (click)="realizar_reserva()">Reservar</button>
 </div>

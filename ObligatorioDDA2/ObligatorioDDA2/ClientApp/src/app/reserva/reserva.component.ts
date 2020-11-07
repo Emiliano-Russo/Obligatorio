@@ -33,4 +33,35 @@ export class ReservaComponent implements OnInit {
     }
     return cantidad;
   }
+
+  InfoReserva = {
+    "Nombre": "",
+    "Apellido": "",
+    "Email": "",
+    "Estadia": "",
+    "Hotel":""
+  }
+
+  realizar_reserva() {
+    let estadia_obj = this.clase_datos.datos.Estadia;
+    let hotel_obj = this.clase_datos.datos.Hotel;
+    let nombre_persona = (<HTMLInputElement>document.getElementById("nombre")).value;
+    let apellido_persona = (<HTMLInputElement>document.getElementById("apellido")).value;
+    let email_persona = (<HTMLInputElement>document.getElementById("email")).value;
+
+    this.InfoReserva.Nombre = nombre_persona;
+    this.InfoReserva.Apellido = apellido_persona;
+    this.InfoReserva.Email = email_persona;
+    this.InfoReserva.Estadia = estadia_obj;
+    this.InfoReserva.Hotel = hotel_obj;
+
+    console.log("------------");
+    console.log("info reserva");
+    console.log(this.InfoReserva);
+    console.log("------------");
+
+    this.http.post<string>("https://localhost:44336/" + 'Reserva/Reservar', this.InfoReserva).subscribe(data => {
+      console.log(data);
+    })
+  }
 }

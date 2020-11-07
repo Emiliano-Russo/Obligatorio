@@ -17,7 +17,7 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpPost]
-        public string Reservar([FromBody] InfoReserva info)
+        public JsonResult Reservar([FromBody] InfoReserva info)
         {
             Reserva res;
             try
@@ -26,9 +26,9 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             };
-            return res.ToString();
+            return Json(res);
         }
 
         [HttpGet]
