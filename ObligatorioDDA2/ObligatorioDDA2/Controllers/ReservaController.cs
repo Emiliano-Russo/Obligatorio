@@ -47,15 +47,15 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpGet]
-        public string Estado(string codigo)
+        public JsonResult Estado(string codigo)
         {
             try
             {
-                return Sistema.GetInstancia().ConsultarReserva(codigo).ToString();
+                return Json(Sistema.GetInstancia().ConsultarReserva(codigo));
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
         }
     }
