@@ -7,7 +7,7 @@
       <button (click)="filtrar(2)" id="2">Areas_Protegidas</button>
       <button (click)="filtrar(3)" id="3">Playas</button>   
   </div>
-  <div *ngFor="let punto of puntos">
+  <div *ngFor="let punto of puntos" style="padding:50px; border:3px solid green;">
     <div style="border:2px solid black">
       <button (click)="irAHospedajes(punto.nombre)"><h4>{{punto.nombre}}</h4></button>
       <p>**imagen**</p>

@@ -1,3 +1,22 @@
 <h1>Alta Hotel</h1>
-
+<div class="inputs">
+  <input type="text" id="nombre" placeholder="Nombre del Hotel" />
+  <select id="estrellas">
+    <option selected disabled>Estrellas</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <input id="punto" type="text" placeholder="Nombre Punto Turistico"/>
+  <input type="text" id="dir" placeholder="Direccion" />
+  <input type="number" id="precio" placeholder="precio" min="1" oninput="validity.valid||(value='');"/>
+  <input type="text" id="desc" placeholder="Descripcion"/>
+  <button style="background-color:LawnGreen" id="disponible" (click)="CambiarCapacidad()">Disponible</button>
+  <input type="text" id="tel" placeholder="telefono"/>
+  <input type="text" id="contacto" placeholder="Informacion de contacto"/>
+  <button (click)="registrar_hotel()">Registrar</button>
+  <p style="margin:50px">{{mensaje_srv}}</p>
+</div>
 

@@ -37,7 +37,7 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpPost]
-        public string Alta([FromBody]Alojamiento alojamiento)
+        public JsonResult Alta([FromBody]Alojamiento alojamiento)
         {
             try
             {
@@ -46,10 +46,10 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
 
-            return "Alojamiento registado";
+            return Json("Alojamiento registado");
         }
 
         [HttpPost]
