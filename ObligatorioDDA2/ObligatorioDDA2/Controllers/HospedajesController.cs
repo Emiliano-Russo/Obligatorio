@@ -52,20 +52,20 @@ namespace ObligatorioDDA2.Controllers
             return Json("Alojamiento registado");
         }
 
-        [HttpPost]
-        public string Baja([FromBody]Alojamiento alojamiento)
+        [HttpGet]
+        public JsonResult Baja(string nombreHotel)
         {
             try
             {
                 SesionActual.NoExsiteLogin_Ex();
-                Sistema.GetInstancia().BorrarAlojamiento(alojamiento.Nombre);
+                Sistema.GetInstancia().BorrarAlojamiento(nombreHotel);
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
 
-            return "Alojamiento borrado con exito";
+            return Json("Alojamiento borrado con exito");
         }
 
         [HttpGet]
