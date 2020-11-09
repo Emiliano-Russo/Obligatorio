@@ -1,0 +1,27 @@
+<h1>Alta Punto Turistico</h1>
+
+<input placeholder="nombre" id="nombre"/><br />
+<input placeholder="descripcion" id="descripcion" />
+<div style="margin:50px">
+  <p>Region</p>
+  <select id="region">
+    <option value="0">Metropolitana</option>
+    <option value="1">Centro Sur</option>
+    <option value="2">Este</option>
+    <option value="3">Litoral Norte</option>
+    <option value="4">Corredor Pajaros Pintados</option>
+  </select>
+  <br /><br />
+  <div>
+    <p>Seleccionar Categorias</p>
+    <button (click)="modificar_array_categoria(0)" id="c0">Ciudades</button>
+    <button (click)="modificar_array_categoria(1)" id="c1">Pueblos</button>
+    <button (click)="modificar_array_categoria(2)" id="c2">Areas Protegidas</button>
+    <button (click)="modificar_array_categoria(3)" id="c3">Playas</button>
+  </div>
+</div>
+<br />
+<button (click)="registrar()">Registrar</button>
+<br />
+<br />
+<p>{{respuesta}}</p>

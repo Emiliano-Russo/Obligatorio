@@ -28,7 +28,7 @@ namespace ObligatorioDDA2.Controllers
 
 
         [HttpPost]
-        public string Alta([FromBody] PuntoTuristico punto)
+        public JsonResult Alta([FromBody] PuntoTuristico punto)
         {
             try
             {
@@ -37,9 +37,9 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
-            return "Punto incluido exitosamente";
+            return Json("Punto incluido exitosamente");
         }
 
         private JsonResult BusquedaPuntosPorRegion(int region)

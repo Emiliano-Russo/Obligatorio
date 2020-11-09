@@ -15,6 +15,7 @@ import { ConsultaReservaComponent } from './consulta-reserva/consulta-reserva.co
 import { LoginComponent } from './login/login.component';
 import { DatosLogin } from './datos-login/datos-login.injectable';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AltaPuntoComponent } from './alta-punto/alta-punto.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     ReservaComponent,
     ConsultaReservaComponent,
     LoginComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AltaPuntoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,7 +41,8 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
       { path: 'reserva', component: ReservaComponent },
       { path: 'consulta', component: ConsultaReservaComponent },
       { path: 'ingresar', component: LoginComponent },
-      { path: 'admin_panel', component: AdminPanelComponent }
+      { path: 'admin_panel', component: AdminPanelComponent },
+      { path: 'alta_punto', component: AltaPuntoComponent }
     ])
   ],
   providers: [DatosReserva, DatosLogin, NavMenuComponent],
