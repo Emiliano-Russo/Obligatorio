@@ -12,6 +12,9 @@ import { HospedajesComponent } from './hospedajes/hospedajes.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import { DatosReserva } from './datos-reserva/datos-reserva.injectable';
 import { ConsultaReservaComponent } from './consulta-reserva/consulta-reserva.component';
+import { LoginComponent } from './login/login.component';
+import { DatosLogin } from './datos-login/datos-login.injectable';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,8 @@ import { ConsultaReservaComponent } from './consulta-reserva/consulta-reserva.co
     HospedajesComponent,
     ReservaComponent,
     ConsultaReservaComponent,
+    LoginComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,9 +38,11 @@ import { ConsultaReservaComponent } from './consulta-reserva/consulta-reserva.co
       { path: 'hospedajes/:nombre', component: HospedajesComponent },
       { path: 'reserva', component: ReservaComponent },
       { path: 'consulta', component: ConsultaReservaComponent },
+      { path: 'ingresar', component: LoginComponent },
+      { path: 'admin_panel', component: AdminPanelComponent }
     ])
   ],
-  providers: [DatosReserva],
+  providers: [DatosReserva, DatosLogin, NavMenuComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
