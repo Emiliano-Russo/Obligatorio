@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'puntos',
   templateUrl: './puntos.component.html',
+  styleUrls: ['./puntos.component.css','./multicolors.component.css'],
 })
 export class PuntosComponent implements OnInit {
 
@@ -46,9 +47,9 @@ export class PuntosComponent implements OnInit {
 
   cambiarColorBoton(i: string) {
     if (this.filtros[i]) {
-      document.getElementById(i).style.color = "red";
+      document.getElementById(i).style.color = "Gold";
     } else {
-      document.getElementById(i).style.color = "black";
+      document.getElementById(i).style.color = "white";
     }
   }
 

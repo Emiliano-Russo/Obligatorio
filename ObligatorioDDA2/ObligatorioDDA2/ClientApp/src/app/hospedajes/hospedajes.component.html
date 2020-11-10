@@ -1,9 +1,9 @@
 <h1>Hosepdajes</h1>
-<h3>{{nombrePunto}}</h3>
+<h3 style="text-align:center;">{{nombrePunto}}</h3>
 <div id="parametros">
-  <input type="date" id="entrada" value="2021-01-05"/>
-  <input type="date" id="salida" value="2021-02-10"/>
-  <div>
+  <input type="date" id="entrada" value="2021-01-05" />
+  <input type="date" id="salida" value="2021-02-10" />
+  <div class="edades">
     <div id="jubilado">
       <p>jubilado: {{personas[3]}}</p>
       <button (click)="sumarPersona(3)">+</button>
@@ -25,18 +25,16 @@
       <button (click)="quitarPersona(2)">-</button>
     </div>
   </div>
-  <button (click)="buscarHospedajes()">Buscar</button>
+  <button (click)="buscarHospedajes()" id="buscar">Buscar</button>
 </div>
-<div id="resultados" style="margin:5px">
-  <div *ngFor="let hotel of hoteles">
-    <div style="border: 1px solid orange; margin:5px;">
-      <h3>{{hotel.alojamiento.nombre}}</h3>
-      <p>Estrellas: {{hotel.alojamiento.estrellas}}☆</p>
-      <p>Direccion: {{hotel.alojamiento.direccion}}</p>
-      <p>Precio noche: {{hotel.alojamiento.precioNoche}}$</p>
-      <p>Descripcion: {{hotel.alojamiento.descripcion}}</p>
-      <p>Precio final: {{hotel.precioTotal}}$</p>
-      <button (click)="reservar(hotel.alojamiento)">Reservar</button>
-    </div>
+<div id="resultados">
+  <div *ngFor="let hotel of hoteles" class="tarjeta gradiente">
+    <h3>{{hotel.alojamiento.nombre}}</h3>
+    <p>Estrellas: {{hotel.alojamiento.estrellas}}☆</p>
+    <p>Direccion: {{hotel.alojamiento.direccion}}</p>
+    <p>Precio noche: {{hotel.alojamiento.precioNoche}}$</p>
+    <p>Descripcion: {{hotel.alojamiento.descripcion}}</p>
+    <p>Precio final: {{hotel.precioTotal}}$</p>
+    <button (click)="reservar(hotel.alojamiento)" class="horizontal">Reservar</button>
   </div>
 </div>

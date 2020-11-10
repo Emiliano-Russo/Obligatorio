@@ -1,0 +1,33 @@
+.filtro{
+    padding:10px;
+    margin:5px;
+}
+
+div{
+    text-align:center;
+}
+
+.puntos{
+    margin:50px 0px;
+}
+
+.punto{
+    text-align:center;
+    width:max-content;
+    border: dashed 1px black;
+    border-radius:10px;
+    margin:20px auto;
+    padding:10px;
+}
+
+.punto button{
+    padding:8px;
+    border: 1px solid black;
+    background-color:white;
+    border-radius:10px;
+}
+
+  .punto button:hover {
+    border: 1px solid coral;
+    background-color: coral;
+  }

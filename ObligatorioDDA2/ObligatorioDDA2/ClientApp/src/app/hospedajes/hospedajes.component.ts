@@ -7,6 +7,7 @@ import { DatosReserva } from '../datos-reserva/datos-reserva.injectable';
 @Component({
   selector: 'hospedajes',
   templateUrl: './hospedajes.component.html',
+  styleUrls: ['./hospedajes.component.css'],
 })
 export class HospedajesComponent implements OnInit {
 
@@ -17,7 +18,6 @@ export class HospedajesComponent implements OnInit {
   constructor(private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva, private ruta: Router) {
 
   }
-
 
   ngOnInit() {
     this.router.paramMap.

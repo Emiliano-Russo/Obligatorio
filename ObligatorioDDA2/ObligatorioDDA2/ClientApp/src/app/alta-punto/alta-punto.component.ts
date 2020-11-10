@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'alta-punto',
   templateUrl: './alta-punto.component.html',
+  styleUrls: ['./alta-punto.component.css'],
 })
 export class AltaPuntoComponent {
 

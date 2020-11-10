@@ -1,3 +1,13 @@
-div{
-    border:2px solid black;
+.regiones {
+  display: flex;
+  flex-direction: column;
+  text-align:center;
+  margin: 40px 0px;
 }
+
+  .regiones * {
+    margin: 5px;
+    font-size: larger;
+    color: coral;
+  }
+

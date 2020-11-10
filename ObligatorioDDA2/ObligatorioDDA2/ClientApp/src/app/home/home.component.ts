@@ -25,11 +25,11 @@ export class HomeComponent {
   }
 
   asignar_regiones(objeto: any) {
-    this.regiones[0] = objeto[0];
-    this.regiones[1] = objeto[1];
-    this.regiones[2] = objeto[2];
-    this.regiones[3] = objeto[3];
-    this.regiones[4] = objeto[4];
+    this.regiones[0] = objeto[0].replace("_"," ");
+    this.regiones[1] = objeto[1].replace("_", " ");;
+    this.regiones[2] = objeto[2].replace("_", " ");;
+    this.regiones[3] = objeto[3].replace("_", " ");;
+    this.regiones[4] = objeto[4].replace("_", " ");;
   }
 
 }
