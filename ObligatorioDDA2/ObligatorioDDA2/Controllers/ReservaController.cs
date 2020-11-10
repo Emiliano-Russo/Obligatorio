@@ -32,7 +32,7 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpGet]
-        public string CambiarEstado(string codigo, int estado)
+        public JsonResult CambiarEstado(string codigo, int estado)
         {
             try
             {
@@ -41,9 +41,9 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
-            return "Estado modificado con exito";
+            return Json("Estado modificado con exito");
         }
 
         [HttpGet]

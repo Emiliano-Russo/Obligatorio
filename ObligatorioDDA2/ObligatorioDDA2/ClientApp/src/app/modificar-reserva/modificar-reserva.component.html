@@ -1,3 +1,11 @@
 <h1>Modificar Reserva</h1>
-
-
+<input id="codigo" placeholder="codigo" type="text"/>
+<select id="estado">
+  <option value="0">Creada</option>
+  <option value="1">Pendiente Pago</option>
+  <option value="2">Aceptada</option>
+  <option value="3">Rechazada</option>
+  <option value="4">Expirada</option>
+</select>
+<button (click)="enviar()">enviar</button>
+<h3>{{mensaje_server}}</h3>
