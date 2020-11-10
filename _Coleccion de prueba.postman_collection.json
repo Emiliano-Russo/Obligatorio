@@ -1,0 +1,610 @@
+{
+	"info": {
+		"_postman_id": "98d19d1e-b8c1-4b2c-89cf-ba6ced67e69d",
+		"name": " Coleccion de prueba",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://localhost:44336/Regiones",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n    \"Nombre\":\"Palladium\",\r\n    \"Estrellas\":5,\r\n    \"PuntoTuristico\":{\r\n        \"Nombre\":\"Punta del este\",\r\n        \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n        \"Region\":3,\r\n        \"Categoria\":[1,3],\r\n        \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n    },\r\n    \"Direccion\":\"Av bulervar 123\",\r\n    \"PrecioNoche\":50,\r\n     \"Descripcion\":\"El mejor de todos\",\r\n    \"SinCapacidad\":false,\r\n    \"NroTelefono\":\"12400142\",\r\n    \"InfoDeContacto\":\"Contactenos al support@palladium.com por cualquier problema\"      \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Regiones",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Regiones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/PuntosTuristicos/Busqueda?region=1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n    \"Nombre\":\"Palladium\",\r\n    \"Estrellas\":5,\r\n    \"PuntoTuristico\":{\r\n        \"Nombre\":\"Punta del este\",\r\n        \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n        \"Region\":3,\r\n        \"Categoria\":[1,3],\r\n        \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n    },\r\n    \"Direccion\":\"Av bulervar 123\",\r\n    \"PrecioNoche\":50,\r\n     \"Descripcion\":\"El mejor de todos\",\r\n    \"SinCapacidad\":false,\r\n    \"NroTelefono\":\"12400142\",\r\n    \"InfoDeContacto\":\"Contactenos al support@palladium.com por cualquier problema\"      \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/PuntosTuristicos/Busqueda?region=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"PuntosTuristicos",
+						"Busqueda"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/PuntosTuristicos/Busqueda?region=1&categorias=3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n    \"Nombre\":\"Palladium\",\r\n    \"Estrellas\":5,\r\n    \"PuntoTuristico\":{\r\n        \"Nombre\":\"Punta del este\",\r\n        \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n        \"Region\":3,\r\n        \"Categoria\":[1,3],\r\n        \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n    },\r\n    \"Direccion\":\"Av bulervar 123\",\r\n    \"PrecioNoche\":50,\r\n     \"Descripcion\":\"El mejor de todos\",\r\n    \"SinCapacidad\":false,\r\n    \"NroTelefono\":\"12400142\",\r\n    \"InfoDeContacto\":\"Contactenos al support@palladium.com por cualquier problema\"      \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/PuntosTuristicos/Busqueda?region=1&categorias=3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"PuntosTuristicos",
+						"Busqueda"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "1"
+						},
+						{
+							"key": "categorias",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/PuntosTuristicos/Alta",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Nombre\":\"Solimar\",\r\n    \"Descripcion\":\"Lugar natural, y llena de fauna\",\r\n    \"Region\":4,\r\n    \"Categoria\":[1],\r\n    \"ImgName\":[\"imagen.jpg\",\"imagen2.jpg\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/PuntosTuristicos/Alta",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"PuntosTuristicos",
+						"Alta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/Login/Ingresar?email=emi@gmail.com&contra=1234",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Nombre\":\"Solimar\",\r\n    \"Descripcion\":\"Lugar natural, y llena de fauna\",\r\n    \"Region\":4,\r\n    \"Categoria\":[1],\r\n    \"ImgName\":[\"imagen.jpg\",\"imagen2.jpg\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Login/Ingresar?email=emi@gmail.com&contra=1234",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Login",
+						"Ingresar"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "emi@gmail.com"
+						},
+						{
+							"key": "contra",
+							"value": "1234"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/Reserva/Reservar",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Nombre\":\"Jhon\",\r\n    \"Apellido\":\"Sanchez\",\r\n    \"Email\":\"Sanchez@gmail.com\",\r\n    \"Estadia\":{\r\n        \"Entrada\":\"{{entrada}}\",\r\n        \"Salida\":\"{{salida}}\",\r\n        \"RangoEdades\":[1,2,0]\r\n    },\r\n    \"Hotel\":{\r\n        \"Nombre\":\"Radison\",\r\n        \"Estrellas\":4,\r\n        \"PuntoTuristico\":{\r\n            \"Nombre\":\"Punta del este\",\r\n            \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n            \"Region\":3,\r\n            \"Categoria\":[1,3],\r\n            \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n        },\r\n        \"Direccion\":\"Avenida blvr 1234\",\r\n        \"PrecioNoche\":50,\r\n        \"Descripcion\":\"El mejor de todos\",\r\n        \"SinCapacidad\":false,\r\n        \"NroTelefono\":\"12400142\",\r\n        \"InfoDeContacto\":\"Contactenos al support@radison.com por cualquier problema\"      \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Reserva/Reservar",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Reserva",
+						"Reservar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/Reserva/CambiarEstado?codigo=tznymijukf&estado=2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n    \"Nombre\":\"Palladium\",\r\n    \"Estrellas\":5,\r\n    \"PuntoTuristico\":{\r\n        \"Nombre\":\"Punta del este\",\r\n        \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n        \"Region\":3,\r\n        \"Categoria\":[1,3],\r\n        \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n    },\r\n    \"Direccion\":\"Av bulervar 123\",\r\n    \"PrecioNoche\":50,\r\n     \"Descripcion\":\"El mejor de todos\",\r\n    \"SinCapacidad\":false,\r\n    \"NroTelefono\":\"12400142\",\r\n    \"InfoDeContacto\":\"Contactenos al support@palladium.com por cualquier problema\"      \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Reserva/CambiarEstado?codigo=tznymijukf&estado=2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Reserva",
+						"CambiarEstado"
+					],
+					"query": [
+						{
+							"key": "codigo",
+							"value": "tznymijukf"
+						},
+						{
+							"key": "estado",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/Reserva/Estado?codigo=tznymijukf",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n    \"Nombre\":\"Palladium\",\r\n    \"Estrellas\":5,\r\n    \"PuntoTuristico\":{\r\n        \"Nombre\":\"Punta del este\",\r\n        \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n        \"Region\":3,\r\n        \"Categoria\":[1,3],\r\n        \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n    },\r\n    \"Direccion\":\"Av bulervar 123\",\r\n    \"PrecioNoche\":50,\r\n     \"Descripcion\":\"El mejor de todos\",\r\n    \"SinCapacidad\":false,\r\n    \"NroTelefono\":\"12400142\",\r\n    \"InfoDeContacto\":\"Contactenos al support@palladium.com por cualquier problema\"      \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Reserva/Estado?codigo=tznymijukf",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Reserva",
+						"Estado"
+					],
+					"query": [
+						{
+							"key": "codigo",
+							"value": "tznymijukf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/Hospedajes/Busqueda",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"Punto\":{\r\n            \"Nombre\":\"Punta del este\",\r\n            \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n            \"Region\":3,\r\n            \"Categoria\":[1,3],\r\n            \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n        },\r\n\"Estadia\":{\r\n        \"Entrada\":\"{{entrada}}\",\r\n        \"Salida\":\"{{salida}}\",\r\n        \"RangoEdades\":[1,2]\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Hospedajes/Busqueda",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Hospedajes",
+						"Busqueda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/Hospedajes/Alta",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n    \"Nombre\":\"Yat\",\r\n    \"Estrellas\":4,\r\n    \"PuntoTuristico\":{\r\n        \"Nombre\":\"Punta del este\",\r\n        \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n        \"Region\":3,\r\n        \"Categoria\":[1,3],\r\n        \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n    },\r\n    \"Direccion\":\"Avenida blvr 1234\",\r\n    \"PrecioNoche\":50,\r\n     \"Descripcion\":\"El mejor de todos\",\r\n    \"SinCapacidad\":false,\r\n    \"NroTelefono\":\"12400142\",\r\n    \"InfoDeContacto\":\"Contactenos al support@yat.com por cualquier problema\"      \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Hospedajes/Alta",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Hospedajes",
+						"Alta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/Hospedajes/Baja",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n    \"Nombre\":\"Palladium\",\r\n    \"Estrellas\":5,\r\n    \"PuntoTuristico\":{\r\n        \"Nombre\":\"Punta del este\",\r\n        \"Descripcion\":\"Lugar familiar con diversion para todos\",\r\n        \"Region\":3,\r\n        \"Categoria\":[1,3],\r\n        \"ImgName\":[\"punta_welcome.jpg\",\"punta_playa.jpg\"]\r\n    },\r\n    \"Direccion\":\"Av bulervar 123\",\r\n    \"PrecioNoche\":50,\r\n     \"Descripcion\":\"El mejor de todos\",\r\n    \"SinCapacidad\":false,\r\n    \"NroTelefono\":\"12400142\",\r\n    \"InfoDeContacto\":\"Contactenos al support@palladium.com por cualquier problema\"      \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Hospedajes/Baja",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Hospedajes",
+						"Baja"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44336/Hospedajes/Modificar?nombre=Radison&Disponibilidad=true",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc207deb-52af-4c70-bbd9-a9aaf4fda30e",
+						"exec": [
+							"var entrada = new Date(2020,12,1);\r",
+							"postman.setEnvironmentVariable(\"entrada\", entrada.toISOString());\r",
+							"var salida = new Date(2020,12,20);\r",
+							"postman.setEnvironmentVariable(\"salida\", salida.toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44336/Hospedajes/Modificar?nombre=Radison&Disponibilidad=true",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44336",
+					"path": [
+						"Hospedajes",
+						"Modificar"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "Radison"
+						},
+						{
+							"key": "Disponibilidad",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

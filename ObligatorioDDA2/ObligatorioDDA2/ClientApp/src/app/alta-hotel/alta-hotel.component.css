@@ -1,0 +1,20 @@
+.inputs{
+    display:flex;
+    flex-direction:column;
+}
+
+.inputs *{
+    margin:10px;
+    max-width:50%;
+}
+
+.inputs input{
+    padding:5px;
+    border-radius:10px;
+    border:solid 1px black;
+}
+
+.inputs button{
+    padding:5px;
+    border-radius:15px;
+}
