@@ -69,7 +69,7 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpGet]
-        public string Modificar(string nombre,bool disponibilidad)
+        public JsonResult Modificar(string nombre,bool disponibilidad)
         {
             try
             {
@@ -78,10 +78,10 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
 
-            return "Alojamiento modificado con exito";
+            return Json("Alojamiento modificado con exito");
         }
 
 

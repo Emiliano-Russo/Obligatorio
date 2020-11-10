@@ -1,3 +1,10 @@
 <h1>Modificar Hotel</h1>
-
+<input type="text" id="hotel" placeholder="Nombre del Hotel"/>
+<select id="disponibilidad">
+  <option selected disabled>Disponibilidad</option>
+  <option value="true">Si</option>
+  <option value="false">No</option>
+</select>
+<button (click)="enviar()">Enviar</button>
+<h3>{{mensaje_server}}</h3>
 
