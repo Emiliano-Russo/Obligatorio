@@ -17,7 +17,7 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpPost]
-        public string Reservar([FromBody] InfoReserva info)
+        public JsonResult Reservar([FromBody] InfoReserva info)
         {
             Reserva res;
             try
@@ -26,13 +26,13 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             };
-            return res.ToString();
+            return Json(res);
         }
 
         [HttpGet]
-        public string CambiarEstado(string codigo, int estado)
+        public JsonResult CambiarEstado(string codigo, int estado)
         {
             try
             {
@@ -41,21 +41,21 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
-            return "Estado modificado con exito";
+            return Json("Estado modificado con exito");
         }
 
         [HttpGet]
-        public string Estado(string codigo)
+        public JsonResult Estado(string codigo)
         {
             try
             {
-                return Sistema.GetInstancia().ConsultarReserva(codigo).ToString();
+                return Json(Sistema.GetInstancia().ConsultarReserva(codigo));
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
         }
     }

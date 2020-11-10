@@ -3,7 +3,7 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">WebApplication5</a>
+      <a class="navbar-brand" [routerLink]="['/']">Uruguay Natural</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -20,22 +20,14 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/consulta']">Consulta Reserva</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
-            >
+          <li class="nav-item" [routerLinkActive]="['link-active']" id="login">
+            <a class="nav-link text-dark" [routerLink]="['/ingresar']">Login</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']" id="admin">
+            <a style="color:blue" class="nav-link" [routerLink]="['/admin_panel']">Administracion</a>
           </li>
         </ul>
       </div>
