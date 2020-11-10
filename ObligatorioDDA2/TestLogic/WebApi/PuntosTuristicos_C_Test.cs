@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ObligatorioDDA2.Controllers;
 using ObligatorioDDA2.Models;
@@ -33,7 +34,7 @@ namespace TestLogic.WebApi
         {
             PuntosTuristicosController ptc =new PuntosTuristicosController();
             Sistema.GetInstancia().IncluirPuntoTuristico(OAR.puntaDelEste);
-            string actual = ptc.Busqueda(2, null);
+            JsonResult actual = ptc.Busqueda(2, null);
             string esperado = "puntos turisticos\rPunta del este: Un lugar muy bello | Region: Este | Categorias: Areas_Protegidas/ Playas/ \r";
             Assert.AreEqual(esperado,actual);
             Sistema.GetInstancia().BorrarPuntosTuristicos();
@@ -47,7 +48,7 @@ namespace TestLogic.WebApi
         {
             Sistema.GetInstancia().IncluirPuntoTuristico(OAR.puntaDelEste);
             PuntosTuristicosController ptc = new PuntosTuristicosController();
-            string actual = ptc.Busqueda(2, "3");
+            JsonResult actual = ptc.Busqueda(2, "3");
             string esperado = "puntos turisticos\rPunta del este: Un lugar muy bello | Region: Este | Categorias: Areas_Protegidas/ Playas/ \r";
             Assert.AreEqual(esperado,actual);
             Sistema.GetInstancia().BorrarPuntosTuristicos();
@@ -57,7 +58,7 @@ namespace TestLogic.WebApi
         public void BusquedaIncorrecta()
         {
             PuntosTuristicosController ptc = new PuntosTuristicosController();
-            string actual = ptc.Busqueda(0, "ASDASD");
+            JsonResult actual = ptc.Busqueda(0, "ASDASD");
             string esperado = "Solo se admiten numeros";
             Assert.AreEqual(esperado,actual);
         }
@@ -66,7 +67,7 @@ namespace TestLogic.WebApi
         public void BusquedaIncorrecta2()
         {
             PuntosTuristicosController ptc = new PuntosTuristicosController();
-            string actual = ptc.Busqueda(100, "1");
+            JsonResult actual = ptc.Busqueda(100, "1");
             string esperado = "region no valida";
             Assert.AreEqual(esperado, actual);
             actual = ptc.Busqueda(1, "9");
@@ -79,7 +80,7 @@ namespace TestLogic.WebApi
         public void TestAlataPunto()
         {
             PuntosTuristicosController ptc = new PuntosTuristicosController();
-            string actual = ptc.Alta(OAR.puntaDelEste);
+            JsonResult actual = ptc.Alta(OAR.puntaDelEste);
             string esperado = "Acceso Restringido";
             Assert.AreEqual(esperado,actual);
         }

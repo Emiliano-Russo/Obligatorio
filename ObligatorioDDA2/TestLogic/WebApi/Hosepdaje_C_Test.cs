@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ObligatorioDDA2.Controllers;
@@ -66,7 +67,7 @@ namespace TestLogic.WebApi
         public void TestModificacion()
         {
             HospedajesController hc = new HospedajesController();
-            string resultado = hc.Modificar("asdjklas", true);
+            JsonResult resultado = hc.Modificar("asdjklas", true);
             string esperado = "Acceso Restringido";
             Assert.AreEqual(esperado,resultado);
         }
@@ -76,7 +77,7 @@ namespace TestLogic.WebApi
         public void TestModificacionLogin()
         {
             HospedajesController hc = new HospedajesController();
-            string resultado = hc.Modificar("asdsda", true);
+            JsonResult resultado = hc.Modificar("asdsda", true);
             string esperado = "Acceso Restringido";
             Assert.AreEqual(esperado,resultado);
         }
