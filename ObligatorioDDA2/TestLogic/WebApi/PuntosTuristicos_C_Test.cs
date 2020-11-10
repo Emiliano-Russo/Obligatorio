@@ -34,12 +34,13 @@ namespace TestLogic.WebApi
         {
             PuntosTuristicosController ptc =new PuntosTuristicosController();
             Sistema.GetInstancia().IncluirPuntoTuristico(OAR.puntaDelEste);
-            JsonResult actual = ptc.Busqueda(2, null);
-            string esperado = "puntos turisticos\rPunta del este: Un lugar muy bello | Region: Este | Categorias: Areas_Protegidas/ Playas/ \r";
+            string actual = System.Text.Json.JsonSerializer.Serialize(ptc.Busqueda(2, null).Value);
+            string esperado = "[{\"Nombre\":\"Punta del este\",\"Descripcion\":\"Un lugar muy bello\",\"Region\":2," +
+                "\"Categoria\":[2,3],\"CategoriasInterno_no_usar\":\"Areas_Protegidas;Playas\",\"ImgName\":null,\"ImgNameInterno_no_usar\":null}]";
             Assert.AreEqual(esperado,actual);
             Sistema.GetInstancia().BorrarPuntosTuristicos();
-            actual = ptc.Busqueda(9, null);
-            esperado = "region no valida";
+            actual = System.Text.Json.JsonSerializer.Serialize(ptc.Busqueda(9, null).Value);
+            esperado = "\"region no valida\"";
             Assert.AreEqual(esperado,actual);
         }
 
@@ -48,8 +49,12 @@ namespace TestLogic.WebApi
         {
             Sistema.GetInstancia().IncluirPuntoTuristico(OAR.puntaDelEste);
             PuntosTuristicosController ptc = new PuntosTuristicosController();
-            JsonResult actual = ptc.Busqueda(2, "3");
-            string esperado = "puntos turisticos\rPunta del este: Un lugar muy bello | Region: Este | Categorias: Areas_Protegidas/ Playas/ \r";
+            string actual = System.Text.Json.JsonSerializer.Serialize(ptc.Busqueda(2, "3").Value);
+            string esperado = "[{\"Nombre\":\"Punta del este\"," +
+                "\"Descripcion\":\"Un lugar muy bello\",\"Region\":2," +
+                "\"Categoria\":[2,3]," +
+                "\"CategoriasInterno_no_usar\":\"Areas_Protegidas;Playas\"," +
+                "\"ImgName\":null,\"ImgNameInterno_no_usar\":null}]";
             Assert.AreEqual(esperado,actual);
             Sistema.GetInstancia().BorrarPuntosTuristicos();
         }
@@ -58,8 +63,8 @@ namespace TestLogic.WebApi
         public void BusquedaIncorrecta()
         {
             PuntosTuristicosController ptc = new PuntosTuristicosController();
-            JsonResult actual = ptc.Busqueda(0, "ASDASD");
-            string esperado = "Solo se admiten numeros";
+            string actual = System.Text.Json.JsonSerializer.Serialize(ptc.Busqueda(0, "ASDASD").Value);
+            string esperado = "\"Solo se admiten numeros\"";
             Assert.AreEqual(esperado,actual);
         }
 
@@ -67,11 +72,11 @@ namespace TestLogic.WebApi
         public void BusquedaIncorrecta2()
         {
             PuntosTuristicosController ptc = new PuntosTuristicosController();
-            JsonResult actual = ptc.Busqueda(100, "1");
-            string esperado = "region no valida";
+            string actual = System.Text.Json.JsonSerializer.Serialize(ptc.Busqueda(100, "1").Value);
+            string esperado = "\"region no valida\"";
             Assert.AreEqual(esperado, actual);
-            actual = ptc.Busqueda(1, "9");
-            esperado = "Categorias no existentes";
+            actual = System.Text.Json.JsonSerializer.Serialize(ptc.Busqueda(1, "9").Value);
+            esperado = "\"Categorias no existentes\"";
             Assert.AreEqual(esperado, actual);
         }
 
@@ -80,8 +85,8 @@ namespace TestLogic.WebApi
         public void TestAlataPunto()
         {
             PuntosTuristicosController ptc = new PuntosTuristicosController();
-            JsonResult actual = ptc.Alta(OAR.puntaDelEste);
-            string esperado = "Acceso Restringido";
+            string actual = System.Text.Json.JsonSerializer.Serialize(ptc.Alta(OAR.puntaDelEste).Value);
+            string esperado = "\"Acceso Restringido\"";
             Assert.AreEqual(esperado,actual);
         }
 

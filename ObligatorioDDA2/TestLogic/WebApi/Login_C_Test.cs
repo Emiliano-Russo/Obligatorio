@@ -22,8 +22,8 @@ namespace TestLogic.WebApi
             LoginController lc = new LoginController();
             string email = "ale@gmail.com";
             string contra = "1234";
-            JsonResult actual = lc.Ingresar(email, contra);
-            string esperado = "Credenciales no validas";
+            string actual = System.Text.Json.JsonSerializer.Serialize(lc.Ingresar(email, contra).Value);
+            string esperado = "\"Credenciales no validas\"";
             Assert.AreEqual(esperado,actual);
         }
 
@@ -31,8 +31,8 @@ namespace TestLogic.WebApi
         public void IndexTest()
         {
             LoginController lc = new LoginController();
-            JsonResult actual = lc.Index();
-            string esperado = "Pagina Login";
+            string actual = System.Text.Json.JsonSerializer.Serialize(lc.Index().Value);
+            string esperado = "\"Pagina Login\"";
             Assert.AreEqual(esperado,actual);
         }
 

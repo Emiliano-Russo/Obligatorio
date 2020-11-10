@@ -47,8 +47,8 @@ namespace TestLogic.WebApi
                 Hotel = OAR.hotel
             };
 
-            JsonResult actual = rc.Reservar(info);
-            string esperada = "Punto turistico no existe";
+            string actual = System.Text.Json.JsonSerializer.Serialize(rc.Reservar(info).Value);
+            string esperada = "\"Punto turistico no existe\"";
             Assert.AreEqual(esperada,actual);
         }
 

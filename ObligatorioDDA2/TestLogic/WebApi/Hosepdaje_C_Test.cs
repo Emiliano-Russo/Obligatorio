@@ -43,8 +43,14 @@ namespace TestLogic.WebApi
                 Estadia = OAR.estadiaVacacional,
                 Punto = OAR.puntaDelEste
             };
-            string resultado = "";//hc.Busqueda(estancia);
-            string esperado = OAR.hotel.ToString() +"Precio total: " + 3000 + " $"+ "\n";
+            string resultado = System.Text.Json.JsonSerializer.Serialize(hc.Busqueda(estancia).Value);
+            string esperado = "[{\"Alojamiento\":{\"Nombre\":\"Crystal\",\"Estrellas\":5,\"PuntoTuristico\"" +
+                ":{\"Nombre\":\"Punta del este\",\"Descripcion\":\"Un lugar muy bello\",\"Region\":2,\"Categoria\":[2,3]," +
+                "\"CategoriasInterno_no_usar\":\"Areas_Protegidas;Playas\",\"ImgName\":null,\"ImgNameInterno_no_usar" +
+                "\":null},\"Direccion\":\"Av Bulvevar 123\"," +
+                "\"PrecioNoche\":100,\"Descripcion\":\"Un hotel familiar, cerca de las atracciones turisticas\"," +
+                "\"SinCapacidad\":false,\"NroTelefono\":" +
+                "\"097441254\",\"InfoDeContacto\":\"Contactenos en www.crystal.com\"},\"PrecioTotal\":3000}]";
             Assert.IsTrue(resultado.Equals(esperado));
         }
 
@@ -57,8 +63,8 @@ namespace TestLogic.WebApi
                 Estadia = OAR.estadiaVacacional,
                 Punto = null
             };
-            string resultado = "";//hc.Busqueda(e);
-            string esperado = "campos nulos";
+            string resultado = System.Text.Json.JsonSerializer.Serialize(hc.Busqueda(e).Value);
+            string esperado = "\"campos nulos\"";
             Assert.AreEqual(esperado,resultado);
         }
 
@@ -67,8 +73,8 @@ namespace TestLogic.WebApi
         public void TestModificacion()
         {
             HospedajesController hc = new HospedajesController();
-            JsonResult resultado = hc.Modificar("asdjklas", true);
-            string esperado = "Acceso Restringido";
+            string resultado = System.Text.Json.JsonSerializer.Serialize(hc.Modificar("asdjklas", true).Value);
+            string esperado = "\"Acceso Restringido\"";
             Assert.AreEqual(esperado,resultado);
         }
 
@@ -77,8 +83,8 @@ namespace TestLogic.WebApi
         public void TestModificacionLogin()
         {
             HospedajesController hc = new HospedajesController();
-            JsonResult resultado = hc.Modificar("asdsda", true);
-            string esperado = "Acceso Restringido";
+            string resultado = System.Text.Json.JsonSerializer.Serialize(hc.Modificar("asdsda", true).Value);
+            string esperado = "\"Acceso Restringido\"";
             Assert.AreEqual(esperado,resultado);
         }
 
@@ -86,8 +92,8 @@ namespace TestLogic.WebApi
         public void TestAltaHospedaje()
         {
             HospedajesController hc = new HospedajesController();
-            string actual = "";//hc.Alta(OAR.hotel);
-            string esperado = "Acceso Restringido";
+            string actual = System.Text.Json.JsonSerializer.Serialize(hc.Alta(OAR.hotel).Value);
+            string esperado = "\"Acceso Restringido\"";
             Assert.AreEqual(esperado,actual);
         }
 
@@ -95,8 +101,8 @@ namespace TestLogic.WebApi
         public void TestBajaHospedaje()
         {
             HospedajesController hc = new HospedajesController();
-            string actual = "";//hc.Baja(OAR.hotel.Nombre);
-            string esperado = "Acceso Restringido";
+            string actual = System.Text.Json.JsonSerializer.Serialize(hc.Baja(OAR.hotel.Nombre).Value);
+            string esperado = "\"Acceso Restringido\"";
             Assert.AreEqual(esperado,actual);
         }
 
