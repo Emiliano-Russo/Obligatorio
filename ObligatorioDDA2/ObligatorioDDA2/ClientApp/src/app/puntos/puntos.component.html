@@ -1,0 +1,18 @@
+<div>
+  <h1>Region {{region_n}}</h1>
+  <h3>Puntos Turisticos</h3>
+  <div class="filtro">
+      <p>Categorias </p>
+      <button (click)="filtrar(0)" class="glow-on-hover" id="0">Ciudades</button>
+      <button (click)="filtrar(1)" class="glow-on-hover"  id="1">Pueblos</button>
+      <button (click)="filtrar(2)" class="glow-on-hover"  id="2">Areas_Protegidas</button>
+      <button (click)="filtrar(3)" class="glow-on-hover"  id="3">Playas</button>   
+  </div>
+  <div class="puntos">
+    <div *ngFor="let punto of puntos" class="punto">
+      <button (click)="irAHospedajes(punto.nombre)"><h4>{{punto.nombre}}</h4></button>
+      <p>**imagen**</p>
+      <p> Categorias: {{punto.categoriasInterno_no_usar}}</p>
+    </div>
+  </div>
+</div>
