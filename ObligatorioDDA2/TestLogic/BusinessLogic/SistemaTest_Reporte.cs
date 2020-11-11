@@ -30,11 +30,11 @@ namespace TestLogic
             sistema.CrearReserva(infoReserva);
             info = this.Construir_Info(punto.Nombre);
             lista = sistema.ReporteA(info);
-            Assert.IsTrue(lista.Count == 2);
+            Assert.IsTrue(lista.Count == 1 && lista.Find(x=>x.Hotel==hotel.Nombre).CantidadReservas == 2);
            
             sistema.CambiarEstadoReserva(reserva.Codigo, EstadoReserva.Rechazada);
             lista = sistema.ReporteA(info);
-            Assert.IsTrue(lista.Count == 1);
+            Assert.IsTrue(lista.Count == 1 && lista.Find(x => x.Hotel == hotel.Nombre).CantidadReservas == 1);
             sistema.BorrarReservas();
         }
 
@@ -83,8 +83,8 @@ namespace TestLogic
             InfoReporte info = new InfoReporte
             {
                 NombrePunto = punto.Nombre,
-                Inicio = OAR.estadiaVacacional.Entrada.AddDays(20),
-                Final = OAR.estadiaVacacional.Salida.AddDays(30)
+                Inicio = OAR.estadiaVacacional.Entrada.AddMonths(5),
+                Final = OAR.estadiaVacacional.Salida.AddMonths(6)
             };
             List<Hotel_CantReservas> lista = sistema.ReporteA(info);
             Assert.IsTrue(lista.Count == 0);
