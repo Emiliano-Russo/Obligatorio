@@ -1,0 +1,21 @@
+<h1>Reserva</h1>
+<h2>Hotel {{nombre_hotel}}</h2>
+<div>
+  <p>Nombre</p>
+  <input type="text" id="nombre"/>
+  <p>Apellido</p>
+  <input type="text" id="apellido"/>
+  <p>Entrada</p>
+  <input type="date" id="entrada"/>
+  <p>Salida</p>
+  <input type="date" id="salida"/>
+  <p>Email</p>
+  <input type="email" id="email"/>
+  <p>cantidad personas: {{cantidad_personas}}</p>
+  <button (click)="realizar_reserva()">Reservar</button>
+  <div id="resultado_reserva" style="border:2px solid red; margin:15px;">
+    <p>codigo reserva: {{reserva.codigo}}</p>
+    <p>nro telefono: {{reserva.infoReserva.hotel.nroTelefono}}</p>
+    <p>info: {{reserva.infoReserva.hotel.infoDeContacto}}</p>
+  </div>
+</div>
