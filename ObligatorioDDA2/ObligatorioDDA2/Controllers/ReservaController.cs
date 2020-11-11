@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogic.Models.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using ObligatorioDDA2.Models;
 using ObligatorioDDA2.Models.Entidades;
@@ -17,7 +18,7 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpPost]
-        public string Reservar([FromBody] InfoReserva info)
+        public JsonResult Reservar([FromBody] InfoReserva info)
         {
             Reserva res;
             try
@@ -26,13 +27,13 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             };
-            return res.ToString();
+            return Json(res);
         }
 
         [HttpGet]
-        public string CambiarEstado(string codigo, int estado)
+        public JsonResult CambiarEstado(string codigo, int estado)
         {
             try
             {
@@ -41,21 +42,38 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
-            return "Estado modificado con exito";
+            return Json("Estado modificado con exito");
         }
 
         [HttpGet]
-        public string Estado(string codigo)
+        public JsonResult Estado(string codigo)
         {
             try
             {
-                return Sistema.GetInstancia().ConsultarReserva(codigo).ToString();
+                return Json(Sistema.GetInstancia().ConsultarReserva(codigo));
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult ReporteA([FromBody]InfoReporte reporte)
+        {
+            try
+            {
+                List<Hotel_CantReservas> lista = Sistema.GetInstancia().ReporteA(reporte);
+                if (lista.Count > 0)
+                    return Json(lista);
+                else
+                    return Json("No existen hoteles con reservas validas para es punto");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
             }
         }
     }

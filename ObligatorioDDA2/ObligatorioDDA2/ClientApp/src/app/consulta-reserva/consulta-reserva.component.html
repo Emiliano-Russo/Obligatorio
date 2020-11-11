@@ -1,0 +1,9 @@
+<h1>Consulta Reserva</h1>
+
+<input type="text" placeholder="codigo reserva" id="codigo"/>
+<button (click)="ver_estado_reserva()">Ver estado</button>
+<div>
+  <p>Reservado por: {{consulta.nombre}}</p>
+  <p>Estado: {{consulta.estado}}</p>
+  <p>Descripcion: {{consulta.descripcion}}</p>
+</div>

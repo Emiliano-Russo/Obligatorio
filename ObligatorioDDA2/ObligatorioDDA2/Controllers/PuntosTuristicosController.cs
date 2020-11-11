@@ -18,7 +18,7 @@ namespace ObligatorioDDA2.Controllers
 
 
         [HttpGet]
-        public string Busqueda(int region, string categorias)
+        public JsonResult Busqueda(int region, string categorias)
         {
             if (categorias == null)
                 return BusquedaPuntosPorRegion(region);
@@ -28,34 +28,35 @@ namespace ObligatorioDDA2.Controllers
 
 
         [HttpPost]
-        public string Alta([FromBody]PuntoTuristico punto)
+        public JsonResult Alta([FromBody] PuntoTuristico punto)
         {
             try
             {
-                SesionActual.NoExsiteLogin_Ex();            
-                Sistema.GetInstancia().IncluirPuntoTuristico(punto);              
+                SesionActual.NoExsiteLogin_Ex();
+                Sistema.GetInstancia().IncluirPuntoTuristico(punto);
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
-            return "Punto incluido exitosamente";
+            return Json("Punto incluido exitosamente");
         }
 
-        private string BusquedaPuntosPorRegion(int region)
+        private JsonResult BusquedaPuntosPorRegion(int region)
         {
             try
             {
                 ValidarRegion(region);
-                return ArmarListaDePuntosString(Sistema.GetInstancia().GetPuntosTuristicos((Region)region));
+                return Json(Sistema.GetInstancia().GetPuntosTuristicos((Region)region));
+                //return ArmarListaDePuntosString(Sistema.GetInstancia().GetPuntosTuristicos((Region)region));
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
         }
 
-        private string BusquedaPuntosPorRegionCategoria(int region, string categorias)
+        private JsonResult BusquedaPuntosPorRegionCategoria(int region, string categorias)
         {
             try
             {
@@ -65,27 +66,31 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
         }
 
-
-        private string ArmarListaDePuntosString(List<PuntoTuristico> listaPuntos)
+        //borrar?
+        private JsonResult ArmarListaDePuntosString(List<PuntoTuristico> listaPuntos)
         {
-            string retorno = "puntos turisticos" + "\r";
-            foreach (var item in listaPuntos)
-                retorno += item.ToString() + "\r";
+            List<string> puntosString = new List<string>();
+            foreach (var punto in listaPuntos)
+            {
+                puntosString.Add(punto.ToString());
+            }
+           
 
-            return retorno;
+            return Json(puntosString);
         }
 
 
 
-        private string DevolverPuntosString(int region, string categorias)
+        private JsonResult DevolverPuntosString(int region, string categorias)
         {
             Categoria[] arrayCategorias = this.GetCategorias(categorias);
             List<PuntoTuristico> listaPuntos = Sistema.GetInstancia().GetPuntosTuristicos((Region)region, arrayCategorias);
-            return ArmarListaDePuntosString(listaPuntos);
+            return Json(listaPuntos);
+            //return ArmarListaDePuntosString(listaPuntos);
         }
 
         private void ValidarRegion(int region)
