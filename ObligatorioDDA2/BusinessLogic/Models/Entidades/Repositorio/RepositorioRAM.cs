@@ -1,4 +1,5 @@
-﻿using ObligatorioDDA2.Models.Exceptions;
+﻿using BusinessLogic.Models.Entidades;
+using ObligatorioDDA2.Models.Exceptions;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
 using System;
@@ -110,6 +111,21 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             });
             r.EstadoReserva = estadoReserva;
             listaReserva.Add(r);
+        }
+
+        public List<Reserva> GetReservasValidas(Unidad_ReporteA info)
+        {
+            return this.listaReserva.FindAll(x =>
+                x.InfoReserva.Hotel.Nombre == info.Alojamiento.Nombre
+                && x.EstadoReserva != EstadoReserva.Rechazada
+            && x.EstadoReserva != EstadoReserva.Expirada
+            && x.InfoReserva.Estadia.Entrada < info.Salida
+            && x.InfoReserva.Estadia.Salida > info.Ingreso);
+        }
+
+        public List<Alojamiento> GetAlojamientos(PuntoTuristico punto)
+        {
+            return this.listAlojamientos.FindAll(x => x.PuntoTuristico.Nombre == punto.Nombre);
         }
     }
 }

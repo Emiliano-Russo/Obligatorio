@@ -1,4 +1,5 @@
-﻿using ObligatorioDDA2.Data;
+﻿using BusinessLogic.Models.Entidades;
+using ObligatorioDDA2.Data;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
 using System;
@@ -37,7 +38,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
         public bool Existe(PuntoTuristico punto)
         {
             PuntoTuristico puntoBuscar = new PuntoTuristico();
-            using(var context = new EntidadesContext())
+            using (var context = new EntidadesContext())
             {
                 puntoBuscar = context.PuntosTuristicos.Find(punto.Nombre);
             }
@@ -85,16 +86,21 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
                 {
                     context.Entry(alojamiento).Reference(x => x.PuntoTuristico).Load();
                 }
-                
+
             }
             if (alojamientos == null)
                 return null;
             for (int i = 0; i < alojamientos.Count; i++)
             {
-                hospedajes.Add(new Hospedaje(alojamientos[i], estadia)); 
+                hospedajes.Add(new Hospedaje(alojamientos[i], estadia));
             }
 
             return hospedajes;
+        }
+
+        public List<Hospedaje> GetHospedajes(PuntoTuristico punto)
+        {
+            throw new NotImplementedException();
         }
 
         public List<PuntoTuristico> GetPuntos(Region region)
@@ -119,6 +125,10 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return listaPuntos;
         }
 
+        public Reserva GetReservas(Hospedaje h)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Incluir(PuntoTuristico punto)
         {
@@ -170,7 +180,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
 
         public bool Login(Admin admin)
         {
-            return this.Existe(admin);          
+            return this.Existe(admin);
         }
 
         public void ModificarAlojamiento(string nombre, bool disponible)
@@ -178,7 +188,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             Alojamiento alojamiento;
             using (var context = new EntidadesContext())
             {
-                alojamiento = context.Alojamientos.Find(nombre);                
+                alojamiento = context.Alojamientos.Find(nombre);
                 alojamiento.SinCapacidad = !disponible;
                 context.Alojamientos.Update(alojamiento);
                 context.SaveChanges();
@@ -213,6 +223,31 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
                 context.Admins.Remove(admin);
                 context.SaveChanges();
             }
+        }
+
+        List<Alojamiento> IRepositorio.GetAlojamientos(PuntoTuristico punto)
+        {
+            List<Alojamiento> lista_alojamiento = new List<Alojamiento>();
+            using (var context = new EntidadesContext())
+            {
+                lista_alojamiento = context.Alojamientos.Where(a => a.PuntoTuristico == punto).ToList();
+            }
+            return lista_alojamiento;
+        }
+
+        List<Reserva> IRepositorio.GetReservasValidas(Unidad_ReporteA info)
+        {
+            List<Reserva> lista_reservas = new List<Reserva>();
+            using (var context = new EntidadesContext())
+            {
+                lista_reservas = context.Reservas.Where(x =>
+                x.InfoReserva.Hotel.Nombre == info.Alojamiento.Nombre
+                && x.EstadoReserva != EstadoReserva.Rechazada
+            && x.EstadoReserva != EstadoReserva.Expirada
+            && x.InfoReserva.Estadia.Entrada < info.Salida
+            && x.InfoReserva.Estadia.Salida > info.Ingreso).ToList();
+            }
+            return lista_reservas;
         }
     }
 }
