@@ -235,17 +235,17 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return lista_alojamiento;
         }
 
-        List<Reserva> IRepositorio.GetReservasValidas(InfoReporte info)
+        List<Reserva> IRepositorio.GetReservasValidas(Unidad_ReporteA info)
         {
             List<Reserva> lista_reservas = new List<Reserva>();
             using (var context = new EntidadesContext())
             {
                 lista_reservas = context.Reservas.Where(x =>
-                x.InfoReserva.Hotel.PuntoTuristico.Nombre == info.NombrePunto
+                x.InfoReserva.Hotel.Nombre == info.Alojamiento.Nombre
                 && x.EstadoReserva != EstadoReserva.Rechazada
             && x.EstadoReserva != EstadoReserva.Expirada
-            && x.InfoReserva.Estadia.Entrada < info.Final
-            && x.InfoReserva.Estadia.Salida > info.Inicio).ToList();
+            && x.InfoReserva.Estadia.Entrada < info.Salida
+            && x.InfoReserva.Estadia.Salida > info.Ingreso).ToList();
             }
             return lista_reservas;
         }

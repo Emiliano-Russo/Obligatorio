@@ -61,7 +61,7 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpPost]
-        public JsonResult ReporteA(InfoReporte reporte)
+        public JsonResult ReporteA([FromBody]InfoReporte reporte)
         {
             try
             {
