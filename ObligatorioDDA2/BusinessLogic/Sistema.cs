@@ -1,4 +1,5 @@
-﻿using ObligatorioDDA2.Models.Entidades.Repositorio;
+﻿using BusinessLogic.Models.Entidades;
+using ObligatorioDDA2.Models.Entidades.Repositorio;
 using ObligatorioDDA2.Models.Exceptions;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
@@ -138,6 +139,11 @@ namespace ObligatorioDDA2.Models
         {
             validacionAdmin.ValidarExistencia(admin.email);
             repo.Quitar(admin);
+        }
+
+        public List<Hotel_CantReservas> ReporteA(InfoReporte info)
+        {
+            throw new NotImplementedException();
         }
 
         //metodos utiles para unittest
