@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Models.Entidades;
+using BusinessLogic.Models.Entidades.Logica_ReporteA;
 using ObligatorioDDA2.Models.Entidades.Repositorio;
 using ObligatorioDDA2.Models.Exceptions;
 using ObligatorioDDA2.Models.Interfaces;
@@ -143,23 +144,8 @@ namespace ObligatorioDDA2.Models
 
         public List<Hotel_CantReservas> ReporteA(InfoReporte info)
         {
-            List<Hotel_CantReservas> lista_retorno = new List<Hotel_CantReservas>();
-            PuntoTuristico punto = new PuntoTuristico
-            {
-                Nombre = info.NombrePunto
-            };
-            List<Alojamiento> lista_alojamientos = this.repo.GetAlojamientos(punto);
-            foreach (var alojamiento in lista_alojamientos)
-            {
-                Hotel_CantReservas hc = new Hotel_CantReservas
-                {
-                    CantidadReservas = this.repo.GetReservasValidas(info).Count,
-                    Hotel = alojamiento.Nombre
-                };
-                if (hc.CantidadReservas > 0)
-                    lista_retorno.Add(hc);
-            }
-            return lista_retorno;
+            Logica_ReporteA logica = new Logica_ReporteA();
+            return logica.GetReporteA(info);           
         }
 
 
