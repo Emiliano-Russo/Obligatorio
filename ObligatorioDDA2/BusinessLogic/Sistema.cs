@@ -1,4 +1,6 @@
-﻿using ObligatorioDDA2.Models.Entidades.Repositorio;
+﻿using BusinessLogic.Models.Entidades;
+using BusinessLogic.Models.Entidades.Logica_ReporteA;
+using ObligatorioDDA2.Models.Entidades.Repositorio;
 using ObligatorioDDA2.Models.Exceptions;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
@@ -139,6 +141,14 @@ namespace ObligatorioDDA2.Models
             validacionAdmin.ValidarExistencia(admin.email);
             repo.Quitar(admin);
         }
+
+        public List<Hotel_CantReservas> ReporteA(InfoReporte info)
+        {
+            Logica_ReporteA logica = new Logica_ReporteA();
+            return logica.GetReporteA(info);           
+        }
+
+
 
         //metodos utiles para unittest
         public void BorrarPuntosTuristicos() => ResetearRepositorioRam();

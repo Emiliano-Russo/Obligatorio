@@ -1,4 +1,5 @@
-﻿using ObligatorioDDA2.Models.Logic;
+﻿using BusinessLogic.Models.Entidades;
+using ObligatorioDDA2.Models.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,10 @@ namespace ObligatorioDDA2.Models.Interfaces
 
         void ModificarAlojamiento(string codigo, bool disponible);
 
-
         void ModificarEstadoReserva(string codigo, EstadoReserva estado);
+
+        List<Reserva> GetReservasValidas(InfoReporte info);
+
+        List<Alojamiento> GetAlojamientos(PuntoTuristico punto);
     }
 }
