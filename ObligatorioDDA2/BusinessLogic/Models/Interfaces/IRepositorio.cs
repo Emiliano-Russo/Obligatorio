@@ -43,7 +43,7 @@ namespace ObligatorioDDA2.Models.Interfaces
 
         void ModificarEstadoReserva(string codigo, EstadoReserva estado);
 
-        List<Reserva> GetReservasValidas(InfoReporte info);
+        List<Reserva> GetReservasValidas(Unidad_ReporteA info);
 
         List<Alojamiento> GetAlojamientos(PuntoTuristico punto);
     }
