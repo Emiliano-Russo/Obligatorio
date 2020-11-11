@@ -1,0 +1,77 @@
+div{
+    padding:10px;
+}
+
+p{
+    margin:0px;
+}
+
+.edades{
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.edades *{
+    display:flex;
+    justify-content:center;
+    align-content:center;
+}
+
+.edades div *{
+    display:flex;
+    align-content:center;
+}
+
+.edades button{
+    margin:5px;
+    border-radius:20px;
+    border-color:coral;
+    background-color:white;
+}
+
+#buscar{
+    background-color:white;
+    border-radius:15px;
+    padding:5px;
+}
+
+#buscar:hover {
+  background-color: coral;
+  border-color:coral;
+  color:white;
+}
+
+.tarjeta {
+  margin: 10px auto;
+  padding: 5px;
+  border: 1px solid coral;
+  text-align:center;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 50%;
+}
+
+.tarjeta button{
+    width:max-content;
+    margin:0 auto;
+    border-radius:20px;
+    background-color:coral;
+    color:white;
+}
+
+.tarjeta button:hover{
+    background-color:azure;
+    color:black;
+}
+
+
+.gradiente {
+  background: #8A2387; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #F27121, #E94057, #8A2387); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #F27121, #E94057, #8A2387); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color:white;
+}
+
+
