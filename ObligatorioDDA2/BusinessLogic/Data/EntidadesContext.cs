@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BusinessLogic.Models.Entidades.Repositorio;
+using Microsoft.EntityFrameworkCore;
 using ObligatorioDDA2.Models.Logic;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace ObligatorioDDA2.Data
         public DbSet<Reserva> Reservas { get; set; }
 
         public DbSet<Admin> Admins { get; set; }
+
+        public DbSet<Puntuacion> Puntuacion { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
