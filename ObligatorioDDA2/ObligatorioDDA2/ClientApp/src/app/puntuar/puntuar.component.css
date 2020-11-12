@@ -1,0 +1,30 @@
+.forma{
+    display:flex;
+    flex-direction:column;
+}
+
+.forma * {
+    width:50%;
+    margin: 20px auto;
+    text-align:center;
+}
+
+  .forma input {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+.forma button{
+    border-radius:5px;
+    background-color:white;
+    max-width:200px;
+}
+
+.forma button:hover{
+    background-color:coral;
+    color:white;
+}
+
+.forma textarea{
+    max-height:250px;
+}

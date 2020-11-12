@@ -21,6 +21,7 @@ import { BorrarHotelComponent } from './borrar-hotel/borrar-hotel.component';
 import { ModificarHotelComponent } from './modificar-hotel/modificar-hotel.component';
 import { ModificarReservaComponent } from './modificar-reserva/modificar-reserva.component';
 import { ReporteAComponent } from './reporte-a/reporte-a.component';
+import { PuntuarComponent } from './puntuar/puntuar.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ReporteAComponent } from './reporte-a/reporte-a.component';
     BorrarHotelComponent,
     ModificarHotelComponent,
     ModificarReservaComponent,
-    ReporteAComponent
+    ReporteAComponent,
+    PuntuarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -57,7 +59,8 @@ import { ReporteAComponent } from './reporte-a/reporte-a.component';
       { path: 'borrar_hotel', component: BorrarHotelComponent },
       { path: 'modificar_hotel', component: ModificarHotelComponent },
       { path: 'modificar_reserva', component: ModificarReservaComponent },
-      { path: 'reporte_a', component: ReporteAComponent }
+      { path: 'reporte_a', component: ReporteAComponent },
+      { path: 'puntuar', component: PuntuarComponent }
     ])
   ],
   providers: [DatosReserva, DatosLogin, NavMenuComponent],

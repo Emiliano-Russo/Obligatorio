@@ -98,12 +98,13 @@ namespace ObligatorioDDA2.Controllers
                     Comentario = pun.Comentario
                 };
                 Sistema.GetInstancia().Puntuar(puntuacion);
+                return Json("Se a enviado la puntuacion con exito");
             }
             catch (Exception e)
             {
-                Json(e.Message);
+                return Json(e.Message);
             }
-            return Json("Se a enviado la puntuacion con exito");
+           
         }
 
         [HttpGet]

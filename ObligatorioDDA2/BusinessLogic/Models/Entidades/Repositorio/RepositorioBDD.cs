@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Models.Entidades;
 using BusinessLogic.Models.Entidades.Repositorio;
+using Microsoft.EntityFrameworkCore;
 using ObligatorioDDA2.Data;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
@@ -67,6 +68,8 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return reservaBusqueda != null;
         }
 
+
+
         public bool Existe(Admin admin)
         {
             Admin a = null;
@@ -126,12 +129,49 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
 
             return listaPuntos;
         }
+
+        public Reserva Incluir(InfoReserva inforeserva)
+        {
+
+            Reserva reserva = new Reserva
+            {
+                InfoReserva = inforeserva,
+                Codigo = CodigoRandom.GetCodigoRandomUnico(10),
+                EstadoReserva = EstadoReserva.Creada
+            };
+            using (var context = new EntidadesContext())
+            {
+                context.PuntosTuristicos.Attach(inforeserva.Hotel.PuntoTuristico);
+                context.Alojamientos.Attach(inforeserva.Hotel);
+                context.InfoReservas.Add(inforeserva);
+                context.Reservas.Add(reserva);
+                context.SaveChanges();
+            }
+            return reserva;
+        }
+
+
         //Puntuacion
+
+        public void Existe(Puntuacion_Recibir p)
+        {
+            bool existe = false;
+            using (var context = new EntidadesContext())
+            {
+                List<Puntuacion> lista =context.Puntuacion.Where(x => x.Reserva.Codigo == p.Codigo).ToList();
+                if (lista != null && lista.Count > 0)
+                    throw new Exception("Ya existe un puntaje para esta reserva");
+            }
+        }
 
         public void EnviarPuntuacion(Puntuacion p)
         {
             using (var context = new EntidadesContext())
             {
+                context.PuntosTuristicos.Attach(p.Reserva.InfoReserva.Hotel.PuntoTuristico);
+                context.Alojamientos.Attach(p.Reserva.InfoReserva.Hotel);
+                context.InfoReservas.Attach(p.Reserva.InfoReserva);
+                context.Reservas.Attach(p.Reserva);
                 context.Puntuacion.Add(p);
                 context.SaveChanges();
             }
@@ -175,10 +215,18 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             Reserva reserva = null;
             using (var context = new EntidadesContext())
             {
-                reserva= context.Reservas.Where(x => x.Codigo == codigo).ToList()[0];
+                List<Reserva> lista = context.Reservas.
+                    Include(a=>a.InfoReserva).
+                    Include(a=> a.InfoReserva.Estadia).
+                    Include(a=> a.InfoReserva.Hotel).
+                    Include(a=> a.InfoReserva.Hotel.PuntoTuristico).
+                    Where(x => x.Codigo == codigo).ToList();
+                reserva = lista[0];                
             }
             return reserva;
         }
+
+        
 
         public Reserva GetReservas(Hospedaje h)
         {
@@ -204,25 +252,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             }
         }
 
-        public Reserva Incluir(InfoReserva inforeserva)
-        {
-
-            Reserva reserva = new Reserva
-            {
-                InfoReserva = inforeserva,
-                Codigo = CodigoRandom.GetCodigoRandomUnico(10),
-                EstadoReserva = EstadoReserva.Creada
-            };
-            using (var context = new EntidadesContext())
-            {
-                context.PuntosTuristicos.Attach(inforeserva.Hotel.PuntoTuristico);
-                context.Alojamientos.Attach(inforeserva.Hotel);
-                context.InfoReservas.Add(inforeserva);
-                context.Reservas.Add(reserva);
-                context.SaveChanges();
-            }
-            return reserva;
-        }
+        
 
         public void Incluir(Admin admin)
         {
@@ -304,5 +334,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             }
             return lista_reservas;
         }
+
+        
     }
 }
