@@ -13,6 +13,10 @@ namespace BusinessLogic.Models.Entidades
 
         public string Codigo { get; set; }
 
+        public string Nombre { get; set; }
+
+        public string Apellido { get; set; }
+
         public bool Equals(Puntuacion_Recibir obj)
         {
             return obj != null && obj.Codigo == this.Codigo &&
