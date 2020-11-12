@@ -36,14 +36,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return consultaEstado;
         }
 
-        public void EnviarPuntuacion(Puntuacion p)
-        {
-            using (var context = new EntidadesContext())
-            {
-                context.Puntuacion.Add(p);
-            }
-        }
-
+     
         public bool Existe(PuntoTuristico punto)
         {
             PuntoTuristico puntoBuscar = new PuntoTuristico();
@@ -134,6 +127,16 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return listaPuntos;
         }
         //Puntuacion
+
+        public void EnviarPuntuacion(Puntuacion p)
+        {
+            using (var context = new EntidadesContext())
+            {
+                context.Puntuacion.Add(p);
+                context.SaveChanges();
+            }
+        }
+
         public List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento)
         {
             List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
