@@ -113,13 +113,14 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             listaReserva.Add(r);
         }
 
-        public List<Reserva> GetReservasValidas(InfoReporte info)
+        public List<Reserva> GetReservasValidas(Unidad_ReporteA info)
         {
-            return this.listaReserva.FindAll(x => x.InfoReserva.Hotel.PuntoTuristico.Nombre == info.NombrePunto &&
-            x.EstadoReserva != EstadoReserva.Rechazada
+            return this.listaReserva.FindAll(x =>
+                x.InfoReserva.Hotel.Nombre == info.Alojamiento.Nombre
+                && x.EstadoReserva != EstadoReserva.Rechazada
             && x.EstadoReserva != EstadoReserva.Expirada
-            && x.InfoReserva.Estadia.Entrada < info.Final 
-            && x.InfoReserva.Estadia.Salida > info.Inicio);
+            && x.InfoReserva.Estadia.Entrada < info.Salida
+            && x.InfoReserva.Estadia.Salida > info.Ingreso);
         }
 
         public List<Alojamiento> GetAlojamientos(PuntoTuristico punto)
