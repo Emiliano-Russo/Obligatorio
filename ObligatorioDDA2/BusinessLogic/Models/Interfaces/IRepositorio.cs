@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Models.Entidades;
+using BusinessLogic.Models.Entidades.Repositorio;
 using ObligatorioDDA2.Models.Logic;
 using System;
 using System.Collections.Generic;
@@ -46,5 +47,9 @@ namespace ObligatorioDDA2.Models.Interfaces
         List<Reserva> GetReservasValidas(Unidad_ReporteA info);
 
         List<Alojamiento> GetAlojamientos(PuntoTuristico punto);
+
+        Reserva GetReserva(string codigo);
+        void EnviarPuntuacion(Puntuacion p);
+        List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento);
     }
 }

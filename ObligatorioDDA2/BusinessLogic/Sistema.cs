@@ -1,5 +1,7 @@
 ﻿using BusinessLogic.Models.Entidades;
 using BusinessLogic.Models.Entidades.Logica_ReporteA;
+using BusinessLogic.Models.Entidades.Repositorio;
+using BusinessLogic.Models.Validadores;
 using ObligatorioDDA2.Models.Entidades.Repositorio;
 using ObligatorioDDA2.Models.Exceptions;
 using ObligatorioDDA2.Models.Interfaces;
@@ -20,6 +22,7 @@ namespace ObligatorioDDA2.Models
         internal Validacion<Estadia> validacionEstadia { get; }
         internal Validacion<Alojamiento> validacionAlojamiento { get; }
         internal Validacion<InfoReserva> validacionInfoReserva { get; }
+        internal Validacion<Puntuacion_Recibir> validacionPuntuacionRecibo { get; }
 
         internal IRepositorio repo;
 
@@ -51,6 +54,7 @@ namespace ObligatorioDDA2.Models
             validacionInfoReserva = new ValidacionInfoReserva();
             validacionPuntoTursitico = new ValidacionPuntoTuristico();
             validacionAlojamiento = new ValidacionAlojamiento();
+            validacionPuntuacionRecibo = new ValidacionPuntuacionRecibo();
         }
 
         public static Sistema GetInstancia() => _instancia;
@@ -148,7 +152,24 @@ namespace ObligatorioDDA2.Models
             return logica.GetReporteA(info);           
         }
 
+        public void Puntuar(Puntuacion_Recibir puntuacion)
+        {
+            validacionPuntuacionRecibo.ValidarExistencia(puntuacion.Codigo);
+            Reserva reserva = repo.GetReserva(puntuacion.Codigo);
+            Puntuacion p = new Puntuacion
+            {
+                Puntos = puntuacion.Puntos,
+                Comentario = puntuacion.Comentario,
+                Reserva = reserva
+            };
+            repo.EnviarPuntuacion(p);
+        }
 
+        public List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento)
+        {
+            List<Puntuacion_Recibir> lista = repo.GetPuntuaciones(nombre_alojamiento);
+            return lista;
+        }
 
         //metodos utiles para unittest
         public void BorrarPuntosTuristicos() => ResetearRepositorioRam();
