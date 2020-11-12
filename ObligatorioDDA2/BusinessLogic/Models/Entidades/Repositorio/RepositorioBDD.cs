@@ -159,7 +159,9 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
                 {
                     Codigo = p.Reserva.Codigo,
                     Comentario = p.Comentario,
-                    Puntos = p.Puntos
+                    Puntos = p.Puntos,
+                    Nombre = p.Reserva.InfoReserva.Nombre,
+                    Apellido = p.Reserva.InfoReserva.Apellido
                 };
                 lista_retorno.Add(pun);
             }
