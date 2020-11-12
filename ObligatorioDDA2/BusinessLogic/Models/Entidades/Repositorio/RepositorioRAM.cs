@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Models.Entidades;
+using BusinessLogic.Models.Entidades.Repositorio;
 using ObligatorioDDA2.Models.Exceptions;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
@@ -15,6 +16,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
         private List<Alojamiento> listAlojamientos = new List<Alojamiento>();
         private List<Admin> listaAdmins = new List<Admin>();
         private List<Reserva> listaReserva = new List<Reserva>();
+        private List<Puntuacion> listaPuntuaciones = new List<Puntuacion>();
 
         public bool Existe(PuntoTuristico punto) => listaPuntosTuristicos.Contains(punto);
 
@@ -113,18 +115,49 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             listaReserva.Add(r);
         }
 
-        public List<Reserva> GetReservasValidas(InfoReporte info)
+        public List<Reserva> GetReservasValidas(Unidad_ReporteA info)
         {
-            return this.listaReserva.FindAll(x => x.InfoReserva.Hotel.PuntoTuristico.Nombre == info.NombrePunto &&
-            x.EstadoReserva != EstadoReserva.Rechazada
+            return this.listaReserva.FindAll(x =>
+                x.InfoReserva.Hotel.Nombre == info.Alojamiento.Nombre
+                && x.EstadoReserva != EstadoReserva.Rechazada
             && x.EstadoReserva != EstadoReserva.Expirada
-            && x.InfoReserva.Estadia.Entrada < info.Final 
-            && x.InfoReserva.Estadia.Salida > info.Inicio);
+            && x.InfoReserva.Estadia.Entrada < info.Salida
+            && x.InfoReserva.Estadia.Salida > info.Ingreso);
         }
 
         public List<Alojamiento> GetAlojamientos(PuntoTuristico punto)
         {
             return this.listAlojamientos.FindAll(x => x.PuntoTuristico.Nombre == punto.Nombre);
+        }
+
+        public Reserva GetReserva(string codigo)
+        {
+            return this.listaReserva.Find(r => r.Codigo == codigo);
+        }
+
+        public void EnviarPuntuacion(Puntuacion p)
+        {
+            this.listaPuntuaciones.Add(p);
+        }
+
+        public List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento)
+        {
+            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
+            List<Puntuacion> lista_puntuaciones  = this.listaPuntuaciones.FindAll(x => x.Reserva.InfoReserva.Hotel.Nombre == nombre_alojamiento);
+            if (lista_puntuaciones == null || lista_puntuaciones.Count == 0)
+                throw new Exception("No existen punutaciones para este hotel");
+            foreach (var p in lista_puntuaciones)
+            {
+                Puntuacion_Recibir pun = new Puntuacion_Recibir
+                {
+                    Codigo = p.Reserva.Codigo,
+                    Comentario = p.Comentario,
+                    Puntos = p.Puntos
+                };
+                lista_retorno.Add(pun);
+            }
+
+            return lista_retorno;
         }
     }
 }
