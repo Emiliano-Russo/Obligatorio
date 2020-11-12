@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Models.Entidades;
+using BusinessLogic.Models.Entidades.Repositorio;
 using ObligatorioDDA2.Data;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
@@ -33,6 +34,14 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             consultaEstado.Estado = reserva.EstadoReserva;
 
             return consultaEstado;
+        }
+
+        public void EnviarPuntuacion(Puntuacion p)
+        {
+            using (var context = new EntidadesContext())
+            {
+                context.Puntuacion.Add(p);
+            }
         }
 
         public bool Existe(PuntoTuristico punto)
@@ -123,6 +132,47 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             }
 
             return listaPuntos;
+        }
+        //Puntuacion
+        public List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento)
+        {
+            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
+            List<Puntuacion> lista_puntuaciones = null;
+            using (var context = new EntidadesContext())
+            {
+                lista_puntuaciones = context.Puntuacion.Where(x => x.Reserva.InfoReserva.Hotel.Nombre == nombre_alojamiento).ToList();
+            }
+            return ArmarLista(lista_puntuaciones);
+        }
+        private List<Puntuacion_Recibir> ArmarLista(List<Puntuacion> lista_puntuaciones)
+        {
+            if (lista_puntuaciones == null || lista_puntuaciones.Count == 0)
+                throw new Exception("No existen punutaciones para este hotel");
+
+            List<Puntuacion_Recibir> lista_retorno = null;
+            foreach (var p in lista_puntuaciones)
+            {
+                Puntuacion_Recibir pun = new Puntuacion_Recibir
+                {
+                    Codigo = p.Reserva.Codigo,
+                    Comentario = p.Comentario,
+                    Puntos = p.Puntos
+                };
+                lista_retorno.Add(pun);
+            }
+
+            return lista_retorno;
+        }
+                
+
+        public Reserva GetReserva(string codigo)
+        {
+            Reserva reserva = null;
+            using (var context = new EntidadesContext())
+            {
+                reserva= context.Reservas.Where(x => x.Codigo == codigo).ToList()[0];
+            }
+            return reserva;
         }
 
         public Reserva GetReservas(Hospedaje h)
