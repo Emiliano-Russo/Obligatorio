@@ -183,16 +183,19 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             List<Puntuacion> lista_puntuaciones = null;
             using (var context = new EntidadesContext())
             {
-                lista_puntuaciones = context.Puntuacion.Where(x => x.Reserva.InfoReserva.Hotel.Nombre == nombre_alojamiento).ToList();
+                lista_puntuaciones = context.Puntuacion.
+                    Include(x=>x.Reserva).
+                    Include(x =>x.Reserva.InfoReserva).
+                    Where(x => x.Reserva.InfoReserva.Hotel.Nombre == nombre_alojamiento).ToList();
             }
             return ArmarLista(lista_puntuaciones);
         }
         private List<Puntuacion_Recibir> ArmarLista(List<Puntuacion> lista_puntuaciones)
         {
             if (lista_puntuaciones == null || lista_puntuaciones.Count == 0)
-                throw new Exception("No existen punutaciones para este hotel");
+                throw new Exception("Aun no puntuado");
 
-            List<Puntuacion_Recibir> lista_retorno = null;
+            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
             foreach (var p in lista_puntuaciones)
             {
                 Puntuacion_Recibir pun = new Puntuacion_Recibir

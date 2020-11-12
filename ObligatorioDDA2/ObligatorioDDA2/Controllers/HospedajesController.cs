@@ -126,7 +126,7 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetPuntuacionFinal(string alojamiento)
+        public JsonResult PuntuacionFinal(string alojamiento)
         {
             int resultado = 0;
             int cant = 0;
