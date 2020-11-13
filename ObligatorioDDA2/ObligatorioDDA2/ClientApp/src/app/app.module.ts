@@ -20,6 +20,9 @@ import { AltaHotelComponent } from './alta-hotel/alta-hotel.component';
 import { BorrarHotelComponent } from './borrar-hotel/borrar-hotel.component';
 import { ModificarHotelComponent } from './modificar-hotel/modificar-hotel.component';
 import { ModificarReservaComponent } from './modificar-reserva/modificar-reserva.component';
+import { ReporteAComponent } from './reporte-a/reporte-a.component';
+import { PuntuarComponent } from './puntuar/puntuar.component';
+import { ValoracionesComponent } from './valoraciones/valoraciones.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { ModificarReservaComponent } from './modificar-reserva/modificar-reserva
     AltaHotelComponent,
     BorrarHotelComponent,
     ModificarHotelComponent,
-    ModificarReservaComponent
+    ModificarReservaComponent,
+    ReporteAComponent,
+    PuntuarComponent,
+    ValoracionesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -54,7 +60,10 @@ import { ModificarReservaComponent } from './modificar-reserva/modificar-reserva
       { path: 'alta_hotel', component: AltaHotelComponent },
       { path: 'borrar_hotel', component: BorrarHotelComponent },
       { path: 'modificar_hotel', component: ModificarHotelComponent },
-      { path: 'modificar_reserva', component: ModificarReservaComponent }
+      { path: 'modificar_reserva', component: ModificarReservaComponent },
+      { path: 'reporte_a', component: ReporteAComponent },
+      { path: 'puntuar', component: PuntuarComponent },
+      { path: 'valoraciones/:nombre', component: ValoracionesComponent }
     ])
   ],
   providers: [DatosReserva, DatosLogin, NavMenuComponent],

@@ -1,4 +1,7 @@
-﻿using ObligatorioDDA2.Data;
+﻿using BusinessLogic.Models.Entidades;
+using BusinessLogic.Models.Entidades.Repositorio;
+using Microsoft.EntityFrameworkCore;
+using ObligatorioDDA2.Data;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
 using System;
@@ -34,10 +37,11 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return consultaEstado;
         }
 
+     
         public bool Existe(PuntoTuristico punto)
         {
             PuntoTuristico puntoBuscar = new PuntoTuristico();
-            using(var context = new EntidadesContext())
+            using (var context = new EntidadesContext())
             {
                 puntoBuscar = context.PuntosTuristicos.Find(punto.Nombre);
             }
@@ -64,6 +68,8 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return reservaBusqueda != null;
         }
 
+
+
         public bool Existe(Admin admin)
         {
             Admin a = null;
@@ -85,16 +91,21 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
                 {
                     context.Entry(alojamiento).Reference(x => x.PuntoTuristico).Load();
                 }
-                
+
             }
             if (alojamientos == null)
                 return null;
             for (int i = 0; i < alojamientos.Count; i++)
             {
-                hospedajes.Add(new Hospedaje(alojamientos[i], estadia)); 
+                hospedajes.Add(new Hospedaje(alojamientos[i], estadia));
             }
 
             return hospedajes;
+        }
+
+        public List<Hospedaje> GetHospedajes(PuntoTuristico punto)
+        {
+            throw new NotImplementedException();
         }
 
         public List<PuntoTuristico> GetPuntos(Region region)
@@ -119,26 +130,6 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return listaPuntos;
         }
 
-
-        public void Incluir(PuntoTuristico punto)
-        {
-            using (var context = new EntidadesContext())
-            {
-                context.PuntosTuristicos.Add(punto);
-                context.SaveChanges();
-            }
-        }
-
-        public void Incluir(Alojamiento hotel)
-        {
-            using (var context = new EntidadesContext())
-            {
-                context.PuntosTuristicos.Attach(hotel.PuntoTuristico);
-                context.Alojamientos.Add(hotel);
-                context.SaveChanges();
-            }
-        }
-
         public Reserva Incluir(InfoReserva inforeserva)
         {
 
@@ -159,6 +150,113 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return reserva;
         }
 
+
+        //Puntuacion
+
+        public void Existe(Puntuacion_Recibir p)
+        {
+            bool existe = false;
+            using (var context = new EntidadesContext())
+            {
+                List<Puntuacion> lista =context.Puntuacion.Where(x => x.Reserva.Codigo == p.Codigo).ToList();
+                if (lista != null && lista.Count > 0)
+                    throw new Exception("Ya existe un puntaje para esta reserva");
+            }
+        }
+
+        public void EnviarPuntuacion(Puntuacion p)
+        {
+            using (var context = new EntidadesContext())
+            {
+                context.PuntosTuristicos.Attach(p.Reserva.InfoReserva.Hotel.PuntoTuristico);
+                context.Alojamientos.Attach(p.Reserva.InfoReserva.Hotel);
+                context.InfoReservas.Attach(p.Reserva.InfoReserva);
+                context.Reservas.Attach(p.Reserva);
+                context.Puntuacion.Add(p);
+                context.SaveChanges();
+            }
+        }
+
+        public List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento)
+        {
+            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
+            List<Puntuacion> lista_puntuaciones = null;
+            using (var context = new EntidadesContext())
+            {
+                lista_puntuaciones = context.Puntuacion.
+                    Include(x=>x.Reserva).
+                    Include(x =>x.Reserva.InfoReserva).
+                    Where(x => x.Reserva.InfoReserva.Hotel.Nombre == nombre_alojamiento).ToList();
+            }
+            return ArmarLista(lista_puntuaciones);
+        }
+        private List<Puntuacion_Recibir> ArmarLista(List<Puntuacion> lista_puntuaciones)
+        {
+            if (lista_puntuaciones == null || lista_puntuaciones.Count == 0)
+                throw new Exception("Aun no puntuado");
+
+            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
+            foreach (var p in lista_puntuaciones)
+            {
+                Puntuacion_Recibir pun = new Puntuacion_Recibir
+                {
+                    Codigo = p.Reserva.Codigo,
+                    Comentario = p.Comentario,
+                    Puntos = p.Puntos,
+                    Nombre = p.Reserva.InfoReserva.Nombre,
+                    Apellido = p.Reserva.InfoReserva.Apellido
+                };
+                lista_retorno.Add(pun);
+            }
+
+            return lista_retorno;
+        }
+                
+
+        public Reserva GetReserva(string codigo)
+        {
+            Reserva reserva = null;
+            using (var context = new EntidadesContext())
+            {
+                List<Reserva> lista = context.Reservas.
+                    Include(a=>a.InfoReserva).
+                    Include(a=> a.InfoReserva.Estadia).
+                    Include(a=> a.InfoReserva.Hotel).
+                    Include(a=> a.InfoReserva.Hotel.PuntoTuristico).
+                    Where(x => x.Codigo == codigo).ToList();
+                reserva = lista[0];                
+            }
+            return reserva;
+        }
+
+        
+
+        public Reserva GetReservas(Hospedaje h)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Incluir(PuntoTuristico punto)
+        {
+            using (var context = new EntidadesContext())
+            {
+                context.PuntosTuristicos.Add(punto);
+                context.SaveChanges();
+            }
+        }
+
+        public void Incluir(Alojamiento hotel)
+        {
+            using (var context = new EntidadesContext())
+            {
+                context.PuntosTuristicos.Attach(hotel.PuntoTuristico);
+                context.Alojamientos.Add(hotel);
+                context.SaveChanges();
+            }
+        }
+
+        
+
         public void Incluir(Admin admin)
         {
             using (var context = new EntidadesContext())
@@ -170,7 +268,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
 
         public bool Login(Admin admin)
         {
-            return this.Existe(admin);          
+            return this.Existe(admin);
         }
 
         public void ModificarAlojamiento(string nombre, bool disponible)
@@ -178,7 +276,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             Alojamiento alojamiento;
             using (var context = new EntidadesContext())
             {
-                alojamiento = context.Alojamientos.Find(nombre);                
+                alojamiento = context.Alojamientos.Find(nombre);
                 alojamiento.SinCapacidad = !disponible;
                 context.Alojamientos.Update(alojamiento);
                 context.SaveChanges();
@@ -214,5 +312,32 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
                 context.SaveChanges();
             }
         }
+
+        List<Alojamiento> IRepositorio.GetAlojamientos(PuntoTuristico punto)
+        {
+            List<Alojamiento> lista_alojamiento = new List<Alojamiento>();
+            using (var context = new EntidadesContext())
+            {
+                lista_alojamiento = context.Alojamientos.Where(a => a.PuntoTuristico == punto).ToList();
+            }
+            return lista_alojamiento;
+        }
+
+        List<Reserva> IRepositorio.GetReservasValidas(Unidad_ReporteA info)
+        {
+            List<Reserva> lista_reservas = new List<Reserva>();
+            using (var context = new EntidadesContext())
+            {
+                lista_reservas = context.Reservas.Where(x =>
+                x.InfoReserva.Hotel.Nombre == info.Alojamiento.Nombre
+                && x.EstadoReserva != EstadoReserva.Rechazada
+            && x.EstadoReserva != EstadoReserva.Expirada
+            && x.InfoReserva.Estadia.Entrada < info.Salida
+            && x.InfoReserva.Estadia.Salida > info.Ingreso).ToList();
+            }
+            return lista_reservas;
+        }
+
+        
     }
 }
