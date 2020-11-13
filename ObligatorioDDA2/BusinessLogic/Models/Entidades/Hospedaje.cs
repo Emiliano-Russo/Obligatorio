@@ -31,12 +31,17 @@ namespace ObligatorioDDA2.Models.Logic
             precioTotal += cantidadAdultos * precioNoche * (float)tiempo.TotalDays;
             precioTotal += cantidadNinios * precioNoche * (float)tiempo.TotalDays * 0.5f;
             precioTotal += cantidadBebes * precioNoche * (float)tiempo.TotalDays * 0.25f;
-            float precio_j = (cantidadJubilados * precioNoche * (float)tiempo.TotalDays);
-            int la_mitad_jubilados = cantidadJubilados / 2;
-            precio_j = (float)(precio_j - (la_mitad_jubilados* precioNoche* (float)tiempo.TotalDays* 0.3));
-            precioTotal += precio_j;
+            precioTotal += CalcularPrecioJubilado(precioNoche*(float)tiempo.TotalDays, cantidadJubilados);
 
             return precioTotal;
+        }
+
+        private float CalcularPrecioJubilado(float precio_porlosdias, int cantJubilados)
+        {
+            float precio_j = (cantJubilados * precio_porlosdias);
+            int la_mitad_jubilados = cantJubilados / 2;
+            precio_j = (float)(precio_j - (la_mitad_jubilados * precio_porlosdias * 0.3));
+            return precio_j;
         }
 
         public override string ToString()
