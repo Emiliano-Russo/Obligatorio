@@ -31,6 +31,7 @@ export class HospedajesComponent implements OnInit {
 
   sumarPersona(i: number) {
     this.personas[i]++;
+    console.log("se sumo 1 al lugar " + i);
   }
   quitarPersona(i: number) {
     if (this.personas[i] > 0) {
@@ -83,7 +84,9 @@ export class HospedajesComponent implements OnInit {
   buscarHospedajes() {
     this.alojamiento.Estadia.Entrada = (<HTMLInputElement>document.getElementById("entrada")).value;
     this.alojamiento.Estadia.Salida = (<HTMLInputElement>document.getElementById("salida")).value;
-    this.alojamiento.Estadia.RangoEdades = this.personas;
+    this.alojamiento.Estadia.RangoEdades = this.entregar_array_faseedad();
+    console.log("objeto a enviar:");
+    console.log(this.alojamiento);
 
     this.http.post<string>(this.url_base + 'Hospedajes/Busqueda', this.alojamiento).toPromise().then(
       res => {
@@ -94,7 +97,19 @@ export class HospedajesComponent implements OnInit {
         });
 
   }
- 
+
+
+  entregar_array_faseedad() {
+    var fase_edad: number[] = [];
+    for (var i = 0; i < this.personas.length; i++) {
+      if (this.personas[i] != 0) {
+        for (var j = 0; j < this.personas[i]; j++) {
+          fase_edad[fase_edad.length] = i;
+        }
+      }
+    }
+    return fase_edad;
+  }
 
   incluir_puntajes(alojamientos: any) {
     
