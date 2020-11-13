@@ -22,6 +22,7 @@ import { ModificarHotelComponent } from './modificar-hotel/modificar-hotel.compo
 import { ModificarReservaComponent } from './modificar-reserva/modificar-reserva.component';
 import { ReporteAComponent } from './reporte-a/reporte-a.component';
 import { PuntuarComponent } from './puntuar/puntuar.component';
+import { ValoracionesComponent } from './valoraciones/valoraciones.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PuntuarComponent } from './puntuar/puntuar.component';
     ModificarHotelComponent,
     ModificarReservaComponent,
     ReporteAComponent,
-    PuntuarComponent
+    PuntuarComponent,
+    ValoracionesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -60,7 +62,8 @@ import { PuntuarComponent } from './puntuar/puntuar.component';
       { path: 'modificar_hotel', component: ModificarHotelComponent },
       { path: 'modificar_reserva', component: ModificarReservaComponent },
       { path: 'reporte_a', component: ReporteAComponent },
-      { path: 'puntuar', component: PuntuarComponent }
+      { path: 'puntuar', component: PuntuarComponent },
+      { path: 'valoraciones/:nombre', component: ValoracionesComponent }
     ])
   ],
   providers: [DatosReserva, DatosLogin, NavMenuComponent],

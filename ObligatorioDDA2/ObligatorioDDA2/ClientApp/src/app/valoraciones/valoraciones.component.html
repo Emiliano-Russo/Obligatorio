@@ -1,0 +1,7 @@
+<h1>Valoraciones {{nombre_hotel}}</h1>
+<button (click)="llenar_valoraciones()">Desplegar</button>
+<div *ngFor="let v of valoraciones" style="margin:10px;padding:10px;border:1px dashed black">
+  <h5>{{v.nombre}} {{v.apellido}}</h5>
+  <p> {{v.comentario}}</p>
+  <p><b>{{v.puntos}}/5</b></p>
+</div>

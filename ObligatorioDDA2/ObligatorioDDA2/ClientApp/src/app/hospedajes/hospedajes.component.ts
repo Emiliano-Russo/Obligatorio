@@ -116,5 +116,8 @@ export class HospedajesComponent implements OnInit {
     this.ruta.navigate(['/reserva']);
   }
 
+  ir_a_valoraciones(nombre: string) {
+    this.ruta.navigate(['/valoraciones/' + nombre]);
+  }
 
 }

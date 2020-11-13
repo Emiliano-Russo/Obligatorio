@@ -36,6 +36,7 @@
     <p>Descripcion: {{hotel.alojamiento.descripcion}}</p>
     <p>Precio final: {{hotel.precioTotal}}$</p>
     <p> <b>Puntaje: {{hotel.puntaje}}</b></p>
+     <button  (click)="ir_a_valoraciones(hotel.alojamiento.nombre)">Ver todas las valoraciones</button>
     <button (click)="reservar(hotel.alojamiento)" class="horizontal">Reservar</button>
   </div>
 </div>
