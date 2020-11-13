@@ -1,4 +1,6 @@
 ﻿using BusinessLogic.Models.Entidades;
+using BusinessLogic.Models.Entidades.Repositorio;
+using Microsoft.EntityFrameworkCore;
 using ObligatorioDDA2.Data;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
@@ -35,6 +37,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return consultaEstado;
         }
 
+     
         public bool Existe(PuntoTuristico punto)
         {
             PuntoTuristico puntoBuscar = new PuntoTuristico();
@@ -64,6 +67,8 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             }
             return reservaBusqueda != null;
         }
+
+
 
         public bool Existe(Admin admin)
         {
@@ -125,6 +130,107 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return listaPuntos;
         }
 
+        public Reserva Incluir(InfoReserva inforeserva)
+        {
+
+            Reserva reserva = new Reserva
+            {
+                InfoReserva = inforeserva,
+                Codigo = CodigoRandom.GetCodigoRandomUnico(10),
+                EstadoReserva = EstadoReserva.Creada
+            };
+            using (var context = new EntidadesContext())
+            {
+                context.PuntosTuristicos.Attach(inforeserva.Hotel.PuntoTuristico);
+                context.Alojamientos.Attach(inforeserva.Hotel);
+                context.InfoReservas.Add(inforeserva);
+                context.Reservas.Add(reserva);
+                context.SaveChanges();
+            }
+            return reserva;
+        }
+
+
+        //Puntuacion
+
+        public void Existe(Puntuacion_Recibir p)
+        {
+            bool existe = false;
+            using (var context = new EntidadesContext())
+            {
+                List<Puntuacion> lista =context.Puntuacion.Where(x => x.Reserva.Codigo == p.Codigo).ToList();
+                if (lista != null && lista.Count > 0)
+                    throw new Exception("Ya existe un puntaje para esta reserva");
+            }
+        }
+
+        public void EnviarPuntuacion(Puntuacion p)
+        {
+            using (var context = new EntidadesContext())
+            {
+                context.PuntosTuristicos.Attach(p.Reserva.InfoReserva.Hotel.PuntoTuristico);
+                context.Alojamientos.Attach(p.Reserva.InfoReserva.Hotel);
+                context.InfoReservas.Attach(p.Reserva.InfoReserva);
+                context.Reservas.Attach(p.Reserva);
+                context.Puntuacion.Add(p);
+                context.SaveChanges();
+            }
+        }
+
+        public List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento)
+        {
+            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
+            List<Puntuacion> lista_puntuaciones = null;
+            using (var context = new EntidadesContext())
+            {
+                lista_puntuaciones = context.Puntuacion.
+                    Include(x=>x.Reserva).
+                    Include(x =>x.Reserva.InfoReserva).
+                    Where(x => x.Reserva.InfoReserva.Hotel.Nombre == nombre_alojamiento).ToList();
+            }
+            return ArmarLista(lista_puntuaciones);
+        }
+        private List<Puntuacion_Recibir> ArmarLista(List<Puntuacion> lista_puntuaciones)
+        {
+            if (lista_puntuaciones == null || lista_puntuaciones.Count == 0)
+                throw new Exception("Aun no puntuado");
+
+            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
+            foreach (var p in lista_puntuaciones)
+            {
+                Puntuacion_Recibir pun = new Puntuacion_Recibir
+                {
+                    Codigo = p.Reserva.Codigo,
+                    Comentario = p.Comentario,
+                    Puntos = p.Puntos,
+                    Nombre = p.Reserva.InfoReserva.Nombre,
+                    Apellido = p.Reserva.InfoReserva.Apellido
+                };
+                lista_retorno.Add(pun);
+            }
+
+            return lista_retorno;
+        }
+                
+
+        public Reserva GetReserva(string codigo)
+        {
+            Reserva reserva = null;
+            using (var context = new EntidadesContext())
+            {
+                List<Reserva> lista = context.Reservas.
+                    Include(a=>a.InfoReserva).
+                    Include(a=> a.InfoReserva.Estadia).
+                    Include(a=> a.InfoReserva.Hotel).
+                    Include(a=> a.InfoReserva.Hotel.PuntoTuristico).
+                    Where(x => x.Codigo == codigo).ToList();
+                reserva = lista[0];                
+            }
+            return reserva;
+        }
+
+        
+
         public Reserva GetReservas(Hospedaje h)
         {
             throw new NotImplementedException();
@@ -149,25 +255,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             }
         }
 
-        public Reserva Incluir(InfoReserva inforeserva)
-        {
-
-            Reserva reserva = new Reserva
-            {
-                InfoReserva = inforeserva,
-                Codigo = CodigoRandom.GetCodigoRandomUnico(10),
-                EstadoReserva = EstadoReserva.Creada
-            };
-            using (var context = new EntidadesContext())
-            {
-                context.PuntosTuristicos.Attach(inforeserva.Hotel.PuntoTuristico);
-                context.Alojamientos.Attach(inforeserva.Hotel);
-                context.InfoReservas.Add(inforeserva);
-                context.Reservas.Add(reserva);
-                context.SaveChanges();
-            }
-            return reserva;
-        }
+        
 
         public void Incluir(Admin admin)
         {
@@ -249,5 +337,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             }
             return lista_reservas;
         }
+
+        
     }
 }

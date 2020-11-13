@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class PuntosComponent implements OnInit {
 
   region_n: string;
+  region_show: string;
   puntos: string;
   filtros = [false, false, false, false];
 
@@ -21,12 +22,34 @@ export class PuntosComponent implements OnInit {
       subscribe(params => {
         console.log(params);
         this.region_n = params.get("id");
-      });
+        this.region_show = this.parse_id_region(this.region_n);
+      });  
 
     this.http.get<string>("https://localhost:44336/" + 'PuntosTuristicos/Busqueda?region=' + this.region_n).subscribe(result => {
       console.log(result);
       this.puntos = result;
     });
+  }
+
+  parse_id_region(id: string) {
+    switch (id) {
+      case "0":
+        return "Metropolitana";
+        break;
+      case "1":
+        return "Centro Sur";
+      case "2":
+        return "Este";
+        break;
+      case "3":
+        return "Litoral Norte";
+        break;
+      case "4":
+        return "Corredor Pajaros Pintados";
+        break;
+      default:
+        return id;
+    }
   }
 
   buscarRegionesCategoria() {
