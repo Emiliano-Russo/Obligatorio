@@ -18,6 +18,8 @@ namespace ObligatorioDDA2.Models.Interfaces
 
         bool Existe(Admin admin);
 
+        void Existe(Puntuacion_Recibir p);
+
         bool Login(Admin admin);
 
         void Incluir(PuntoTuristico punto);

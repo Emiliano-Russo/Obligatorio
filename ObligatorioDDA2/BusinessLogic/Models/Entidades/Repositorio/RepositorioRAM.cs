@@ -142,22 +142,42 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
 
         public List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento)
         {
-            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
             List<Puntuacion> lista_puntuaciones  = this.listaPuntuaciones.FindAll(x => x.Reserva.InfoReserva.Hotel.Nombre == nombre_alojamiento);
-            if (lista_puntuaciones == null || lista_puntuaciones.Count == 0)
+            ListaVaciaONull_Excepcion(lista_puntuaciones);
+            return Parse_Puntuacion(lista_puntuaciones);
+        }
+
+        private void ListaVaciaONull_Excepcion(List<Puntuacion> lista)
+        {
+            if (lista == null || lista.Count == 0)
                 throw new Exception("No existen punutaciones para este hotel");
+        }
+
+        private List<Puntuacion_Recibir> Parse_Puntuacion(List<Puntuacion> lista_puntuaciones)
+        {
+            List<Puntuacion_Recibir> lista_retorno = new List<Puntuacion_Recibir>();
             foreach (var p in lista_puntuaciones)
             {
                 Puntuacion_Recibir pun = new Puntuacion_Recibir
                 {
                     Codigo = p.Reserva.Codigo,
                     Comentario = p.Comentario,
-                    Puntos = p.Puntos
+                    Puntos = p.Puntos,
+                    Nombre = p.Reserva.InfoReserva.Nombre,
+                    Apellido = p.Reserva.InfoReserva.Apellido
                 };
                 lista_retorno.Add(pun);
             }
-
             return lista_retorno;
+        }
+
+        public void Existe(Puntuacion_Recibir p)
+        {
+            foreach (var item in listaPuntuaciones)
+            {
+                if (item.Reserva.Codigo == p.Codigo)
+                    throw new Exception("La reserva ya tiene puntuacion");
+            }
         }
     }
 }
