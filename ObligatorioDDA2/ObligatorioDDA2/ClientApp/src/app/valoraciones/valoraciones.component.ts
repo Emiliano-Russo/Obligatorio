@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'valoraciones',
   templateUrl: './valoraciones.component.html',
+  styleUrls: ['./valoraciones.component.css']
 })
 export class ValoracionesComponent implements OnInit {
 
