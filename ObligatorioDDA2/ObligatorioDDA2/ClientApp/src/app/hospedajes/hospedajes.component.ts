@@ -103,7 +103,7 @@ export class HospedajesComponent implements OnInit {
     }
   }
 
-  colocar_puntaje(hotel: object) {
+  colocar_puntaje(hotel: any) {
     this.http.get<string>(this.url_base + 'Hospedajes/PuntuacionFinal' + "?alojamiento=" + hotel.alojamiento.nombre).subscribe(result => {
       hotel.puntaje = result;
     });
