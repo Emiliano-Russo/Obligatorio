@@ -155,6 +155,7 @@ namespace ObligatorioDDA2.Models
         public void Puntuar(Puntuacion_Recibir puntuacion)
         {
             validacionPuntuacionRecibo.ValidarExistencia(puntuacion.Codigo);
+            repo.Existe(puntuacion);
             Reserva reserva = repo.GetReserva(puntuacion.Codigo);
             Puntuacion p = new Puntuacion
             {

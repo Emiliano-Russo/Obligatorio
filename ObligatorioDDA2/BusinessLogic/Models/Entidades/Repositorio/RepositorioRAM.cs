@@ -170,5 +170,14 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             }
             return lista_retorno;
         }
+
+        public void Existe(Puntuacion_Recibir p)
+        {
+            foreach (var item in listaPuntuaciones)
+            {
+                if (item.Reserva.Codigo == p.Codigo)
+                    throw new Exception("La reserva ya tiene puntuacion");
+            }
+        }
     }
 }
