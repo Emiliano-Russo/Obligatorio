@@ -9,6 +9,7 @@ namespace ObligatorioDDA2.Models.Logic
     {
         Adulto,
         Ninio,
-        Bebe
+        Bebe,
+        Jubilado
     }
 }

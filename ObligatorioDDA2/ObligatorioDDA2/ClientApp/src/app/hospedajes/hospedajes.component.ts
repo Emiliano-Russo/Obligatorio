@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DatosReserva } from '../datos-reserva/datos-reserva.injectable';
@@ -14,24 +14,22 @@ export class HospedajesComponent implements OnInit {
   nombrePunto: string;
   personas: number[] = [0, 0, 0, 0];
   hoteles: string;
+  url_base: string;
 
-  constructor(private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva, private ruta: Router) {
-
+  constructor(@Inject('BASE_URL') baseUrl: string, private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva, private ruta: Router) {
+    this.url_base = baseUrl;
   }
 
   ngOnInit() {
     this.router.paramMap.
       subscribe(params => {
         this.nombrePunto = params.get("nombre");
-        console.log("Punto: " + this.nombrePunto);
       });
     this.alojamiento.Punto.Nombre = this.nombrePunto;
 
   }
 
   sumarPersona(i: number) {
-    console.log("llego el numero: " + i);
-    console.log(this.personas == undefined);
     this.personas[i]++;
   }
   quitarPersona(i: number) {
@@ -87,10 +85,28 @@ export class HospedajesComponent implements OnInit {
     this.alojamiento.Estadia.Salida = (<HTMLInputElement>document.getElementById("salida")).value;
     this.alojamiento.Estadia.RangoEdades = this.personas;
 
-    this.http.post<string>("https://localhost:44336/" + 'Hospedajes/Busqueda', this.alojamiento).subscribe(data => {
-      console.log(data);
-      this.hoteles = data;
-    })
+    this.http.post<string>(this.url_base + 'Hospedajes/Busqueda', this.alojamiento).toPromise().then(
+      res => {
+        this.hoteles = res;
+      }).then(
+        res => {
+          this.incluir_puntajes(this.hoteles);
+        });
+
+  }
+ 
+
+  incluir_puntajes(alojamientos: any) {
+    
+    for (var i = 0; i < alojamientos.length; i++) {
+      this.colocar_puntaje(alojamientos[i]);
+    }
+  }
+
+  colocar_puntaje(hotel: any) {
+    this.http.get<string>(this.url_base + 'Hospedajes/PuntuacionFinal' + "?alojamiento=" + hotel.alojamiento.nombre).subscribe(result => {
+      hotel.puntaje = result;
+    });
   }
 
   reservar(hotel: any) {
@@ -100,5 +116,8 @@ export class HospedajesComponent implements OnInit {
     this.ruta.navigate(['/reserva']);
   }
 
+  ir_a_valoraciones(nombre: string) {
+    this.ruta.navigate(['/valoraciones/' + nombre]);
+  }
 
 }
