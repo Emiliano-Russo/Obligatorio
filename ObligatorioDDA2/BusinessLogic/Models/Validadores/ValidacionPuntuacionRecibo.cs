@@ -25,17 +25,19 @@ namespace BusinessLogic.Models.Validadores
 
         protected override void NulosVacios(Puntuacion_Recibir objeto)
         {
-            throw new NotImplementedException();
+            if (objeto.Codigo == null && objeto.Puntos >= 1 && objeto.Puntos <= 5)
+                throw new Exception("Campos nulos!");
         }
 
         protected override void ObjetosDentro(Puntuacion_Recibir objeto)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         protected override void Unicidad(Puntuacion_Recibir objeto)
         {
-            throw new NotImplementedException();
+            if (Sistema.GetInstancia().repo.Existe(objeto))
+                throw new Exception("Ya existe un puntaje para esta reserva");
         }
     }
 }

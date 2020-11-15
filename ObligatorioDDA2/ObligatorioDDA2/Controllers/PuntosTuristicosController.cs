@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ObligatorioDDA2.Models;
 using ObligatorioDDA2.Models.Entidades;
 using ObligatorioDDA2.Models.Logic;
+using WebApi.Controllers.Validaciones;
 
 namespace ObligatorioDDA2.Controllers
 {
@@ -46,9 +47,8 @@ namespace ObligatorioDDA2.Controllers
         {
             try
             {
-                ValidarRegion(region);
+                Validaciones_EntradaWeb.ValidarRegion(region);
                 return Json(Sistema.GetInstancia().GetPuntosTuristicos((Region)region));
-                //return ArmarListaDePuntosString(Sistema.GetInstancia().GetPuntosTuristicos((Region)region));
             }
             catch (Exception e)
             {
@@ -60,9 +60,9 @@ namespace ObligatorioDDA2.Controllers
         {
             try
             {
-                ValidarCategorias(categorias);
-                ValidarRegion(region);
-                return DevolverPuntosString(region, categorias);
+                Validaciones_EntradaWeb.ValidarCategorias(categorias);
+                Validaciones_EntradaWeb.ValidarRegion(region);
+                return DevolverPuntosJson(region, categorias);
             }
             catch (Exception e)
             {
@@ -70,46 +70,14 @@ namespace ObligatorioDDA2.Controllers
             }
         }
 
-        //borrar?
-        private JsonResult ArmarListaDePuntosString(List<PuntoTuristico> listaPuntos)
-        {
-            List<string> puntosString = new List<string>();
-            foreach (var punto in listaPuntos)
-            {
-                puntosString.Add(punto.ToString());
-            }
-           
 
-            return Json(puntosString);
-        }
-
-
-
-        private JsonResult DevolverPuntosString(int region, string categorias)
+        private JsonResult DevolverPuntosJson(int region, string categorias)
         {
             Categoria[] arrayCategorias = this.GetCategorias(categorias);
             List<PuntoTuristico> listaPuntos = Sistema.GetInstancia().GetPuntosTuristicos((Region)region, arrayCategorias);
             return Json(listaPuntos);
-            //return ArmarListaDePuntosString(listaPuntos);
         }
 
-        private void ValidarRegion(int region)
-        {
-            if (region < 0 || region > GetLargoCategorias())
-                throw new Exception("region no valida");
-        }
-
-        private int GetLargoCategorias() => Enum.GetNames(typeof(Categoria)).Length;
-
-        private void ValidarCategorias(string categorias)
-        {
-            if (!categorias.All(char.IsDigit))
-                throw new Exception("Solo se admiten numeros");
-            int CeroEnAsciiCode = 48;
-            foreach (char caracter in categorias)
-                if (caracter < CeroEnAsciiCode || caracter > (CeroEnAsciiCode + GetLargoCategorias()))
-                    throw new Exception("Categorias no existentes");
-        }
 
         private Categoria[] GetCategorias(string categorias)
         {

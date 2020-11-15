@@ -128,17 +128,14 @@ namespace ObligatorioDDA2.Controllers
         [HttpGet]
         public JsonResult PuntuacionFinal(string alojamiento)
         {
-            int resultado = 0;
-            int cant = 0;
+            
             try
             {
+                int resultado = 0;
                 List<Puntuacion_Recibir> lista = GetListaPuntuaciones(alojamiento);
                 foreach (var p in lista)
-                {
-                    resultado += p.Puntos;
-                    cant++;
-                }
-                return Json((resultado / cant));
+                    resultado += p.Puntos;              
+                return Json((resultado / lista.Count));
             }
             catch (Exception e)
             {
