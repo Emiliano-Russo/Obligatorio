@@ -153,15 +153,16 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
 
         //Puntuacion
 
-        public void Existe(Puntuacion_Recibir p)
+        public bool Existe(Puntuacion_Recibir p)
         {
             bool existe = false;
             using (var context = new EntidadesContext())
             {
                 List<Puntuacion> lista =context.Puntuacion.Where(x => x.Reserva.Codigo == p.Codigo).ToList();
                 if (lista != null && lista.Count > 0)
-                    throw new Exception("Ya existe un puntaje para esta reserva");
+                    existe = true;
             }
+            return existe;
         }
 
         public void EnviarPuntuacion(Puntuacion p)
