@@ -30,8 +30,8 @@ namespace ObligatorioDDA2.Models.Logic
 
         public string InfoDeContacto { get; set; }
 
-        public bool Equals([AllowNull] Alojamiento other)
-        {
+        public bool Equals( Alojamiento other)
+        {         
             return other.Nombre == this.Nombre;
         }
 

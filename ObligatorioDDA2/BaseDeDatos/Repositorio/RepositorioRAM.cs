@@ -1,6 +1,5 @@
 ﻿using BusinessLogic.Models.Entidades;
 using BusinessLogic.Models.Entidades.Repositorio;
-using ObligatorioDDA2.Models.Exceptions;
 using ObligatorioDDA2.Models.Interfaces;
 using ObligatorioDDA2.Models.Logic;
 using System;

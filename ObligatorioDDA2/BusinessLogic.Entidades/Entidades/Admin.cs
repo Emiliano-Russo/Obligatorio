@@ -16,7 +16,7 @@ namespace ObligatorioDDA2.Models.Logic
 
         public string contrasenia { get; set; }
 
-        public bool Equals([AllowNull] Admin other)
+        public bool Equals(Admin other)
         {
             return other.email == this.email;
         }
