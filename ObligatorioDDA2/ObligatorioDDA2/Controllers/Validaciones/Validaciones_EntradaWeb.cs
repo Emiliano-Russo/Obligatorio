@@ -14,6 +14,12 @@ namespace WebApi.Controllers.Validaciones
                 throw new Exception("region no valida");
         }
 
+        public static void EsNulo_Ex(object objeto)
+        {
+            if (objeto == null)
+                throw new Exception("Valores nulos");
+        }
+
         private static int GetLargoCategorias() => Enum.GetNames(typeof(Categoria)).Length;
 
         public static void ValidarCategorias(string categorias)

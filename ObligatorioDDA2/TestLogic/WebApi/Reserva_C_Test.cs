@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BusinessLogic.Models.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
@@ -137,6 +138,47 @@ namespace TestLogic.WebApi
             string actual = System.Text.Json.JsonSerializer.Serialize(rc.Estado("asd").Value);
             string esperado = "\"No existe asd en nuestro sistema\"";
             Assert.AreEqual(esperado,actual);
+        }
+
+        [TestMethod]
+        public void TestReporteA_Excepciones()
+        {
+            Sistema.GetInstancia().IncluirPuntoTuristico(OAR.puntaDelEste);
+            ReservaController rc = new ReservaController();
+            InfoReporte ir = new InfoReporte
+            {
+                NombrePunto = OAR.puntaDelEste.Nombre,
+                Final = OAR.estadiaVacacional.Salida,
+                Inicio = OAR.estadiaVacacional.Entrada
+            };
+            JsonResult resultJson =  rc.ReporteA(ir);
+            string result = System.Text.Json.JsonSerializer.Serialize(resultJson.Value);
+            string esperado = "\"No existen hoteles con reservas validas para es punto\"";
+            Assert.AreEqual(esperado, result);
+            result = System.Text.Json.JsonSerializer.Serialize(rc.ReporteA(null).Value);
+            esperado = "\"Valores nulos\"";
+            Assert.AreEqual(esperado, result);
+        }
+
+        [TestMethod]
+        public void TestReporteA_BuenCamino()
+        {
+            ReservaController rc = new ReservaController();
+            Sistema.GetInstancia().IncluirPuntoTuristico(OAR.puntaDelEste);
+            Sistema.GetInstancia().IncluirAlojamiento(OAR.hotel);
+            Sistema.GetInstancia().CrearReserva(OAR.infoReserva);
+
+            InfoReporte infoReporte = new InfoReporte
+            {
+                NombrePunto = OAR.puntaDelEste.Nombre,
+                Inicio = OAR.estadiaVacacional.Entrada,
+                Final = OAR.estadiaVacacional.Salida
+            };
+
+            JsonResult resultJson = rc.ReporteA(infoReporte);
+            string result = System.Text.Json.JsonSerializer.Serialize(resultJson.Value);
+            string esperado = "[{\"Hotel\":\"Crystal\",\"CantidadReservas\":1}]";
+            Assert.AreEqual(esperado, result);
         }
     }
 }

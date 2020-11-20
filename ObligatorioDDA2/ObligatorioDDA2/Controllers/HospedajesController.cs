@@ -10,6 +10,7 @@ using ObligatorioDDA2.Models;
 using ObligatorioDDA2.Models.Entidades;
 using ObligatorioDDA2.Models.Logic;
 using WebApi.Controllers.EntidadesAlRecibir;
+using WebApi.Controllers.Validaciones;
 
 namespace ObligatorioDDA2.Controllers
 {
@@ -91,6 +92,7 @@ namespace ObligatorioDDA2.Controllers
         {
             try
             {
+                Validaciones_EntradaWeb.EsNulo_Ex(pun);
                 Puntuacion_Recibir puntuacion = new Puntuacion_Recibir
                 {
                     Codigo = pun.Codigo,
@@ -131,6 +133,7 @@ namespace ObligatorioDDA2.Controllers
             
             try
             {
+                Validaciones_EntradaWeb.EsNulo_Ex(alojamiento);
                 int resultado = 0;
                 List<Puntuacion_Recibir> lista = GetListaPuntuaciones(alojamiento);
                 foreach (var p in lista)

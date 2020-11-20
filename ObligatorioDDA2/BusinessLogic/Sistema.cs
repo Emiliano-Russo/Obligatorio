@@ -168,6 +168,7 @@ namespace ObligatorioDDA2.Models
 
         public List<Puntuacion_Recibir> GetPuntuaciones(string nombre_alojamiento)
         {
+            validacionAlojamiento.ValidarExistencia(nombre_alojamiento);
             List<Puntuacion_Recibir> lista = repo.GetPuntuaciones(nombre_alojamiento);
             return lista;
         }
