@@ -73,7 +73,7 @@ namespace ObligatorioDDA2.Models.Logic
 
 
 
-        public bool Equals([AllowNull] PuntoTuristico other)
+        public bool Equals(PuntoTuristico other)
         {
             return (other != null && Nombre == other.Nombre);
         }

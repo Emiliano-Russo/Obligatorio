@@ -18,7 +18,7 @@ namespace ObligatorioDDA2.Models.Logic
 
         public EstadoReserva EstadoReserva { get; set; }
 
-        public bool Equals([AllowNull] Reserva other)
+        public bool Equals(Reserva other)
         {
             return other.Codigo == this.Codigo;
         }

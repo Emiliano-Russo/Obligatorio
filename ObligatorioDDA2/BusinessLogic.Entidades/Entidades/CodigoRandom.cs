@@ -23,10 +23,6 @@ namespace ObligatorioDDA2.Models.Entidades
                 var @char = (char)_random.Next(offset, offset + lettersOffset);
                 builder.Append(@char);
             }
-
-            if (Sistema.GetInstancia().repo.Existe(new Reserva { Codigo = builder.ToString() }))
-                return GetCodigoRandomUnico(size);
-
             return builder.ToString();
         }
 

@@ -29,7 +29,7 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
                 context.Entry(reserva).Reference(x => x.InfoReserva).Load();
             }
             if (reserva == null)
-                throw new ObligatorioDDA2.Models.Exceptions.ExcepcionInfoInvalida("No existe la reserva");
+                throw new Exception("No existe la reserva");
             consultaEstado.Nombre = reserva.InfoReserva.Nombre;
             consultaEstado.Descripcion = "Estado cambiado por el administrador";
             consultaEstado.Estado = reserva.EstadoReserva;
@@ -133,12 +133,8 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
         public Reserva Incluir(InfoReserva inforeserva)
         {
 
-            Reserva reserva = new Reserva
-            {
-                InfoReserva = inforeserva,
-                Codigo = CodigoRandom.GetCodigoRandomUnico(10),
-                EstadoReserva = EstadoReserva.Creada
-            };
+            Reserva reserva = this.CrearReservaUnica(inforeserva);
+            
             using (var context = new EntidadesContext())
             {
                 context.PuntosTuristicos.Attach(inforeserva.Hotel.PuntoTuristico);
@@ -150,6 +146,19 @@ namespace ObligatorioDDA2.Models.Entidades.Repositorio
             return reserva;
         }
 
+        private Reserva CrearReservaUnica(InfoReserva infoReserva)
+        {
+            Reserva reserva = new Reserva
+            {
+                InfoReserva = infoReserva,
+                Codigo = CodigoRandom.GetCodigoRandomUnico(10),
+                EstadoReserva = EstadoReserva.Creada
+            };
+            if (this.Existe(reserva))
+                return CrearReservaUnica(infoReserva);
+            else
+                return reserva;
+        }
 
         //Puntuacion
 

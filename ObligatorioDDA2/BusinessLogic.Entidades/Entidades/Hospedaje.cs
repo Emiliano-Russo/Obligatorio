@@ -49,7 +49,7 @@ namespace ObligatorioDDA2.Models.Logic
             return this.Alojamiento.ToString()  + "Precio total: "+ this.PrecioTotal + " $";
         }
 
-        public bool Equals([AllowNull] Hospedaje other)
+        public bool Equals(Hospedaje other)
         {
             return other.Alojamiento.Equals(this.Alojamiento) && other.PrecioTotal == this.PrecioTotal;
         }
