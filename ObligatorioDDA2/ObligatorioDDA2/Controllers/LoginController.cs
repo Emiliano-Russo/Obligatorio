@@ -12,12 +12,12 @@ namespace ObligatorioDDA2.Controllers
 {
     public class LoginController : Controller
     {
-        public string Index()
+        public JsonResult Index()
         {
-            return "Pagina Login";
+            return Json("Pagina Login");
         }
         [HttpGet]
-        public string Ingresar(string email, string contra)
+        public JsonResult Ingresar(string email, string contra)
         {
             try
             {
@@ -29,10 +29,10 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
 
-            return "Login Exitoso!";
+            return Json("Login Exitoso!");
         }
 
     }

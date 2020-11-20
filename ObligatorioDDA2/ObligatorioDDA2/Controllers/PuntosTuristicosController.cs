@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ObligatorioDDA2.Models;
 using ObligatorioDDA2.Models.Entidades;
 using ObligatorioDDA2.Models.Logic;
+using WebApi.Controllers.Validaciones;
 
 namespace ObligatorioDDA2.Controllers
 {
@@ -18,7 +19,7 @@ namespace ObligatorioDDA2.Controllers
 
 
         [HttpGet]
-        public string Busqueda(int region, string categorias)
+        public JsonResult Busqueda(int region, string categorias)
         {
             if (categorias == null)
                 return BusquedaPuntosPorRegion(region);
@@ -28,83 +29,55 @@ namespace ObligatorioDDA2.Controllers
 
 
         [HttpPost]
-        public string Alta([FromBody]PuntoTuristico punto)
+        public JsonResult Alta([FromBody] PuntoTuristico punto)
         {
             try
             {
-                SesionActual.NoExsiteLogin_Ex();            
-                Sistema.GetInstancia().IncluirPuntoTuristico(punto);              
+                SesionActual.NoExsiteLogin_Ex();
+                Sistema.GetInstancia().IncluirPuntoTuristico(punto);
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
-            return "Punto incluido exitosamente";
+            return Json("Punto incluido exitosamente");
         }
 
-        private string BusquedaPuntosPorRegion(int region)
+        private JsonResult BusquedaPuntosPorRegion(int region)
         {
             try
             {
-                ValidarRegion(region);
-                return ArmarListaDePuntosString(Sistema.GetInstancia().GetPuntosTuristicos((Region)region));
+                Validaciones_EntradaWeb.ValidarRegion(region);
+                return Json(Sistema.GetInstancia().GetPuntosTuristicos((Region)region));
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
         }
 
-        private string BusquedaPuntosPorRegionCategoria(int region, string categorias)
+        private JsonResult BusquedaPuntosPorRegionCategoria(int region, string categorias)
         {
             try
             {
-                ValidarCategorias(categorias);
-                ValidarRegion(region);
-                return DevolverPuntosString(region, categorias);
+                Validaciones_EntradaWeb.ValidarCategorias(categorias);
+                Validaciones_EntradaWeb.ValidarRegion(region);
+                return DevolverPuntosJson(region, categorias);
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
         }
 
 
-        private string ArmarListaDePuntosString(List<PuntoTuristico> listaPuntos)
-        {
-            string retorno = "puntos turisticos" + "\r";
-            foreach (var item in listaPuntos)
-                retorno += item.ToString() + "\r";
-
-            return retorno;
-        }
-
-
-
-        private string DevolverPuntosString(int region, string categorias)
+        private JsonResult DevolverPuntosJson(int region, string categorias)
         {
             Categoria[] arrayCategorias = this.GetCategorias(categorias);
             List<PuntoTuristico> listaPuntos = Sistema.GetInstancia().GetPuntosTuristicos((Region)region, arrayCategorias);
-            return ArmarListaDePuntosString(listaPuntos);
+            return Json(listaPuntos);
         }
 
-        private void ValidarRegion(int region)
-        {
-            if (region < 0 || region > GetLargoCategorias())
-                throw new Exception("region no valida");
-        }
-
-        private int GetLargoCategorias() => Enum.GetNames(typeof(Categoria)).Length;
-
-        private void ValidarCategorias(string categorias)
-        {
-            if (!categorias.All(char.IsDigit))
-                throw new Exception("Solo se admiten numeros");
-            int CeroEnAsciiCode = 48;
-            foreach (char caracter in categorias)
-                if (caracter < CeroEnAsciiCode || caracter > (CeroEnAsciiCode + GetLargoCategorias()))
-                    throw new Exception("Categorias no existentes");
-        }
 
         private Categoria[] GetCategorias(string categorias)
         {
