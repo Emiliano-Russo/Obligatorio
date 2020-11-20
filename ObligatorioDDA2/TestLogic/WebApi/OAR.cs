@@ -36,5 +36,14 @@ namespace TestLogic.WebApi
            SinCapacidad = false
        };
 
+        public static InfoReserva infoReserva = new InfoReserva
+        {
+            Nombre = "Jose",
+            Apellido = "Rodriguez",
+            Email =" jose@gmail.com",
+            Estadia = OAR.estadiaVacacional,
+            Hotel = OAR.hotel,
+        };
+
     }
 }
