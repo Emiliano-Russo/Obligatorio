@@ -13,7 +13,16 @@ export class ReservaComponent implements OnInit {
   nombre_hotel: string;
   cantidad_personas: number;
 
-  reserva: string;
+  reserva = {
+    codigo : "",
+    InfoReserva:{
+      hotel:{
+        nroTelefono: "",
+        infoDeContacto: "",
+      }
+    }
+
+  }
 
   constructor(private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva, @Inject('BASE_URL') baseUrl: string) { 
     this.url_base = baseUrl;
@@ -73,7 +82,7 @@ export class ReservaComponent implements OnInit {
   }
 
   peticion_post_reservar() {
-    this.http.post<string>(this.url_base + 'Reserva/Reservar', this.InfoReserva).subscribe(result => {
+    this.http.post<any>(this.url_base + 'Reserva/Reservar', this.InfoReserva).subscribe(result => {
       this.reserva = result;
     });
   }
