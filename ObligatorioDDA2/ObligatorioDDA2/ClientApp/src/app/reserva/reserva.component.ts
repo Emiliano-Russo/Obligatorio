@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DatosReserva } from '../datos-reserva/datos-reserva.injectable';
@@ -9,12 +9,15 @@ import { DatosReserva } from '../datos-reserva/datos-reserva.injectable';
 })
 export class ReservaComponent implements OnInit {
 
+  url_base: string;
   nombre_hotel: string;
   cantidad_personas: number;
 
   reserva: string;
 
-  constructor(private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva) { }
+  constructor(private router: ActivatedRoute, private http: HttpClient, private clase_datos: DatosReserva, @Inject('BASE_URL') baseUrl: string) { 
+    this.url_base = baseUrl;
+  }
 
   ngOnInit(): void {
     this.ocultar_seccion_reserva();
@@ -70,7 +73,7 @@ export class ReservaComponent implements OnInit {
   }
 
   peticion_post_reservar() {
-    this.http.post<string>("https://localhost:44336/" + 'Reserva/Reservar', this.InfoReserva).subscribe(result => {
+    this.http.post<string>(this.url_base + 'Reserva/Reservar', this.InfoReserva).subscribe(result => {
       this.reserva = result;
     });
   }

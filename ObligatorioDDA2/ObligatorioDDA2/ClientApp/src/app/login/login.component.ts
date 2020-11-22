@@ -26,6 +26,7 @@ export class LoginComponent {
   login(usuario: string, contra: string) {
     let resultado_login = "";
     var argumentos = "?email=" + usuario + "&contra=" + contra;
+    console.log(this.url_base);
     this.http.get<string>(this.url_base + 'Login/Ingresar' + argumentos).subscribe(result => {
       resultado_login = result;
       console.log(resultado_login);

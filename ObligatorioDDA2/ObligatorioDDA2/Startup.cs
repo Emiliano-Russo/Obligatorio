@@ -45,6 +45,10 @@ namespace ObligatorioDDA2
             });
 
             services.AddDbContext<EntidadesContext>();
+            //services.AddCors(_ => _.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin()));
+            services.AddCors(_ => _.AddPolicy("ApiCorsPolicy", o => {
+                o.WithOrigins("http://localhost:4200").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,9 +57,18 @@ namespace ObligatorioDDA2
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }           
+            }
+
+            app.UseCors("ApiCorsPolicy");
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
             app.UseRouting();
 
@@ -63,11 +76,8 @@ namespace ObligatorioDDA2
 
             app.UseSession();
 
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
+           
+            
 
             app.UseEndpoints(endpoints =>
             {
@@ -75,6 +85,8 @@ namespace ObligatorioDDA2
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            
 
             app.UseSpa(spa =>
             {
@@ -86,8 +98,11 @@ namespace ObligatorioDDA2
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    
                 }
             });
+
+            
         }
     
     }

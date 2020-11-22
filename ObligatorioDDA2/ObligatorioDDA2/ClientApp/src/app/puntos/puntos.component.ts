@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http';
 
@@ -9,12 +9,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PuntosComponent implements OnInit {
 
+  url_base: string;
   region_n: string;
   region_show: string;
   puntos: string;
   filtros = [false, false, false, false];
 
-  constructor(private router: ActivatedRoute, private http: HttpClient, private ruta: Router) {
+  constructor(private router: ActivatedRoute, private http: HttpClient, private ruta: Router,@Inject('BASE_URL') baseUrl: string) {
+    this.url_base=baseUrl;
   }
    
   ngOnInit() {
@@ -25,7 +27,7 @@ export class PuntosComponent implements OnInit {
         this.region_show = this.parse_id_region(this.region_n);
       });  
 
-    this.http.get<string>("https://localhost:44336/" + 'PuntosTuristicos/Busqueda?region=' + this.region_n).subscribe(result => {
+    this.http.get<string>(this.url_base + 'PuntosTuristicos/Busqueda?region=' + this.region_n).subscribe(result => {
       console.log(result);
       this.puntos = result;
     });

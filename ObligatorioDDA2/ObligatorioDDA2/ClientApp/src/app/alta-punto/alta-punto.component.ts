@@ -21,7 +21,7 @@ export class AltaPuntoComponent {
     this.armar_puntoturistico();
     console.log("resultado del armado:");
     console.log(this.punto_turistico);
-    this.http.post<string>("https://localhost:44336/" + 'PuntosTuristicos/Alta', this.punto_turistico).subscribe(data => {
+    this.http.post<string>(this.url_base + 'PuntosTuristicos/Alta', this.punto_turistico).subscribe(data => {
       console.log(data);
       this.respuesta = data;
     })
