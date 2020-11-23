@@ -1,0 +1,15 @@
+
+<h1>Reporte A</h1>
+<p>Hoteles con reserva para un punto turistico</p>
+<input type="text" id="punto" placeholder="Nombre del punto turistico"/>
+<div id="fechas">
+  <input type="date" id="entrada"/>
+  <input type="date" id="salida"/>
+</div>
+<button (click)="buscar()">Buscar</button>
+
+<div *ngFor="let reporte of reportes" class="reporte">
+  <h4>{{reporte.hotel}}</h4>
+  <p>Cantidad Reservas: {{reporte.cantidadReservas}}</p>
+</div>
+

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogic.Models.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ObligatorioDDA2.Controllers.EntidadesAlRecibir;
 using ObligatorioDDA2.Models;
 using ObligatorioDDA2.Models.Entidades;
 using ObligatorioDDA2.Models.Logic;
+using WebApi.Controllers.EntidadesAlRecibir;
+using WebApi.Controllers.Validaciones;
 
 namespace ObligatorioDDA2.Controllers
 {
@@ -20,23 +23,24 @@ namespace ObligatorioDDA2.Controllers
         }
 
         [HttpPost]
-        public string Busqueda([FromBody] Estancia e)
+        public JsonResult Busqueda([FromBody] Estancia e)
         {
             try
             {
                 if (e == null)
-                    throw  new Exception("Campos nulos");
+                    throw new Exception("Campos nulos");
                 List<Hospedaje> hospedajes = Sistema.GetInstancia().GetHospedajes(e.Estadia, e.Punto);
-                return String.Concat(hospedajes.Select(h => h.ToString() + "\n"));
+                return Json(hospedajes);
+                //return String.Concat(hospedajes.Select(h => h.ToString() + "\n"));
             }
             catch (Exception error)
             {
-                return error.Message;
+                return Json(error.Message);
             }
         }
 
         [HttpPost]
-        public string Alta([FromBody]Alojamiento alojamiento)
+        public JsonResult Alta([FromBody] Alojamiento alojamiento)
         {
             try
             {
@@ -45,30 +49,30 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
 
-            return "Alojamiento registado";
+            return Json("Alojamiento registado");
         }
 
-        [HttpPost]
-        public string Baja([FromBody]Alojamiento alojamiento)
+        [HttpGet]
+        public JsonResult Baja(string nombreHotel)
         {
             try
             {
                 SesionActual.NoExsiteLogin_Ex();
-                Sistema.GetInstancia().BorrarAlojamiento(alojamiento.Nombre);
+                Sistema.GetInstancia().BorrarAlojamiento(nombreHotel);
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
 
-            return "Alojamiento borrado con exito";
+            return Json("Alojamiento borrado con exito");
         }
 
         [HttpGet]
-        public string Modificar(string nombre,bool disponibilidad)
+        public JsonResult Modificar(string nombre, bool disponibilidad)
         {
             try
             {
@@ -77,10 +81,69 @@ namespace ObligatorioDDA2.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
+                return Json(e.Message);
             }
 
-            return "Alojamiento modificado con exito";
+            return Json("Alojamiento modificado con exito");
+        }
+
+        [HttpPost]
+        public JsonResult Puntuar([FromBody] Puntuacion_Envio pun)
+        {
+            try
+            {
+                Validaciones_EntradaWeb.EsNulo_Ex(pun);
+                Puntuacion_Recibir puntuacion = new Puntuacion_Recibir
+                {
+                    Codigo = pun.Codigo,
+                    Puntos = pun.Puntos,
+                    Comentario = pun.Comentario
+                };
+                Sistema.GetInstancia().Puntuar(puntuacion);
+                return Json("Se a enviado la puntuacion con exito");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+           
+        }
+
+        [HttpGet]
+        public JsonResult GetPuntuaciones(string alojamiento)
+        {
+            try
+            {
+                return Json(GetListaPuntuaciones(alojamiento));
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        private List<Puntuacion_Recibir> GetListaPuntuaciones(string alojamiento)
+        {
+            return Sistema.GetInstancia().GetPuntuaciones(alojamiento);
+        }
+
+        [HttpGet]
+        public JsonResult PuntuacionFinal(string alojamiento)
+        {
+            
+            try
+            {
+                Validaciones_EntradaWeb.EsNulo_Ex(alojamiento);
+                int resultado = 0;
+                List<Puntuacion_Recibir> lista = GetListaPuntuaciones(alojamiento);
+                foreach (var p in lista)
+                    resultado += p.Puntos;              
+                return Json((resultado / lista.Count));
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
 
 

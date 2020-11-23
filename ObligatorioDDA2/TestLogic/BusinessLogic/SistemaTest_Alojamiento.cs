@@ -9,7 +9,7 @@ namespace TestLogic
 {
     public partial class SistemaTest
     {
-       
+
         [TestMethod]
         [ExpectedException(typeof(ExcepcionEstadiaInvalido))]
         public void GetAlojamiento_ObjetoInvalido()
@@ -68,7 +68,7 @@ namespace TestLogic
             {
                 Entrada = DateTime.Now.AddDays(-5),
                 Salida = DateTime.Now.AddDays(15),
-                RangoEdades = new FaseEdad[] {FaseEdad.Ninio,FaseEdad.Adulto }
+                RangoEdades = new FaseEdad[] { FaseEdad.Ninio, FaseEdad.Adulto }
             };
             PuntoTuristico punto = new PuntoTuristico
             {
@@ -88,7 +88,7 @@ namespace TestLogic
             {
                 Entrada = DateTime.Now.AddDays(3),
                 Salida = DateTime.Now.AddDays(15),
-                RangoEdades = new FaseEdad[] { FaseEdad.Ninio, FaseEdad.Adulto,FaseEdad.Adulto }
+                RangoEdades = new FaseEdad[] { FaseEdad.Ninio, FaseEdad.Adulto, FaseEdad.Adulto }
             };
             PuntoTuristico punto = new PuntoTuristico
             {
@@ -132,7 +132,7 @@ namespace TestLogic
             PuntoTuristico punto = new PuntoTuristico
             {
                 Categoria = new Categoria[] { },
-                Descripcion="Un lugar muy bello",
+                Descripcion = "Un lugar muy bello",
                 Nombre = "Punta del este",
                 Region = Region.Este
             };
@@ -142,7 +142,7 @@ namespace TestLogic
         //creado de forma publica a partir de ahora porque ya probamos su objeto invalido
         PuntoTuristico puntaDelEste = new PuntoTuristico
         {
-            Categoria = new Categoria[] { Categoria.Areas_Protegidas,Categoria.Playas},
+            Categoria = new Categoria[] { Categoria.Areas_Protegidas, Categoria.Playas },
             Descripcion = "Un lugar muy bello",
             Nombre = "Punta del este",
             Region = Region.Este
@@ -187,9 +187,9 @@ namespace TestLogic
             Assert.AreEqual(esperadoToStringHospedaje, toStringHosepdaje);
             sistema.IncluirPuntoTuristico(puntaDelEste);
             sistema.IncluirAlojamiento(alojamiento);
-            List<Hospedaje> lista =  sistema.GetHospedajes(estadiaVacacional, puntaDelEste);
+            List<Hospedaje> lista = sistema.GetHospedajes(estadiaVacacional, puntaDelEste);
             Assert.IsTrue(lista.Contains(hospedaje));
-            
+
             sistema.BorrarAlojamientos();
         }
 
@@ -217,12 +217,12 @@ namespace TestLogic
                 PuntoTuristico = punto,
                 SinCapacidad = false
             };
-        
+
             sistema.IncluirPuntoTuristico(punto);
             sistema.IncluirPuntoTuristico(puntaDelEste);
             sistema.IncluirAlojamiento(alojamiento);
             Hospedaje hos = new Hospedaje(alojamiento, estadiaVacacional);
-            List<Hospedaje> lista = sistema.GetHospedajes(estadiaVacacional,puntaDelEste);
+            List<Hospedaje> lista = sistema.GetHospedajes(estadiaVacacional, puntaDelEste);
             Assert.IsFalse(lista.Contains(hos));
             sistema.BorrarAlojamientos();
         }
@@ -298,7 +298,7 @@ namespace TestLogic
             Alojamiento alojamiento = new Alojamiento
             {
                 Descripcion = "Un lugar maravilloso",
-                Direccion ="Bulevar123"
+                Direccion = "Bulevar123"
             };
             sistema.IncluirAlojamiento(alojamiento);
         }
@@ -325,7 +325,7 @@ namespace TestLogic
                 Descripcion = "Un lugar maravilloso",
                 Direccion = "Bulevar123",
                 Estrellas = 3.5f,
-                InfoDeContacto="Hola"
+                InfoDeContacto = "Hola"
             };
             sistema.IncluirAlojamiento(alojamiento);
         }
@@ -340,7 +340,7 @@ namespace TestLogic
                 Direccion = "Bulevar123",
                 Estrellas = 3.5f,
                 InfoDeContacto = "Hola",
-                Nombre="Radison"
+                Nombre = "Radison"
             };
             sistema.IncluirAlojamiento(alojamiento);
         }
@@ -352,9 +352,9 @@ namespace TestLogic
             Alojamiento alojamiento = new Alojamiento
             {
                 Nombre = "Radison",
-                Direccion="Bulevar123",
-                PrecioNoche=120,
-                PuntoTuristico=puntaDelEste
+                Direccion = "Bulevar123",
+                PrecioNoche = 120,
+                PuntoTuristico = puntaDelEste
             };
             sistema.IncluirAlojamiento(alojamiento);
         }
@@ -386,7 +386,7 @@ namespace TestLogic
                 PrecioNoche = 120,
                 PuntoTuristico = puntaDelEste,
                 SinCapacidad = false,
-                Estrellas=5
+                Estrellas = 5
             };
             sistema.IncluirAlojamiento(alojamiento);
         }
@@ -412,7 +412,8 @@ namespace TestLogic
             try
             {
                 sistema.IncluirAlojamiento(alojamiento);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Assert.IsTrue(e.GetType() == typeof(ExcepcionAlojamientoInvalido));
             }
@@ -420,8 +421,8 @@ namespace TestLogic
             {
                 sistema.BorrarAlojamientos();
             }
-            
-            
+
+
         }
 
         [TestMethod]
@@ -603,6 +604,117 @@ namespace TestLogic
                 SinCapacidad = false
             };
             sistema.IncluirAlojamiento(alojamiento);
+            sistema.BorrarAlojamientos();
+        }
+
+        [TestMethod]
+        public void TestPrecioJubilado()
+        {
+            FaseEdad[] rango = { FaseEdad.Adulto, FaseEdad.Jubilado };
+            Estadia estadia = CrearEstadia(rango);
+
+            PuntoTuristico punta_de_este = CrearPuntaDelEste();
+            sistema.IncluirPuntoTuristico(punta_de_este);
+            Alojamiento hyatt = CrearHyatt(punta_de_este);
+            sistema.IncluirAlojamiento(hyatt);
+
+            List<Hospedaje> lista_hospedajes = sistema.GetHospedajes(estadia, punta_de_este);
+            float precio_actual = lista_hospedajes[0].PrecioTotal;
+            float precio_esperado = 300;
+            Assert.AreEqual(precio_esperado, precio_actual);
+            sistema.BorrarAlojamientos();
+        }
+
+        [TestMethod]
+        public void TestPrecioJubilado_2Jubilados()
+        {
+            FaseEdad[] rango = { FaseEdad.Adulto, FaseEdad.Jubilado, FaseEdad.Jubilado };
+            Estadia estadia = CrearEstadia(rango);
+
+            PuntoTuristico punta_de_este = CrearPuntaDelEste();
+            sistema.IncluirPuntoTuristico(punta_de_este);
+            Alojamiento hyatt = CrearHyatt(punta_de_este);
+            sistema.IncluirAlojamiento(hyatt);
+
+            List<Hospedaje> lista_hospedajes = sistema.GetHospedajes(estadia, punta_de_este);
+            float precio_actual = lista_hospedajes[0].PrecioTotal;
+            float precio_esperado = 150 + 150 + 105;
+            Assert.AreEqual(precio_esperado, precio_actual);
+            sistema.BorrarAlojamientos();
+        }
+
+
+        [TestMethod]
+        public void TestPrecioJubilado_3Jubilados()
+        {
+            FaseEdad[] rango = { FaseEdad.Adulto, FaseEdad.Jubilado, FaseEdad.Jubilado, FaseEdad.Jubilado };
+            Estadia estadia = CrearEstadia(rango);
+
+            PuntoTuristico punta_de_este = CrearPuntaDelEste();
+            sistema.IncluirPuntoTuristico(punta_de_este);
+            Alojamiento hyatt = CrearHyatt(punta_de_este);
+            sistema.IncluirAlojamiento(hyatt);
+
+            List<Hospedaje> lista_hospedajes = sistema.GetHospedajes(estadia, punta_de_este);
+            float precio_actual = lista_hospedajes[0].PrecioTotal;
+            float precio_esperado = 150 + 150 + 105 + 150;
+            Assert.AreEqual(precio_esperado, precio_actual);
+            sistema.BorrarAlojamientos();
+        }
+
+        [TestMethod]
+        public void TestPrecioJubilado_4Jubilados()
+        {
+            FaseEdad[] rango = { FaseEdad.Adulto, FaseEdad.Jubilado, FaseEdad.Jubilado, FaseEdad.Jubilado,FaseEdad.Jubilado };
+            Estadia estadia = CrearEstadia(rango);
+
+            PuntoTuristico punta_de_este = CrearPuntaDelEste();
+            sistema.IncluirPuntoTuristico(punta_de_este);
+            Alojamiento hyatt = CrearHyatt(punta_de_este);
+            sistema.IncluirAlojamiento(hyatt);
+
+            List<Hospedaje> lista_hospedajes = sistema.GetHospedajes(estadia, punta_de_este);
+            float precio_actual = lista_hospedajes[0].PrecioTotal;
+            float precio_esperado = 150 + 150 + 105 + 150 + 105;
+            Assert.AreEqual(precio_esperado, precio_actual);
+            sistema.BorrarAlojamientos();
+        }
+
+        private Alojamiento CrearHyatt(PuntoTuristico punto)
+        {
+            return new Alojamiento
+            {
+                PuntoTuristico = punto,
+                Descripcion = "Un lugar familiar",
+                Direccion = "av BLR 1234",
+                Estrellas = 5,
+                InfoDeContacto = " SUPPORT",
+                Nombre = "Hyatt",
+                NroTelefono = " +5984412556",
+                PrecioNoche = 50,
+                SinCapacidad = false
+            };
+        }
+
+        private Estadia CrearEstadia(FaseEdad[] rango)
+        {
+            return new Estadia
+            {
+                Entrada = DateTime.Now.AddDays(1),
+                Salida = DateTime.Now.AddDays(4),
+                RangoEdades = rango,
+            };
+        }
+
+        private PuntoTuristico CrearPuntaDelEste()
+        {
+            return new PuntoTuristico
+            {
+                Categoria = new Categoria[] { Categoria.Playas, Categoria.Ciudades },
+                Descripcion = "Un lugar bello",
+                Nombre = "Punta del este",
+                Region = Region.Este
+            };
         }
 
 

@@ -1,0 +1,25 @@
+div{
+    margin: 2px auto;
+}
+
+.caja{
+    display:flex;
+    flex-direction:column;
+}
+
+input{
+    max-width: 200px;
+    margin: 5px auto;
+}
+
+button{
+    margin:5px auto;
+    padding: 3px;
+    background-color:white;
+}
+
+#registrar:hover {
+  background-color: coral;
+  border-color: coral;
+}
+
